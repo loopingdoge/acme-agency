@@ -43,4 +43,12 @@ Fermo restando che la corretta realizzazione del progetto proposto senza le part
 - Modellazione della coreografia anche attraverso un diagramma di coreografia BPMN.
 - Descrizione dell’intero sistema come SOA utilizzando UML con profilo TinySOA.
 
-Queste specifiche possono essere soggette a revisioni per chiarire eventuali ambiguità e integrare possibili mancanze.
+# Course Resources
+[SOSENG 16/17](http://soseng.web.cs.unibo.it/?page_id=762)
+
+# Development Setup
+
+- Camunda Wildfly distribution: https://camunda.org/download/
+- Camunda modeler: https://camunda.org/download/modeler/
+- Papyrus: https://eclipse.org/papyrus/
+- Jolie: http://www.jolie-lang.org/downloads.html
