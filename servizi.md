@@ -4,12 +4,12 @@
 
 ### Compratore (1)
 
-| Input                                    | Output                         |
-| ---------------------------------------- | ------------------------------ |
-| range metratura: **Range<integer>**      | lista di case: **List<House>** |
-| range costo: **Range<float>**            |                                |
-| massima distanza da un certo indirizzo: **integer** |                                |
-| optionals: **Optionals**                 |                                |
+| Input                                    | Output                          |
+| ---------------------------------------- | ------------------------------- |
+| range metratura: **Range\<integer>**     | lista di case: **List\<House>** |
+| range costo: **Range\<float>**           |                                 |
+| massima distanza da un certo indirizzo: **integer** |                                 |
+| optionals: **Optionals**                 |                                 |
 
 ### Compratore (2)
 
@@ -57,7 +57,7 @@
 
 # Tipi
 
-## Range<T>
+## Range\<T>
 
 - start: **T**
 - end: **T**
@@ -91,4 +91,3 @@
 
 - lol: **string**
 - wut: **string**
-
