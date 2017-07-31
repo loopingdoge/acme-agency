@@ -40,10 +40,7 @@ Discussione del progetto: la discussione avviene su richiesta. Alla discussione 
 Opzioni
 
 Fermo restando che la corretta realizzazione del progetto proposto senza le parti opzionali permette di ottenere comunque il massimo punteggio vengono proposte due consegne aggiuntive:
-Modellazione della coreografia anche attraverso un diagramma di coreografia BPMN.
-Descrizione dell’intero sistema come SOA utilizzando UML con profilo TinySOA.
-Revisioni
+- Modellazione della coreografia anche attraverso un diagramma di coreografia BPMN.
+- Descrizione dell’intero sistema come SOA utilizzando UML con profilo TinySOA.
 
 Queste specifiche possono essere soggette a revisioni per chiarire eventuali ambiguità e integrare possibili mancanze.
-V1.0 - prima versione pubblica.
-V1.1 - riformulata la parte di workflow relativa al/i diagramma/i BPMN di collaborazione.
