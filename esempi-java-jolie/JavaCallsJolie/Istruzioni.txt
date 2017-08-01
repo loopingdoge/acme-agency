@@ -1,0 +1,27 @@
+Server (Jolie e Soap)
+
+ - Scrivere un classico programma Jolie con i seguenti accorgimenti:
+	- Tipi di dato nei messaggi sempre composti
+	- Root dei tipi di dato sempre void
+	- Ogni messaggio usa tipi di dato diversi
+
+ - Definire nella parte Protocol della InputPort del server i seguenti parametri:
+	- .wsdl : nome del file wsdl (che si genera al passo successivo) da usare
+	- .wsdl.port : settarlo a Nome_della_inputPort concatenato a "ServicePort"
+
+ - Generare il file .wsdl corrispondente al server usando il comando jolie2wsdl
+   (nel file generateWsdl.sh e' presente un esempio con tutti i parametri corretti)
+
+
+
+Client (Java)
+
+ - Creare un nuovo progetto Java
+
+ - Spostarsi con il terminale nella directory del progetto Java e usare il comando wsimport:
+	wsimport -keep -p ex.package.jolie -extension Path_to_Jolie_Wsdl
+
+ - Il comando precedente genera nel progetto un package con il nome specificato, contenente
+   le classi Java necessarie a richiamare i servizi esposti dal server Jolie
+
+ - la directory client contiene un esempio di Main da usare nel progetto
