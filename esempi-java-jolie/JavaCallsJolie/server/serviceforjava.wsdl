@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="ex.example.it.wsdl" xmlns:tns="ex.example.it.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd1="ex.example.it.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema targetNamespace="ex.example.it.xsd" xmlns:sch="ex.example.it.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="sum"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="y" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="x" type="xs:double"/></xs:sequence></xs:complexType></xs:element><xs:element name="sumResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="result" type="xs:double"/></xs:sequence></xs:complexType></xs:element><xs:element name="concatenate"><xs:complexType><xs:sequence><xs:element maxOccurs="unbounded" minOccurs="0" name="strings" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="concatenateResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="result" type="xs:string"/></xs:sequence></xs:complexType></xs:element></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SumResponse">
+    <wsdl:part name="body" element="xsd1:sumResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SumPair">
+    <wsdl:part name="body" element="xsd1:sum"/>
+  </wsdl:message>
+  <wsdl:message name="ConcatenateResponse">
+    <wsdl:part name="body" element="xsd1:concatenateResponse"/>
+  </wsdl:message>
+  <wsdl:message name="StringArray">
+    <wsdl:part name="body" element="xsd1:concatenate"/>
+  </wsdl:message>
+  <wsdl:portType name="ServiceForJava">
+    <wsdl:operation name="sum">
+      <wsdl:input message="tns:SumPair"/>
+      <wsdl:output message="tns:SumResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="concatenate">
+      <wsdl:input message="tns:StringArray"/>
+      <wsdl:output message="tns:ConcatenateResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceForJavaSOAPBinding" type="tns:ServiceForJava">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
+    <wsdl:operation name="sum">
+      <soap:operation soapAction="sum" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="concatenate">
+      <soap:operation soapAction="concatenate" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ServiceForJavaService">
+    <wsdl:port name="ServiceForJavaServicePort" binding="tns:ServiceForJavaSOAPBinding">
+      <soap:address location="http://localhost:8000"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
