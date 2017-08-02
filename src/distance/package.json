@@ -1,0 +1,17 @@
+{
+  "name": "distance",
+  "version": "1.0.0",
+  "description": "",
+  "main": "distance.js",
+  "scripts": {
+    "start": "node distance.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.3",
+    "google-distance-matrix": "^1.0.0",
+    "yargs": "^8.0.2"
+  }
+}
