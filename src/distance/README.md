@@ -13,13 +13,18 @@ The service will return a JSON response by means of the following schema:
 
 ```JSON
 {
-  "status": The HTTP status code,
-  "message": A message describing the result,
-  "distance": The distance from origin to destination in meters
+  "status": "The HTTP status code",
+  "message": "A message describing the result",
+  "distance": "The distance from origin to destination in meters"
 }
 ```
 
 ## Usage
+
+Requirements:
+
+- [Node.js](https://nodejs.org/en/) at least 6.4.0 version
+- A [Google Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix/) API key
 
 ```
 Usage: distance.js -a [env | arg] [name] -p [port]
