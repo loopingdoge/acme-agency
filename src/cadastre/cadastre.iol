@@ -1,5 +1,6 @@
 type Address: string
 
+// Only for documentative purpose
 type CompleteAddress: void {
     .road: string
     .civic: string
@@ -14,9 +15,12 @@ type Coordinate: void {
     .east: string
 }
 
-type IncorrectAddressEx: void
+type Response: void {
+    .coordinates: Coordinate
+    .error: string
+}
 
 interface CadastreInterface {
     RequestResponse:
-        cadastrialCoordinates(Address)(Coordinate) throws IncorrectAddress( IncorrectAddressEx )
+        cadastrialCoordinates(Address)(Response)
 }
