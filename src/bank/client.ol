@@ -3,7 +3,7 @@ include "bank.iol"
 
 outputPort BankService {
     Location: "socket://localhost:7777"
-    Protocol: sodep
+    Protocol: soap
     Interfaces: BankInterface
 }
 

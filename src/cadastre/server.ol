@@ -5,7 +5,7 @@ include "math.iol"
 
 inputPort CadastreService {
     Location: "socket://localhost:7779"
-    Protocol: sodep
+    Protocol: soap
     Interfaces: CadastreInterface
 }
 

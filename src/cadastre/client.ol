@@ -3,7 +3,7 @@ include "console.iol"
 
 outputPort CadastreService {
     Location: "socket://localhost:7779"
-    Protocol: sodep
+    Protocol: soap
     Interfaces: CadastreInterface
 }
 
