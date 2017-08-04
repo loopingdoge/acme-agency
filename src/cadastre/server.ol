@@ -17,7 +17,8 @@ define genRandomCoordinate {
 }
 
 main {
-    cadastrialCoordinates( address )( response ) {
+    cadastrialCoordinates( request )( response ) {
+        address = request.address;
         address.regex = ";";
         split@StringUtils( address )( splitResult );
         if ( #splitResult.result != 6 ) {
@@ -36,7 +37,7 @@ main {
                 completeAddress.state    = .result[5]
             };
             with( response ){
-                .error = "null";
+                .error = "";
                 genRandomCoordinate;
                 .coordinates.east = string( int ( randomCoordinate ) );
                 genRandomCoordinate;

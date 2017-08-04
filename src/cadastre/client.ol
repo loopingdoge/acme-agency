@@ -9,7 +9,8 @@ outputPort CadastreService {
 
 main {
     address = "via dei ciclamini;16;marzabotto;40043;bologna;italy";
-    cadastrialCoordinates@CadastreService(address)(response);
+    request.address = address;
+    cadastrialCoordinates@CadastreService(request)(response);
     with( response ){
         println@Console("Error: " + .error)();
         println@Console("Nord coordinate: " + .coordinates.nord)();
