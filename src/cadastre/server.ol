@@ -36,11 +36,11 @@ main {
                 completeAddress.state    = .result[5]
             };
             with( response ){
-                .error = "";
+                .error = "null";
                 genRandomCoordinate;
-                .east = string( int ( randomCoordinate ) );
+                .coordinates.east = string( int ( randomCoordinate ) );
                 genRandomCoordinate;
-                .nord = string ( int ( randomCoordinate ) )
+                .coordinates.nord = string ( int ( randomCoordinate ) )
             }
         }
     }
