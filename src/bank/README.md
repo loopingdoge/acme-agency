@@ -4,13 +4,13 @@
 
 | Name     | Input type                          | Output type                           |
 | -------- | ----------------------------------- | ------------------------------------- |
-| deposit  | [DepositRequest](#DepositRequest)   |                                       |
-| loan     | [LoanRequest](#LoanRequest)         | [LoanResponse](#LoanResponse)         |
-| login    | [LoginRequest](#LoginRequest)       | [LoginResponse](#LoginResponse)       |
-| logout   | [SimpleRequest](#SimpleRequest)     |                                       |
-| pay      | [PaymentRequest](#PaymentRequest)   | [PaymentResponse](#PaymentResponse)   |
-| report   | [SimpleRequest](#SimpleRequest)     | [ReportResponse](#ReportResponse)     |
-| withdraw | [WithdrawRequest](#WithdrawRequest) | [WithdrawResponse](#WithdrawResponse) |
+| deposit  | [DepositRequest](#depositeequest)   |                                       |
+| loan     | [LoanRequest](#loanrequest)         | [LoanResponse](#loanresponse)         |
+| login    | [LoginRequest](#loginrequest)       | [LoginResponse](#loginresponse)       |
+| logout   | [SimpleRequest](#simplerequest)     |                                       |
+| pay      | [PaymentRequest](#paymentrequest)   | [PaymentResponse](#paymentresponse)   |
+| report   | [SimpleRequest](#simplerequest)     | [ReportResponse](#reportresponse)     |
+| withdraw | [WithdrawRequest](#withdrawrequest) | [WithdrawResponse](#withdrawresponse) |
 
 ## Types
 
