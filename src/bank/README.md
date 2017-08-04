@@ -4,7 +4,7 @@
 
 | Name     | Input type                          | Output type                           |
 | -------- | ----------------------------------- | ------------------------------------- |
-| deposit  | [DepositRequest](#depositeequest)   |                                       |
+| deposit  | [DepositRequest](#depositrequest)   |                                       |
 | loan     | [LoanRequest](#loanrequest)         | [LoanResponse](#loanresponse)         |
 | login    | [LoginRequest](#loginrequest)       | [LoginResponse](#loginresponse)       |
 | logout   | [SimpleRequest](#simplerequest)     |                                       |
