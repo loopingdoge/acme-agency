@@ -78,7 +78,7 @@
     </bpmn:laneSet>
     <bpmn:startEvent id="HouseLookupRequest" name="House lookup request&#10;&#10;">
       <bpmn:outgoing>SequenceFlow_0sr9kug</bpmn:outgoing>
-      <bpmn:messageEventDefinition messageRef="Message_1nwtwv4" />
+      <bpmn:messageEventDefinition messageRef="HouseLookupMessage" />
     </bpmn:startEvent>
     <bpmn:manualTask id="Task_0infais" name="Meeting">
       <bpmn:incoming>SequenceFlow_0iofy38</bpmn:incoming>
@@ -455,7 +455,7 @@
     </bpmn:subProcess>
     <bpmn:intermediateCatchEvent id="HouseAdditionRequest" name="House addition request">
       <bpmn:outgoing>SequenceFlow_0sbiast</bpmn:outgoing>
-      <bpmn:messageEventDefinition messageRef="Message_00kvp93" />
+      <bpmn:messageEventDefinition messageRef="HouseAdditionMessage" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0sbiast" sourceRef="HouseAdditionRequest" targetRef="ConfirmAddition" />
     <bpmn:sendTask id="ConfirmAddition" name="Confirm addition to database" camunda:expression="website.confirmAddition()">
@@ -880,8 +880,8 @@
       <bpmn:outgoing>SequenceFlow_1xpmvlg</bpmn:outgoing>
     </bpmn:task>
   </bpmn:process>
-  <bpmn:message id="Message_1nwtwv4" name="houseLookup" />
-  <bpmn:message id="Message_00kvp93" name="houseAddition" />
+  <bpmn:message id="HouseLookupMessage" name="houseLookup" />
+  <bpmn:message id="HouseAdditionMessage" name="houseAddition" />
   <bpmn:message id="Message_1hsawx5" name="buyerOffer" />
   <bpmn:message id="Message_1omnk1l" name="distanceReply" />
   <bpmn:message id="Message_12nqyy2" name="houseProposalReply" />
