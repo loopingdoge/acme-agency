@@ -104,17 +104,15 @@ public class House {
 	
 	// Check if every field is not null
 	public boolean isComplete() {
-		if (address == null || 
-			!address.isComplete() || 
-			squareFootage == 0 || 
-			price == 0 || 
-			name == null ||
-			name.isEmpty())
+		if (this.address == null || 
+			!this.address.isComplete() || 
+			this.squareFootage == 0 || 
+			this.price == 0 || 
+			this.name == null ||
+			this.name.isEmpty())
 			return false;
-		
+
 		return true;
 	}
-	
-	
 
 }

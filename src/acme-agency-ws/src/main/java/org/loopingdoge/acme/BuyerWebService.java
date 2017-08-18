@@ -52,7 +52,7 @@ public class BuyerWebService {
 		vars.put("emptyMessage", "");
 		
 		/* Start a process in Camunda, which is waiting on the specified messageId */
-		String startMessageId = "AcmeOfferMessage";
+		String startMessageId = "houseLookup";
 		processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
 		
 		return houseList;

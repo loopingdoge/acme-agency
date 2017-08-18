@@ -78,9 +78,9 @@ RequestResponse:
 }
 
 outputPort BuyerWebServicePort {
-Location: "socket://localhost:8080/acmeagency-0.1/BuyerWebService"
+Location: "socket://localhost:8080/acme-agency-ws-0.0.1-SNAPSHOT/BuyerWebService"
 Protocol: soap {
-	.wsdl = "http://localhost:8080/acmeagency-0.1/BuyerWebService?WSDL";
+	.wsdl = "http://localhost:8080/acme-agency-ws-0.0.1-SNAPSHOT/BuyerWebService?WSDL";
 	.wsdl.port = "BuyerWebServicePort"
 }
 Interfaces: BuyerWebService

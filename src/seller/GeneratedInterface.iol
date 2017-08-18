@@ -4,16 +4,33 @@ type proposeHouseResponseType:void {
 	.return?:string
 }
 
-type HouseAddressType:void {
-	.civic?:string
+type proposeHouseType:void {
+	.house?:houseType
+}
+
+type houseType:any {
+	.address?:houseAddressType
+	.squareFootage:int
+	.price:double
+	.name?:void | string
+	.sellerName?:void | string
+	.hasGarden:bool
+}
+
+type houseAddressType:any {
+	.streetName?:string
 	.province?:string
 	.nation?:string
 	.city?:string
+	.civic?:string
 }
 
-type proposeHouseType:void {
-	.address?:HouseAddressType
-	.sellerName?:string
+type houseaddress:void {
+	.streetName?:string
+	.province?:string
+	.nation?:string
+	.city?:string
+	.civic?:string
 }
 
 type proposeHouseResponse:void {
@@ -21,8 +38,16 @@ type proposeHouseResponse:void {
 }
 
 type proposeHouse:void {
-	.address?:HouseAddressType
-	.sellerName?:string
+	.house?:houseType
+}
+
+type house:void {
+	.address?:houseAddressType
+	.squareFootage:int
+	.price:double
+	.name?:void | string
+	.sellerName?:void | string
+	.hasGarden:bool
 }
 
 interface SellerWebService {
@@ -31,9 +56,9 @@ RequestResponse:
 }
 
 outputPort SellerWebServicePort {
-Location: "socket://localhost:8080/acmeagency-0.1/SellerWebService"
+Location: "socket://localhost:8080/acme-agency-ws-0.0.1-SNAPSHOT/SellerWebService"
 Protocol: soap {
-	.wsdl = "http://localhost:8080/acmeagency-0.1/SellerWebService?WSDL";
+	.wsdl = "http://localhost:8080/acme-agency-ws-0.0.1-SNAPSHOT/SellerWebService?WSDL";
 	.wsdl.port = "SellerWebServicePort"
 }
 Interfaces: SellerWebService
