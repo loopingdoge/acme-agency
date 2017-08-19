@@ -63,5 +63,3 @@ Protocol: soap {
 }
 Interfaces: SellerWebService
 }
-
-
