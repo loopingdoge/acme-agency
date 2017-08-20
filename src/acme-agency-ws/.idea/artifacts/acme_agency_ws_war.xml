@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="acme-agency-ws:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <root id="archive" name="acme-agency-ws-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="acme-agency-ws:war exploded" />
+    </root>
+  </artifact>
+</component>
