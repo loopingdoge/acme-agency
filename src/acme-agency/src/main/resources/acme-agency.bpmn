@@ -77,9 +77,6 @@
       <bpmn:lane id="Lane_077as13" />
     </bpmn:laneSet>
     <bpmn:startEvent id="HouseLookupRequest" name="House lookup request&#10;&#10;">
-      <bpmn:extensionElements>
-        <camunda:executionListener class="" event="start" />
-      </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_0sr9kug</bpmn:outgoing>
       <bpmn:messageEventDefinition messageRef="HouseLookupMessage" />
     </bpmn:startEvent>
@@ -126,13 +123,6 @@
         <bpmn:outgoing>SequenceFlow_1o79onc</bpmn:outgoing>
         <bpmn:outgoing>SequenceFlow_1vbe7qh</bpmn:outgoing>
       </bpmn:exclusiveGateway>
-      <bpmn:task id="Task_1btl3fw" name="Get available houses">
-        <bpmn:incoming>SequenceFlow_0ojj4qg</bpmn:incoming>
-        <bpmn:outgoing>SequenceFlow_1954s5p</bpmn:outgoing>
-        <bpmn:dataOutputAssociation id="DataOutputAssociation_05ne5mb">
-          <bpmn:targetRef>DataStoreReference_0g29s3q</bpmn:targetRef>
-        </bpmn:dataOutputAssociation>
-      </bpmn:task>
       <bpmn:sendTask id="SendProposal" name="Send proposal" camunda:delegateExpression="proposal.sendProposal()">
         <bpmn:incoming>SequenceFlow_0e9y7e0</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_03c3pcg</bpmn:outgoing>
@@ -233,6 +223,13 @@
       </bpmn:intermediateCatchEvent>
       <bpmn:sequenceFlow id="SequenceFlow_1fc6mh5" name="After 2 hours" sourceRef="ExclusiveGateway_0bp04ei" targetRef="HouseProposalTimeout" />
       <bpmn:sequenceFlow id="SequenceFlow_1qi6e7b" sourceRef="HouseProposalTimeout" targetRef="EndEvent_0yu9ga0" />
+      <bpmn:serviceTask id="Task_1btl3fw" name="Get available houses" camunda:class="org.loopingdoge.acme.services.HouseCollector">
+        <bpmn:incoming>SequenceFlow_0ojj4qg</bpmn:incoming>
+        <bpmn:outgoing>SequenceFlow_1954s5p</bpmn:outgoing>
+        <bpmn:dataOutputAssociation id="DataOutputAssociation_05ne5mb">
+          <bpmn:targetRef>DataStoreReference_0g29s3q</bpmn:targetRef>
+        </bpmn:dataOutputAssociation>
+      </bpmn:serviceTask>
     </bpmn:subProcess>
     <bpmn:subProcess id="SubProcess_11azy6t" name="Meeting agreement">
       <bpmn:incoming>SequenceFlow_09x39qv</bpmn:incoming>
@@ -1146,21 +1143,18 @@
           <dc:Bounds x="364.358574610245" y="335" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Task_1btl3fw_di" bpmnElement="Task_1btl3fw">
-        <dc:Bounds x="413.358574610245" y="274" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0ojj4qg_di" bpmnElement="SequenceFlow_0ojj4qg">
         <di:waypoint xsi:type="dc:Point" x="382" y="314" />
         <di:waypoint xsi:type="dc:Point" x="413" y="314" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="397.5" y="292.5" width="0" height="13" />
+          <dc:Bounds x="352.5" y="292.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1954s5p_di" bpmnElement="SequenceFlow_1954s5p">
         <di:waypoint xsi:type="dc:Point" x="513" y="314" />
         <di:waypoint xsi:type="dc:Point" x="562" y="314" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="537.5" y="292.5" width="0" height="13" />
+          <dc:Bounds x="492.5" y="292.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_14jk9jz_di" bpmnElement="MessageFlow_14jk9jz">
@@ -2894,6 +2888,9 @@
           <dc:Bounds x="4325" y="299" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1jy1poy_di" bpmnElement="Task_1btl3fw">
+        <dc:Bounds x="413" y="274" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

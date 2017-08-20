@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.jws.*;
 import javax.annotation.Resource;
@@ -19,6 +21,7 @@ public class BuyerWebService {
 	@Resource(mappedName = "java:global/camunda-bpm-platform/process-engine/default")
 	private ProcessEngine processEngine;
 
+	private final static Logger LOGGER = Logger.getLogger("acme-agency-ws");
 	
 	public BuyerWebService () {}
 
@@ -50,7 +53,6 @@ public class BuyerWebService {
 		/* Process initial variables */
 		vars.put("name", message);
 		vars.put("emptyMessage", "");
-		
 		/* Start a process in Camunda, which is waiting on the specified messageId */
 		String startMessageId = "houseLookup";
 		processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
