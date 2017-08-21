@@ -58,9 +58,6 @@
         <bpmn:flowNodeRef>ExclusiveGateway_1hdpsck</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1ix7gdv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>SubProcess_0mrzc2s</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>HouseAdditionRequest</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ConfirmAddition</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_0mm80hl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0gdqryl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AcceptedOffer</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1krnrly</bpmn:flowNodeRef>
@@ -73,6 +70,10 @@
         <bpmn:flowNodeRef>OfferReplyTimeout</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>OfferReplyChoose</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1syz7t7</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ConfirmAddition</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_17zyu6p</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0mm80hl</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>HouseAdditionRequest</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_077as13" />
     </bpmn:laneSet>
@@ -453,22 +454,7 @@
       </bpmn:endEvent>
       <bpmn:sequenceFlow id="SequenceFlow_0q3d0gi" sourceRef="Task_1j98xaw" targetRef="EndEvent_093wvpp" />
     </bpmn:subProcess>
-    <bpmn:intermediateCatchEvent id="HouseAdditionRequest" name="House addition request">
-      <bpmn:extensionElements>
-        <camunda:executionListener class="org.loopingdoge.acme.website.SellerRequest" event="start" />
-      </bpmn:extensionElements>
-      <bpmn:outgoing>SequenceFlow_0sbiast</bpmn:outgoing>
-      <bpmn:messageEventDefinition messageRef="HouseAdditionMessage" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0sbiast" sourceRef="HouseAdditionRequest" targetRef="ConfirmAddition" />
-    <bpmn:sendTask id="ConfirmAddition" name="Confirm addition to database" camunda:expression="website.confirmAddition()">
-      <bpmn:incoming>SequenceFlow_0sbiast</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0szyaqi</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:endEvent id="EndEvent_0mm80hl">
-      <bpmn:incoming>SequenceFlow_0szyaqi</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0szyaqi" sourceRef="ConfirmAddition" targetRef="EndEvent_0mm80hl" />
+    <bpmn:sequenceFlow id="SequenceFlow_0sbiast" sourceRef="HouseAdditionRequest" targetRef="Task_17zyu6p" />
     <bpmn:endEvent id="EndEvent_0gdqryl">
       <bpmn:incoming>SequenceFlow_1rl142w</bpmn:incoming>
     </bpmn:endEvent>
@@ -541,6 +527,23 @@
     <bpmn:endEvent id="EndEvent_1syz7t7">
       <bpmn:incoming>SequenceFlow_102wldj</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:sendTask id="ConfirmAddition" name="Confirm addition to database" camunda:expression="website.confirmAddition()">
+      <bpmn:incoming>SequenceFlow_093b5cl</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0szyaqi</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0szyaqi" sourceRef="ConfirmAddition" targetRef="EndEvent_0mm80hl" />
+    <bpmn:sequenceFlow id="SequenceFlow_093b5cl" sourceRef="Task_17zyu6p" targetRef="ConfirmAddition" />
+    <bpmn:serviceTask id="Task_17zyu6p" name="Add house to database" camunda:class="org.loopingdoge.acme.services.HouseAdder">
+      <bpmn:incoming>SequenceFlow_0sbiast</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_093b5cl</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0mm80hl">
+      <bpmn:incoming>SequenceFlow_0szyaqi</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:startEvent id="HouseAdditionRequest" name="House addition request">
+      <bpmn:outgoing>SequenceFlow_0sbiast</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="HouseAdditionMessage" />
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:process id="Process_0yxmm2m" isExecutable="false">
     <bpmn:sequenceFlow id="SequenceFlow_0blxu2v" sourceRef="Task_0fsq57e" targetRef="ExclusiveGateway_0rtfckd" />
@@ -951,7 +954,7 @@
       <bpmndi:BPMNShape id="IntermediateCatchEvent_0p8lct3_di" bpmnElement="HouseDistanceReply">
         <dc:Bounds x="936" y="289" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="919" y="333" width="70" height="13" />
+          <dc:Bounds x="921" y="269" width="70" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0d5xh2p_di" bpmnElement="HouseDistanceReplyChoose" isMarkerVisible="true">
@@ -1086,7 +1089,7 @@
         <di:waypoint xsi:type="dc:Point" x="249" y="40" />
         <di:waypoint xsi:type="dc:Point" x="249" y="181" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="257" y="19" width="90" height="13" />
+          <dc:Bounds x="257" y="18.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_07znt8i_di" bpmnElement="HousePoposalReply">
@@ -1159,12 +1162,12 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_14jk9jz_di" bpmnElement="MessageFlow_14jk9jz">
         <di:waypoint xsi:type="dc:Point" x="1334" y="274" />
-        <di:waypoint xsi:type="dc:Point" x="1334" y="89" />
-        <di:waypoint xsi:type="dc:Point" x="419" y="89" />
+        <di:waypoint xsi:type="dc:Point" x="1334" y="71" />
+        <di:waypoint xsi:type="dc:Point" x="419" y="71" />
         <di:waypoint xsi:type="dc:Point" x="419" y="-72" />
         <di:waypoint xsi:type="dc:Point" x="476" y="-159" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="832" y="68" width="90" height="13" />
+          <dc:Bounds x="831.5" y="49.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_17h4jnv_di" bpmnElement="Participant_17h4jnv">
@@ -1182,7 +1185,7 @@
         <di:waypoint xsi:type="dc:Point" x="1632" y="314" />
         <di:waypoint xsi:type="dc:Point" x="1668" y="314" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1623.1774193548388" y="267" width="73" height="13" />
+          <dc:Bounds x="1631" y="271" width="73" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SendTask_1nkcs8z_di" bpmnElement="Task_1p5lh1y">
@@ -2309,11 +2312,11 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_01d7vg4_di" bpmnElement="MessageFlow_01d7vg4">
         <di:waypoint xsi:type="dc:Point" x="2915" y="1348" />
-        <di:waypoint xsi:type="dc:Point" x="2915.3130699088147" y="837" />
-        <di:waypoint xsi:type="dc:Point" x="942.3130699088147" y="837" />
-        <di:waypoint xsi:type="dc:Point" x="942" y="320" />
+        <di:waypoint xsi:type="dc:Point" x="2915" y="837" />
+        <di:waypoint xsi:type="dc:Point" x="954" y="837" />
+        <di:waypoint xsi:type="dc:Point" x="954" y="325" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1928.8130699088147" y="815" width="0" height="13" />
+          <dc:Bounds x="1889.5" y="815.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_0qu30b0_di" bpmnElement="StartEvent_0qu30b0">
@@ -2358,33 +2361,27 @@
           <dc:Bounds x="480" y="-608" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_02mj06k_di" bpmnElement="HouseAdditionRequest">
-        <dc:Bounds x="195" y="656" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="176" y="695" width="74" height="25" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0sbiast_di" bpmnElement="SequenceFlow_0sbiast">
         <di:waypoint xsi:type="dc:Point" x="231" y="674" />
-        <di:waypoint xsi:type="dc:Point" x="299" y="674" />
+        <di:waypoint xsi:type="dc:Point" x="286" y="674" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="265" y="652.5" width="0" height="13" />
+          <dc:Bounds x="213.5" y="652.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SendTask_1xd56c3_di" bpmnElement="ConfirmAddition">
-        <dc:Bounds x="299" y="634" width="100" height="80" />
+        <dc:Bounds x="429" y="634" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0mm80hl_di" bpmnElement="EndEvent_0mm80hl">
-        <dc:Bounds x="467.40050536955147" y="656" width="36" height="36" />
+        <dc:Bounds x="578" y="656" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="485.40050536955147" y="695" width="0" height="13" />
+          <dc:Bounds x="551" y="695" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0szyaqi_di" bpmnElement="SequenceFlow_0szyaqi">
-        <di:waypoint xsi:type="dc:Point" x="399" y="674" />
-        <di:waypoint xsi:type="dc:Point" x="467" y="674" />
+        <di:waypoint xsi:type="dc:Point" x="529" y="674" />
+        <di:waypoint xsi:type="dc:Point" x="578" y="674" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="433" y="652" width="0" height="13" />
+          <dc:Bounds x="508.5" y="652.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0fnld2f_di" bpmnElement="MessageFlow_0fnld2f">
@@ -2397,12 +2394,12 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0kq85g7_di" bpmnElement="MessageFlow_0kq85g7">
-        <di:waypoint xsi:type="dc:Point" x="346" y="634" />
-        <di:waypoint xsi:type="dc:Point" x="346.18271604938286" y="57" />
+        <di:waypoint xsi:type="dc:Point" x="476" y="634" />
+        <di:waypoint xsi:type="dc:Point" x="476" y="57" />
         <di:waypoint xsi:type="dc:Point" x="481" y="57" />
         <di:waypoint xsi:type="dc:Point" x="481" y="-569" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="368.59135802469143" y="35.5" width="90" height="13" />
+          <dc:Bounds x="433.5" y="35.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_15onw8c_di" bpmnElement="ExclusiveGateway_15onw8c" isMarkerVisible="true">
@@ -2890,6 +2887,22 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1jy1poy_di" bpmnElement="Task_1btl3fw">
         <dc:Bounds x="413" y="274" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_093b5cl_di" bpmnElement="SequenceFlow_093b5cl">
+        <di:waypoint xsi:type="dc:Point" x="386" y="674" />
+        <di:waypoint xsi:type="dc:Point" x="429" y="674" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="407.5" y="652.5" width="0" height="13" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1sgakfh_di" bpmnElement="Task_17zyu6p">
+        <dc:Bounds x="286" y="634" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1lsvnb0_di" bpmnElement="HouseAdditionRequest">
+        <dc:Bounds x="195" y="656" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="176" y="695" width="74" height="25" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

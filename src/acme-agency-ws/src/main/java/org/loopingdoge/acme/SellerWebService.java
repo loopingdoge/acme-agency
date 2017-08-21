@@ -41,13 +41,17 @@ public class SellerWebService {
 		
 		System.out.println(house);
 		if (house != null && house.isComplete()) {
+			String message = "MSG";
 			Map<String, Object> vars = new HashMap<String, Object>();
 			/* Process initial variables */
-			vars.put("name", "SELLING!");
+			vars.put("name", message);
 			vars.put("emptyMessage", "");
+			/* Start a process in Camunda, which i
+			s waiting on the specified messageId */
 			String startMessageId = "houseAddition";
+			System.out.println(startMessageId);
 			processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
-			return "Your house '" + house.getName() + "' is accepted";
+			return "Proposal accepted";
 		} else
 			return "Proposal refused: data is missing";
 	}
