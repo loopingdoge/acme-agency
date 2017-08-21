@@ -2,6 +2,7 @@ package org.loopingdoge.acme.model;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -15,7 +16,10 @@ public class HouseList {
 	public HouseList() {
 		this.list = new ArrayList<House>();
 	}
-	
+
+	public HouseList(List<House> houseList) {
+		list = new ArrayList<>(houseList);
+	}
 	
 	public ArrayList<House> getList() {
 		return list;

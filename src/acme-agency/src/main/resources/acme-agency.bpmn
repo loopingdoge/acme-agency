@@ -30,7 +30,7 @@
     <bpmn:messageFlow id="MessageFlow_04zy213" sourceRef="GetNotaryDistance" targetRef="StartEvent_0jup64t" />
     <bpmn:messageFlow id="MessageFlow_1mfy97s" sourceRef="EndEvent_1ib9dg7" targetRef="NotaryDistanceReply" />
     <bpmn:messageFlow id="MessageFlow_1ef6vur" sourceRef="Task_0zb8mzm" targetRef="StartEvent_0jup64t" />
-    <bpmn:messageFlow id="MessageFlow_01d7vg4" sourceRef="EndEvent_1ib9dg7" targetRef="HouseDistanceReply" />
+    <bpmn:messageFlow id="MessageFlow_01d7vg4" sourceRef="EndEvent_1ib9dg7" targetRef="Task_0zb8mzm" />
     <bpmn:messageFlow id="MessageFlow_0fnld2f" sourceRef="Task_1u45fsk" targetRef="HouseAdditionRequest" />
     <bpmn:messageFlow id="MessageFlow_0kq85g7" sourceRef="ConfirmAddition" targetRef="IntermediateThrowEvent_0y7sewc" />
     <bpmn:messageFlow id="MessageFlow_0qfx5s0" sourceRef="Task_1wnphng" targetRef="IntermediateThrowEvent_0ga2gdc" />
@@ -141,59 +141,57 @@
         <bpmn:incoming>SequenceFlow_1kbn2iy</bpmn:incoming>
         <bpmn:incoming>SequenceFlow_1954s5p</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0e9y7e0</bpmn:outgoing>
-        <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="availHouses" camunda:elementVariable="house">
-          <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">proposal.length == 10 || availHouses.length == 0</bpmn:completionCondition>
+        <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="houseList" camunda:elementVariable="house">
+          <bpmn:completionCondition xsi:type="bpmn:tFormalExpression">proposal.length == 10</bpmn:completionCondition>
         </bpmn:multiInstanceLoopCharacteristics>
         <bpmn:startEvent id="StartEvent_1lrf72l">
           <bpmn:outgoing>SequenceFlow_1dpi375</bpmn:outgoing>
         </bpmn:startEvent>
-        <bpmn:sendTask id="Task_0zb8mzm" name="Contact distance service">
-          <bpmn:extensionElements>
-            <camunda:connector>
-              <camunda:inputOutput>
-                <camunda:inputParameter name="from" />
-                <camunda:inputParameter name="to" />
-                <camunda:outputParameter name="distance" />
-              </camunda:inputOutput>
-              <camunda:connectorId>distance</camunda:connectorId>
-            </camunda:connector>
-          </bpmn:extensionElements>
-          <bpmn:incoming>SequenceFlow_1tuhz8q</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_143qb2b</bpmn:outgoing>
-        </bpmn:sendTask>
-        <bpmn:sequenceFlow id="SequenceFlow_143qb2b" sourceRef="Task_0zb8mzm" targetRef="HouseDistanceReply" />
-        <bpmn:intermediateCatchEvent id="HouseDistanceReply" name="Distance reply">
-          <bpmn:incoming>SequenceFlow_143qb2b</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_0zixxba</bpmn:outgoing>
-          <bpmn:messageEventDefinition messageRef="Message_1omnk1l" />
-        </bpmn:intermediateCatchEvent>
+        <bpmn:sequenceFlow id="SequenceFlow_143qb2b" sourceRef="Task_0zb8mzm" targetRef="HouseDistanceReplyChoose" />
         <bpmn:exclusiveGateway id="HouseDistanceReplyChoose" name="Check if it&#39;s closer than the buyer specified distance">
-          <bpmn:incoming>SequenceFlow_0zixxba</bpmn:incoming>
+          <bpmn:incoming>SequenceFlow_143qb2b</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_0eb9hkt</bpmn:outgoing>
           <bpmn:outgoing>SequenceFlow_1v53raw</bpmn:outgoing>
         </bpmn:exclusiveGateway>
-        <bpmn:sequenceFlow id="SequenceFlow_0zixxba" sourceRef="HouseDistanceReply" targetRef="HouseDistanceReplyChoose" />
-        <bpmn:task id="Task_1m511ij" name="Add to reply">
-          <bpmn:incoming>SequenceFlow_0eb9hkt</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_1mmm7j2</bpmn:outgoing>
-        </bpmn:task>
         <bpmn:sequenceFlow id="SequenceFlow_0eb9hkt" name="It&#39;s near" sourceRef="HouseDistanceReplyChoose" targetRef="Task_1m511ij">
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[distanceReply <= maxDistance]]></bpmn:conditionExpression>
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[distance <= 10000]]></bpmn:conditionExpression>
         </bpmn:sequenceFlow>
-        <bpmn:task id="Task_0dbfwr3" name="Get house data">
-          <bpmn:incoming>SequenceFlow_1dpi375</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_1tuhz8q</bpmn:outgoing>
-        </bpmn:task>
-        <bpmn:sequenceFlow id="SequenceFlow_1dpi375" sourceRef="StartEvent_1lrf72l" targetRef="Task_0dbfwr3" />
-        <bpmn:sequenceFlow id="SequenceFlow_1tuhz8q" sourceRef="Task_0dbfwr3" targetRef="Task_0zb8mzm" />
+        <bpmn:sequenceFlow id="SequenceFlow_1dpi375" sourceRef="StartEvent_1lrf72l" targetRef="Task_0zb8mzm" />
         <bpmn:endEvent id="EndEvent_1rx71iz">
           <bpmn:incoming>SequenceFlow_1v53raw</bpmn:incoming>
           <bpmn:incoming>SequenceFlow_1mmm7j2</bpmn:incoming>
         </bpmn:endEvent>
         <bpmn:sequenceFlow id="SequenceFlow_1v53raw" name="It&#39;s far" sourceRef="HouseDistanceReplyChoose" targetRef="EndEvent_1rx71iz">
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[distanceReply > maxDistance]]></bpmn:conditionExpression>
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[distance > 10000]]></bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_1mmm7j2" sourceRef="Task_1m511ij" targetRef="EndEvent_1rx71iz" />
+        <bpmn:serviceTask id="Task_0zb8mzm" name="Contact distance service">
+          <bpmn:extensionElements>
+            <camunda:connector>
+              <camunda:inputOutput>
+                <camunda:inputParameter name="method">GET</camunda:inputParameter>
+                <camunda:inputParameter name="url">http://localhost:7778/</camunda:inputParameter>
+                <camunda:inputParameter name="payload">
+                  <camunda:map>
+                    <camunda:entry key="from">ferrara</camunda:entry>
+                    <camunda:entry key="to">mirandola</camunda:entry>
+                  </camunda:map>
+                </camunda:inputParameter>
+                <camunda:outputParameter name="distance" />
+                <camunda:outputParameter name="status" />
+                <camunda:outputParameter name="message" />
+              </camunda:inputOutput>
+              <camunda:connectorId>http-connector</camunda:connectorId>
+            </camunda:connector>
+          </bpmn:extensionElements>
+          <bpmn:incoming>SequenceFlow_1dpi375</bpmn:incoming>
+          <bpmn:outgoing>SequenceFlow_143qb2b</bpmn:outgoing>
+        </bpmn:serviceTask>
+        <bpmn:scriptTask id="Task_1m511ij" name="Add to reply" camunda:resultVariable="proposalList">
+          <bpmn:incoming>SequenceFlow_0eb9hkt</bpmn:incoming>
+          <bpmn:outgoing>SequenceFlow_1mmm7j2</bpmn:outgoing>
+          <bpmn:script>proposalList.push(house)</bpmn:script>
+        </bpmn:scriptTask>
       </bpmn:subProcess>
       <bpmn:sequenceFlow id="SequenceFlow_03c3pcg" sourceRef="SendProposal" targetRef="ExclusiveGateway_0bp04ei" />
       <bpmn:sequenceFlow id="SequenceFlow_0ojj4qg" sourceRef="StartEvent_1rhkzq8" targetRef="Task_1btl3fw" />
@@ -941,61 +939,32 @@
           <dc:Bounds x="600.0361445783133" y="327.9196787148594" width="0" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SendTask_1szcmdv_di" bpmnElement="Task_0zb8mzm">
-        <dc:Bounds x="801" y="267" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_143qb2b_di" bpmnElement="SequenceFlow_143qb2b">
-        <di:waypoint xsi:type="dc:Point" x="901" y="307" />
-        <di:waypoint xsi:type="dc:Point" x="936" y="307" />
+        <di:waypoint xsi:type="dc:Point" x="846" y="307" />
+        <di:waypoint xsi:type="dc:Point" x="1002" y="307" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="918.5" y="285.5" width="0" height="13" />
+          <dc:Bounds x="879" y="285.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="IntermediateCatchEvent_0p8lct3_di" bpmnElement="HouseDistanceReply">
-        <dc:Bounds x="936" y="289" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="921" y="269" width="70" height="13" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ExclusiveGateway_0d5xh2p_di" bpmnElement="HouseDistanceReplyChoose" isMarkerVisible="true">
         <dc:Bounds x="1002.0361445783133" y="282" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1056" y="296" width="74" height="50" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0zixxba_di" bpmnElement="SequenceFlow_0zixxba">
-        <di:waypoint xsi:type="dc:Point" x="972" y="307" />
-        <di:waypoint xsi:type="dc:Point" x="1002" y="307" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="987" y="285" width="0" height="13" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_1m511ij_di" bpmnElement="Task_1m511ij">
-        <dc:Bounds x="1121.0361445783133" y="216.9196787148594" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0eb9hkt_di" bpmnElement="SequenceFlow_0eb9hkt">
         <di:waypoint xsi:type="dc:Point" x="1027" y="282" />
         <di:waypoint xsi:type="dc:Point" x="1027" y="257" />
         <di:waypoint xsi:type="dc:Point" x="1121" y="257" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1048" y="234.46875" width="39" height="13" />
+          <dc:Bounds x="1048" y="234" width="40" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Task_0dbfwr3_di" bpmnElement="Task_0dbfwr3">
-        <dc:Bounds x="655.0361445783133" y="267" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_1dpi375_di" bpmnElement="SequenceFlow_1dpi375">
         <di:waypoint xsi:type="dc:Point" x="618" y="307" />
-        <di:waypoint xsi:type="dc:Point" x="655" y="307" />
+        <di:waypoint xsi:type="dc:Point" x="746" y="307" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="636.5" y="285.5" width="0" height="13" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1tuhz8q_di" bpmnElement="SequenceFlow_1tuhz8q">
-        <di:waypoint xsi:type="dc:Point" x="755" y="307" />
-        <di:waypoint xsi:type="dc:Point" x="801" y="307" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="778" y="285.5" width="0" height="13" />
+          <dc:Bounds x="637" y="285.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_1rx71iz_di" bpmnElement="EndEvent_1rx71iz">
@@ -1016,7 +985,7 @@
         <di:waypoint xsi:type="dc:Point" x="1171" y="297" />
         <di:waypoint xsi:type="dc:Point" x="1171" y="358" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1186" y="320.5" width="0" height="13" />
+          <dc:Bounds x="1141" y="321" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SendTask_1e7y1nv_di" bpmnElement="SendProposal">
@@ -2302,21 +2271,21 @@
         <dc:Bounds x="2648" y="616" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1ef6vur_di" bpmnElement="MessageFlow_1ef6vur">
-        <di:waypoint xsi:type="dc:Point" x="835" y="347" />
-        <di:waypoint xsi:type="dc:Point" x="835.1666666666666" y="848" />
+        <di:waypoint xsi:type="dc:Point" x="766" y="347" />
+        <di:waypoint xsi:type="dc:Point" x="766" y="848" />
         <di:waypoint xsi:type="dc:Point" x="2676.1666666666665" y="848" />
         <di:waypoint xsi:type="dc:Point" x="2676" y="1353" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1755.6666666666665" y="826" width="0" height="13" />
+          <dc:Bounds x="1676.0833333333333" y="826.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_01d7vg4_di" bpmnElement="MessageFlow_01d7vg4">
         <di:waypoint xsi:type="dc:Point" x="2915" y="1348" />
         <di:waypoint xsi:type="dc:Point" x="2915" y="837" />
-        <di:waypoint xsi:type="dc:Point" x="954" y="837" />
-        <di:waypoint xsi:type="dc:Point" x="954" y="325" />
+        <di:waypoint xsi:type="dc:Point" x="829" y="837" />
+        <di:waypoint xsi:type="dc:Point" x="829" y="350" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1889.5" y="815.5" width="90" height="13" />
+          <dc:Bounds x="1827" y="815.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_0qu30b0_di" bpmnElement="StartEvent_0qu30b0">
@@ -2903,6 +2872,12 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="176" y="695" width="74" height="25" />
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1b0s5pv_di" bpmnElement="Task_0zb8mzm">
+        <dc:Bounds x="746" y="267" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ScriptTask_13y31i5_di" bpmnElement="Task_1m511ij">
+        <dc:Bounds x="1121" y="217" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
