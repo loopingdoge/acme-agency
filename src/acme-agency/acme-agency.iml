@@ -25,12 +25,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.7.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-utils:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.7.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-logging:1.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-logging:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-typed-values:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-email:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.mail:mail:1.4.1" level="project" />
@@ -42,5 +40,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: joda-time:joda-time:2.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:javax.servlet-api:3.0.1" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.connect:camunda-connect-core:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.commons:camunda-commons-utils:1.4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.connect:camunda-connect-connectors-all:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
+    <orderEntry type="library" name="Maven: org.camunda.bpm:camunda-engine-plugin-connect:7.7.0" level="project" />
   </component>
 </module>
