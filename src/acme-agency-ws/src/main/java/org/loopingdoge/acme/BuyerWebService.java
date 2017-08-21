@@ -1,19 +1,18 @@
 package org.loopingdoge.acme;
 
+import org.camunda.bpm.engine.ProcessEngine;
+import org.loopingdoge.acme.model.Address;
+import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.model.HouseProfile;
+
+import javax.annotation.Resource;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.jws.*;
-import javax.annotation.Resource;
-
-import org.camunda.bpm.engine.ProcessEngine;
-import org.loopingdoge.utils.Address;
-import org.loopingdoge.utils.House;
-import org.loopingdoge.utils.HouseProfile;
 
 @SuppressWarnings("restriction")
 @WebService
@@ -27,10 +26,8 @@ public class BuyerWebService {
 
 	@WebMethod
 	public ArrayList<House> requestHouses(
-			@WebParam(name="houseProfile")
-			HouseProfile houseProfile, 
-			@WebParam(name="buyerName")
-			String buyerName) {
+			@WebParam(name="houseProfile") HouseProfile houseProfile,
+			@WebParam(name="buyerName") String buyerName) {
 		
 		/* House examples */
 		ArrayList<House> houseList = new ArrayList<House>();
