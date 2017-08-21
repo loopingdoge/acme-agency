@@ -3,6 +3,11 @@
     <output-path>$PROJECT_DIR$/target</output-path>
     <root id="archive" name="acme-agency-ws-0.0.1-SNAPSHOT.war">
       <element id="artifact" artifact-name="acme-agency-ws:war exploded" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="acme-model" />
+        </element>
+      </element>
     </root>
   </artifact>
 </component>

@@ -21,6 +21,7 @@
           <element id="library" level="project" name="Maven: junit:junit:3.8" />
           <element id="library" level="project" name="Maven: com.sun.org.apache.xml.internal:resolver:20050927" />
           <element id="library" level="project" name="Maven: org.jvnet:mimepull:1.1" />
+          <element id="library" level="project" name="acme-model" />
         </element>
       </element>
       <element id="directory" name="META-INF">
