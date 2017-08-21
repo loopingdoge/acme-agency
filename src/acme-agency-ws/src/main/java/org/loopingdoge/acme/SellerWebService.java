@@ -1,14 +1,14 @@
 package org.loopingdoge.acme;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.camunda.bpm.engine.ProcessEngine;
+import org.loopingdoge.acme.model.House;
 
 import javax.annotation.Resource;
-import javax.jws.*;
-
-import org.camunda.bpm.engine.ProcessEngine;
-import org.loopingdoge.utils.House;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
+import javax.jws.WebService;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("restriction")
 @WebService
@@ -35,9 +35,7 @@ public class SellerWebService {
 
 	
 	@WebMethod
-	public String proposeHouse(
-			@WebParam(name="house")
-			House house) {
+	public String proposeHouse(@WebParam(name="house") House house) {
 		
 		System.out.println(house);
 		if (house != null && house.isComplete()) {
