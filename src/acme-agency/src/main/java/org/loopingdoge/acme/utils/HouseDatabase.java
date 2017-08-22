@@ -1,4 +1,4 @@
-package org.loopingdoge.acme.database;
+package org.loopingdoge.acme.utils;
 
 import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
