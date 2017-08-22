@@ -104,3 +104,6 @@ crashlytics-build.properties
 fabric.properties
 
 src/main/webapp/WEB-INF/lib/acme-model.jar
+
+.idea
+*.iml
