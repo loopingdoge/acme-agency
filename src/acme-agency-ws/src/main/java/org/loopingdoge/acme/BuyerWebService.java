@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 @SuppressWarnings("restriction")
-@WebService
+@WebService(name = "BuyerWebService")
 public class BuyerWebService {
 	@Resource(mappedName = "java:global/camunda-bpm-platform/process-engine/default")
 	private ProcessEngine processEngine;
@@ -53,7 +53,6 @@ public class BuyerWebService {
 		/* Start a process in Camunda, which is waiting on the specified messageId */
 		String startMessageId = "houseLookup";
 		processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
-		
 		return houseList;
 	}
 }

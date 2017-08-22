@@ -11,10 +11,8 @@ import java.util.logging.Logger;
 
 public class HouseCollector implements JavaDelegate {
 
-    private final static Logger LOGGER = Logger.getLogger("acme-agency - House Collector");
-
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        LOGGER.log(Level.INFO, "I'm being called!");
+        System.out.println("I'm being called!");
         List<House> houseList = HouseDatabase.getHouseList();
         delegateExecution.setVariable("houseList", houseList);
 //        delegateExecution.setVariable("proposalList", new ArrayList<House>());

@@ -41,17 +41,17 @@
     <orderEntry type="library" name="Maven: com.sun.org.apache.xml.internal:resolver:20050927" level="project" />
     <orderEntry type="library" name="Maven: org.jvnet:mimepull:1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm:camunda-engine:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-utils:1.2.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.4.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-logging:1.2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-cmmn-model:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-dmn:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-utils:1.4.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-dmn-model:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-api:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.dmn:camunda-engine-feel-juel:7.7.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-logging:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-api:1.7.7" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-typed-values:1.2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.commons:camunda-commons-typed-values:1.4.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-email:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.mail:mail:1.4.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.mybatis:mybatis:3.2.8" level="project" />

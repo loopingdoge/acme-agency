@@ -289,7 +289,7 @@
               <camunda:inputParameter name="houseData" />
               <camunda:outputParameter name="cadaCoords" />
             </camunda:inputOutput>
-            <camunda:connectorId>cadastrialService</camunda:connectorId>
+            <camunda:connectorId>soap-http-connector</camunda:connectorId>
           </camunda:connector>
         </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_12dwd54</bpmn:incoming>

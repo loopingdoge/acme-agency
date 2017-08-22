@@ -8,10 +8,9 @@ import java.util.logging.Logger;
 
 public class HouseAdder implements JavaDelegate {
 
-    private final static Logger LOGGER = Logger.getLogger("acme-agency - House Adder");
 
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        LOGGER.log(Level.INFO, "I'm being called!");
+        System.out.println("I'm being called!");
     }
 
 }
