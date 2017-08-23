@@ -7,11 +7,14 @@ import org.loopingdoge.acme.model.House;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
-public class HouseCollector implements JavaDelegate {
+public class CollectHouses implements JavaDelegate {
+
+    private final static Logger logger = Logger.getLogger("CallDistance");
 
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        System.out.println("I'm being called!");
+        logger.info("service started");
         List<House> houseList = new ArrayList<>(HouseDatabase.getHouseList());
         delegateExecution.setVariable("houseList", houseList);
         delegateExecution.setVariable("proposalList", new ArrayList<House>());

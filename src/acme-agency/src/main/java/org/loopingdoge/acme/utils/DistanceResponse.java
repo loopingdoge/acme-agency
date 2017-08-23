@@ -1,4 +1,4 @@
-package org.loopingdoge.acme.services;
+package org.loopingdoge.acme.utils;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

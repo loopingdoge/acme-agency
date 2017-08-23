@@ -1,6 +1,5 @@
 package org.loopingdoge.acme.utils;
 
-import org.loopingdoge.acme.services.DistanceResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
