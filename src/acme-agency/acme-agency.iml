@@ -29,6 +29,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="acme-model" level="project" />
+    <orderEntry type="library" name="Maven: com.squareup.retrofit2:converter-gson:2.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.loopingdoge.acme.model:acme-model:1.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm:camunda-engine:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-bpmn-model:7.7.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.camunda.bpm.model:camunda-xml-model:7.7.0" level="project" />

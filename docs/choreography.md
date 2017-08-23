@@ -10,21 +10,26 @@
     nota = notary
     (
         (
-            request: a → acme;
+    request: a → acme;
             ( 
-                askDist: acme → dist; replyDist: dist → acme;
+                (
+            askDist: acme → dist; replyDist: dist → acme
+        )*;
                 proposal: acme → a; proposalReply: a → acme
-            )*;
+            ) *;
             1 + (
                 askAvail: acme → v; availReply: v → acme; 
-                sendAvail: acme → a; meetReply: a → acme
-            ) *;
+                sendAvail: acme → a; meetReply: a → acme;
+            1 + (
+                    meetFinalProposal: acme → v; meetFinalReply: v → acme
+                )
+            );
             (
                 meetDenies: acme → v | meetDenies: acme → a
             )
             + 
             (
-                meetAgree: acme → v | meetAgree → acme → a;
+                meetAgree: acme → v | meetAgree: acme → a;
                 1 + (
                     1 + (
                         loanRequest: a → bank; loanReply: bank → a
@@ -40,10 +45,15 @@
                                 )
                             )
                             |
-    		        ( askDist: acme → dist; replyDist: dist → acme )
+                    ( askDist: acme → dist; replyDist: dist → acme )
                         );
                         offer: acme → v;
-                        1 + (
+                        (
+                            denyOffer: v → acme
+                        )
+                        + 
+       (
+                    agreeOffer: v → acme;
                             agreeDeposit: a → bank; sendDeposit: bank → v; 
                             ( signContract: a → nota; signContract: v → nota );
                             agreePayment: a → bank; pay: bank → acme; pay: bank → v
