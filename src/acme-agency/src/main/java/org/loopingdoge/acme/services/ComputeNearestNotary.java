@@ -3,7 +3,9 @@ package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.loopingdoge.acme.utils.NotaryDistanceTuple;
 
+import java.util.ArrayList;
 import java.util.logging.Logger;
 
 public class ComputeNearestNotary implements JavaDelegate {
@@ -13,9 +15,18 @@ public class ComputeNearestNotary implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
-        // TODO implement this
-        // in: notaryDistanceList
-        // out: nearestNotary
+
+        ArrayList<NotaryDistanceTuple> notaryDistances = (ArrayList<NotaryDistanceTuple>) execution.getVariable("notaryDistances");
+
+        NotaryDistanceTuple nearestTuple = notaryDistances.get(0);
+
+        for (NotaryDistanceTuple tuple : notaryDistances) {
+            if (tuple.getDistance() < nearestTuple.getDistance()) {
+                nearestTuple = tuple;
+            }
+        }
+
+        execution.setVariable("notary", nearestTuple.getNotary());
     }
 
 }
