@@ -36,16 +36,13 @@ public class SellerWebService {
 	
 	@WebMethod
 	public String proposeHouse(@WebParam(name="house") House house) {
-		
 		System.out.println(house);
 		if (house != null && house.isComplete()) {
 			String message = "MSG";
 			Map<String, Object> vars = new HashMap<String, Object>();
 			/* Process initial variables */
-			vars.put("name", message);
-			vars.put("emptyMessage", "");
-			/* Start a process in Camunda, which i
-			s waiting on the specified messageId */
+			vars.put("newHouse", house);
+			/* Start a process in Camunda, which is waiting on the specified messageId */
 			String startMessageId = "houseAddition";
 			System.out.println(startMessageId);
 			processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);

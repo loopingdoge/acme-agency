@@ -60,8 +60,7 @@
             <groupId>org.loopingdoge.acme.model</groupId>
             <artifactId>acme-model</artifactId>
             <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/acme-model.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>

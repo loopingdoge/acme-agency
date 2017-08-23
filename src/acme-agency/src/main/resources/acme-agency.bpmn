@@ -504,7 +504,7 @@
     </bpmn:sendTask>
     <bpmn:sequenceFlow id="SequenceFlow_0szyaqi" sourceRef="ConfirmAddition" targetRef="EndEvent_0mm80hl" />
     <bpmn:sequenceFlow id="SequenceFlow_093b5cl" sourceRef="Task_17zyu6p" targetRef="ConfirmAddition" />
-    <bpmn:serviceTask id="Task_17zyu6p" name="Add house to database" camunda:class="org.loopingdoge.acme.services.HouseAdder">
+    <bpmn:serviceTask id="Task_17zyu6p" name="Add house to database" camunda:class="org.loopingdoge.acme.services.AddHouseToDatabase">
       <bpmn:incoming>SequenceFlow_0sbiast</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_093b5cl</bpmn:outgoing>
     </bpmn:serviceTask>

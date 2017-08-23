@@ -60,14 +60,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.springframework:spring-asm:3.1.2.RELEASE" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-logging:commons-logging:1.1.1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: joda-time:joda-time:2.1" level="project" />
-    <orderEntry type="module-library">
-      <library name="Maven: org.loopingdoge.acme.model:acme-model:1.0.0">
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/src/main/webapp/WEB-INF/lib/acme-model.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.servlet:servlet-api:2.5" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.loopingdoge.acme.model:acme-model:1.0.0" level="project" />
   </component>
 </module>

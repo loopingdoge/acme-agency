@@ -1,0 +1,7 @@
+<jboss-deployment-structure>
+    <deployment>
+        <dependencies>
+            <module name="org.loopingdoge.acme.model"/>
+        </dependencies>
+    </deployment>
+</jboss-deployment-structure>
