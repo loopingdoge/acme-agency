@@ -32,7 +32,7 @@ public class Address implements Serializable {
 		this.streetName = streetName;
 		this.civic = civic;
 	}
-	
+
 	public Address() {
 		this.nation = null;
 		this.province = null;
@@ -40,7 +40,6 @@ public class Address implements Serializable {
 		this.streetName = null;
 		this.civic = null;
 	}
-	
 	
 	public void setNation(String nation) {
 		this.nation = nation;
@@ -82,7 +81,16 @@ public class Address implements Serializable {
 	public String getCivic() {
 		return civic;
 	}
-	
+
+	@Override
+	public String toString() {
+		return String.format("%s, %s, %s, %s, %s", 
+			this.streetName,
+			this.civic,
+			this.city,
+			this.province,
+			this.nation);
+	}
 	
 	// Check if every field is not null
 	public boolean isComplete() {

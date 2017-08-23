@@ -75,7 +75,10 @@ public class BuyerWebService {
 		
 		// Process initial variables 
 		Map<String, Object> vars = new HashMap<String, Object>();
-	
+
+        vars.put("houseProfile", new House(
+				new Address("Italia", "MO", "Quarantoli", "Via Unica", "31"),
+				"Casa nel Bosco", "Geppetto", 125, true, 125000));
 		// Start a process in Camunda, which is waiting on the specified messageId
 		String startMessageId = "houseLookup";
 		ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);

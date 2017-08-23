@@ -2,6 +2,7 @@ package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.utils.DistanceResponse;
 import org.loopingdoge.acme.utils.DistanceServiceAPI;
 import org.loopingdoge.acme.model.House;
@@ -24,11 +25,14 @@ public class CallDistance implements JavaDelegate {
 
     public void execute(DelegateExecution delegateExecution) throws Exception {
         logger.info("service started");
-        // TODO ci dovrebbero essere le variabili "fromDistance" e "toDistance"
-        House currentHouse = (House) delegateExecution.getVariable("house");
-        System.out.println(currentHouse.getName());
-        DistanceResponse res = service.distance("ferrara", "mirandola").execute().body();
+
+        Address fromDistance = (Address) delegateExecution.getVariable("fromDistance");
+        Address toDistance = (Address) delegateExecution.getVariable("toDistance");
+
+//        TODO usare gli indirizzi completi escaped
+        DistanceResponse res = service.distance(fromDistance.getCity(), toDistance.getCity()).execute().body();
         delegateExecution.setVariable("distance", res.getDistance());
+
     }
 
 }
