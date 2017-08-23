@@ -1,11 +1,13 @@
 package org.loopingdoge.acme.model;
 
+import java.io.Serializable;
+
 import javax.xml.bind.annotation.*;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "houseprofile")
 @XmlType(name = "houseProfile")
-public class HouseProfile {
+public class HouseProfile implements Serializable {
 
 	@XmlElement(name = "minSquareFootage")
 	private int minSquareFootage;
@@ -48,6 +50,62 @@ public class HouseProfile {
 		this.hasGarden = false;
 		this.addressReference = null;
 		this.maxKmToAddress = 0;
+	}
+	
+	public int getMinSquareFootage() {
+		return minSquareFootage;
+	}
+	
+	public int getMaxSquareFootage() {
+		return maxSquareFootage;
+	}
+	
+	public double getMinPrice() {
+		return minPrice;
+	}
+	
+	public double getMaxPrice() {
+		return maxPrice;
+	}
+	
+	public boolean getHasGarden() {
+		return hasGarden;
+	}
+	
+	public Address getAddressReference() {
+		return addressReference;
+	}
+	
+	public double getMaxKmToAddress() {
+		return maxKmToAddress;
+	}
+	
+	public void setMinSquareFootage(int minSquareFootage) {
+		this.minSquareFootage = minSquareFootage;
+	}
+	
+	public void setMaxSquareFootage(int maxSquareFootage) {
+		this.maxSquareFootage = maxSquareFootage;
+	}
+	
+	public void setMinPrice(double minPrice) {
+		this.minPrice = minPrice;
+	}
+	
+	public void setMaxPrice(double maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+	
+	public void setHasGarden(boolean hasGarden) {
+		this.hasGarden = hasGarden;
+	}
+	
+	public void setAddressReference(Address addressReference) {
+		this.addressReference = addressReference;
+	}
+	
+	public void setMaxKmToAddress(double maxKmToAddress) {
+		this.maxKmToAddress = maxKmToAddress;
 	}
 
 }
