@@ -447,12 +447,18 @@
         <bpmn:startEvent id="StartNotaryDistanceFromHouse">
           <bpmn:outgoing>SequenceFlow_0vqdjbd</bpmn:outgoing>
         </bpmn:startEvent>
-        <bpmn:sequenceFlow id="SequenceFlow_0vqdjbd" sourceRef="StartNotaryDistanceFromHouse" targetRef="Task_1ri8p03" />
+        <bpmn:sequenceFlow id="SequenceFlow_0vqdjbd" sourceRef="StartNotaryDistanceFromHouse" targetRef="GetNotaryDistance" />
         <bpmn:endEvent id="EndNotaryDistanceFromHouse">
           <bpmn:incoming>SequenceFlow_14uqhvr</bpmn:incoming>
         </bpmn:endEvent>
         <bpmn:sendTask id="GetNotaryDistance" name="Get distance from house" camunda:class="org.loopingdoge.acme.services.CallDistance">
-          <bpmn:incoming>SequenceFlow_1s39lbs</bpmn:incoming>
+          <bpmn:extensionElements>
+            <camunda:inputOutput>
+              <camunda:inputParameter name="fromDistance">${chosenHouse.getAddress()}</camunda:inputParameter>
+              <camunda:inputParameter name="toDistanca">${notary.getAddress()}</camunda:inputParameter>
+            </camunda:inputOutput>
+          </bpmn:extensionElements>
+          <bpmn:incoming>SequenceFlow_0vqdjbd</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_0cpqzwu</bpmn:outgoing>
         </bpmn:sendTask>
         <bpmn:sequenceFlow id="SequenceFlow_0cpqzwu" sourceRef="GetNotaryDistance" targetRef="AddDistanceToNotaryDistanceListTask" />
@@ -460,11 +466,6 @@
         <bpmn:serviceTask id="AddDistanceToNotaryDistanceListTask" name="Add distance to notary distance list" camunda:class="org.loopingdoge.acme.services.AddDistanceToNotaryDistanceList">
           <bpmn:incoming>SequenceFlow_0cpqzwu</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_14uqhvr</bpmn:outgoing>
-        </bpmn:serviceTask>
-        <bpmn:sequenceFlow id="SequenceFlow_1s39lbs" sourceRef="Task_1ri8p03" targetRef="GetNotaryDistance" />
-        <bpmn:serviceTask id="Task_1ri8p03" name="Get from and to addresses" camunda:class="org.loopingdoge.acme.services.PrepareNotaryDistanceCall">
-          <bpmn:incoming>SequenceFlow_0vqdjbd</bpmn:incoming>
-          <bpmn:outgoing>SequenceFlow_1s39lbs</bpmn:outgoing>
         </bpmn:serviceTask>
       </bpmn:subProcess>
       <bpmn:sequenceFlow id="SequenceFlow_0ldq60z" sourceRef="CollectNotariesTask" targetRef="SubProcess_0ap4zto" />
@@ -1979,7 +1980,7 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SubProcess_0ap4zto_di" bpmnElement="SubProcess_0ap4zto" isExpanded="true">
-        <dc:Bounds x="2328" y="556" width="569" height="205" />
+        <dc:Bounds x="2328" y="556" width="433" height="205" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0ldq60z_di" bpmnElement="SequenceFlow_0ldq60z">
         <di:waypoint xsi:type="dc:Point" x="2279" y="658" />
@@ -1999,35 +2000,35 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0vqdjbd_di" bpmnElement="SequenceFlow_0vqdjbd">
         <di:waypoint xsi:type="dc:Point" x="2391" y="652" />
-        <di:waypoint xsi:type="dc:Point" x="2432" y="652" />
+        <di:waypoint xsi:type="dc:Point" x="2423" y="652" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2366.5" y="630.5" width="90" height="13" />
+          <dc:Bounds x="2362" y="630.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0h3okvo_di" bpmnElement="EndNotaryDistanceFromHouse">
-        <dc:Bounds x="2841" y="634" width="36" height="36" />
+        <dc:Bounds x="2690" y="634" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2814" y="673" width="90" height="13" />
+          <dc:Bounds x="2663" y="673" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0ine96a_di" bpmnElement="SequenceFlow_0ine96a">
-        <di:waypoint xsi:type="dc:Point" x="2897" y="658" />
-        <di:waypoint xsi:type="dc:Point" x="2929" y="658" />
+        <di:waypoint xsi:type="dc:Point" x="2761" y="659" />
+        <di:waypoint xsi:type="dc:Point" x="2811" y="658" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2868" y="636.5" width="90" height="13" />
+          <dc:Bounds x="2741" y="637" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_093wvpp_di" bpmnElement="EndFindNotary">
-        <dc:Bounds x="3061" y="640" width="36" height="36" />
+        <dc:Bounds x="2943" y="640" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3034" y="679" width="90" height="13" />
+          <dc:Bounds x="2916" y="679" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0q3d0gi_di" bpmnElement="SequenceFlow_0q3d0gi">
-        <di:waypoint xsi:type="dc:Point" x="3029" y="658" />
-        <di:waypoint xsi:type="dc:Point" x="3061" y="658" />
+        <di:waypoint xsi:type="dc:Point" x="2911" y="658" />
+        <di:waypoint xsi:type="dc:Point" x="2943" y="658" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="3000" y="636.5" width="90" height="13" />
+          <dc:Bounds x="2882" y="637" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="StartEvent_0jup64t_di" bpmnElement="StartEvent_0jup64t">
@@ -2060,16 +2061,16 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_04zy213_di" bpmnElement="MessageFlow_04zy213">
-        <di:waypoint xsi:type="dc:Point" x="2602" y="693" />
-        <di:waypoint xsi:type="dc:Point" x="2602" y="726" />
+        <di:waypoint xsi:type="dc:Point" x="2451" y="692" />
+        <di:waypoint xsi:type="dc:Point" x="2451" y="726" />
         <di:waypoint xsi:type="dc:Point" x="2694" y="726" />
         <di:waypoint xsi:type="dc:Point" x="2694" y="1350" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2603" y="704.5" width="90" height="13" />
+          <dc:Bounds x="2527.5" y="704.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="SendTask_09jn6bg_di" bpmnElement="GetNotaryDistance">
-        <dc:Bounds x="2574" y="612" width="100" height="80" />
+        <dc:Bounds x="2423" y="612" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1ef6vur_di" bpmnElement="MessageFlow_1ef6vur">
         <di:waypoint xsi:type="dc:Point" x="872" y="347" />
@@ -2679,45 +2680,35 @@
         <dc:Bounds x="2179" y="618" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1mfy97s_di" bpmnElement="MessageFlow_1mfy97s">
-        <di:waypoint xsi:type="dc:Point" x="2903" y="1348" />
+        <di:waypoint xsi:type="dc:Point" x="2903" y="1353" />
         <di:waypoint xsi:type="dc:Point" x="2903" y="1024" />
         <di:waypoint xsi:type="dc:Point" x="2724" y="1024" />
         <di:waypoint xsi:type="dc:Point" x="2724" y="712" />
-        <di:waypoint xsi:type="dc:Point" x="2649" y="712" />
-        <di:waypoint xsi:type="dc:Point" x="2649" y="692" />
+        <di:waypoint xsi:type="dc:Point" x="2498" y="712" />
+        <di:waypoint xsi:type="dc:Point" x="2498" y="692" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2694" y="861.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0cpqzwu_di" bpmnElement="SequenceFlow_0cpqzwu">
-        <di:waypoint xsi:type="dc:Point" x="2674" y="652" />
-        <di:waypoint xsi:type="dc:Point" x="2708" y="652" />
+        <di:waypoint xsi:type="dc:Point" x="2523" y="652" />
+        <di:waypoint xsi:type="dc:Point" x="2557" y="652" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2646" y="630.5" width="90" height="13" />
+          <dc:Bounds x="2495" y="631" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_14uqhvr_di" bpmnElement="SequenceFlow_14uqhvr">
-        <di:waypoint xsi:type="dc:Point" x="2807.59" y="652" />
-        <di:waypoint xsi:type="dc:Point" x="2841" y="652" />
+        <di:waypoint xsi:type="dc:Point" x="2656.59" y="652" />
+        <di:waypoint xsi:type="dc:Point" x="2690" y="652" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2824.295" y="631" width="0" height="12" />
+          <dc:Bounds x="2628" y="631" width="90" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1uwa6tn_di" bpmnElement="AddDistanceToNotaryDistanceListTask">
-        <dc:Bounds x="2708" y="612" width="100" height="80" />
+        <dc:Bounds x="2557" y="612" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_17hv0ze_di" bpmnElement="ComputeNearestNotaryTask">
-        <dc:Bounds x="2929" y="618" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_1s39lbs_di" bpmnElement="SequenceFlow_1s39lbs">
-        <di:waypoint xsi:type="dc:Point" x="2532" y="652" />
-        <di:waypoint xsi:type="dc:Point" x="2574" y="652" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="2553" y="631" width="0" height="12" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0rd8aqp_di" bpmnElement="Task_1ri8p03">
-        <dc:Bounds x="2432" y="612" width="100" height="80" />
+        <dc:Bounds x="2811" y="618" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_00b7jdp_di" bpmnElement="AcmeLane">
         <dc:Bounds x="153" y="93" width="4783" height="739" />
