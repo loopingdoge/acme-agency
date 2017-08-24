@@ -25,6 +25,7 @@ public interface BuyerWebService {
 
     /**
      * 
+     * @param selectedHouseIndex
      * @param replyAction
      * @return
      *     returns soseng.project.wsinterface.HouseRequestReplyMessage
@@ -35,7 +36,9 @@ public interface BuyerWebService {
     @ResponseWrapper(localName = "houseProposalReplyResponse", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.HouseProposalReplyResponse")
     public HouseRequestReplyMessage houseProposalReply(
         @WebParam(name = "replyAction", targetNamespace = "")
-        String replyAction);
+        String replyAction,
+        @WebParam(name = "selectedHouseIndex", targetNamespace = "")
+        int selectedHouseIndex);
 
     /**
      * 

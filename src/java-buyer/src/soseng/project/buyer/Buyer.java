@@ -1,7 +1,9 @@
 package soseng.project.buyer;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 
 import javax.xml.ws.BindingProvider;
 
@@ -16,6 +18,7 @@ public class Buyer {
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
 	private final static String REPLY_STOP = "stop";
+	private final static String OK = "ok";
 	
 	public static void main (String[] args) {
 		
@@ -39,27 +42,52 @@ public class Buyer {
 	    List<House> proposedHouses = response.getHouseList();	    
 	    
 	    // Print response
-	    System.out.println("Received " + proposedHouses.size() + " houses...\n");
+	    prettyPrintHouses(proposedHouses);
+	    
+	    Scanner scan = new Scanner(System.in);
+	    boolean stop = false;
+	    
+	    while (!stop) {
+		    System.out.println("Select action (more, stop, accept):");
+		    String s = scan.next();
+		    
+		    if (s.matches("stop")) {
+		    	response = buyerWs.houseProposalReply(REPLY_STOP, 0);
+		    	System.out.println(response.getMessage());
+		    	stop = true;
+		    }
+		    	
+		    else if (s.matches("accept")) {
+		    	System.out.println("Select house number:");
+			    int index = scan.nextInt();
+		    	
+	    		response = buyerWs.houseProposalReply(REPLY_ACCEPT, index);
+	    		System.out.println(response.getMessage());
+	    		
+	    		if (response.getMessage().matches(OK)) 
+	    			stop = true;
+		    }
+	    
+		    else if (s.matches("more")) {
+		    	response = buyerWs.houseProposalReply(REPLY_MORE, 0);
+		    	System.out.println(response.getMessage());
+		    	// Print response	
+		    	prettyPrintHouses(proposedHouses);
+		    }
+	    }
+	}
+	
+	
+	
+	public static void prettyPrintHouses(List<House> proposedHouses) {
+		System.out.println("Received " + proposedHouses.size() + " houses...\n");
 	    for (House house: proposedHouses) {
 	    	System.out.println(proposedHouses.indexOf(house));
-	    	System.out.println("\t" + house.getName().getValue());
+	    	System.out.println("\t" + house.getName());
 	    	System.out.println("\t" + house.getPrice() + " €");
 	    	System.out.println("\t" + house.getSquareFootage() + " sq. meters");
-	    	System.out.println("\t" + house.getAddress().getValue().getCity() + ", " + house.getAddress().getValue().getStreetName());
+	    	System.out.println("\t" + house.getAddress().getCity() + ", " + house.getAddress().getStreetName());
 	    	System.out.println();
-	    }
-	    
-	    response = buyerWs.houseProposalReply(REPLY_MORE);
-	    
-	    // Print response
-	    System.out.println("Received " + proposedHouses.size() + " houses...\n");
-	    for (House house: proposedHouses) {
-	    	System.out.println(proposedHouses.indexOf(house));
-	    	System.out.println("\t" + house.getName().getValue());
-	    	System.out.println("\t" + house.getPrice() + " €");
-	    	System.out.println("\t" + house.getSquareFootage() + " sq. meters");
-	    	System.out.println("\t" + house.getAddress().getValue().getCity() + ", " + house.getAddress().getValue().getStreetName());
-	    	System.out.println();
-	    }
+		}
 	}
 }

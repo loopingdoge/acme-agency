@@ -39,9 +39,12 @@ public class BuyerWebService {
 	private final static String CAMUNDA_ACTION_MESSAGE = "houseProposalReply";
 	private final static String CAMUNDA_ACTION_VARIABLE = "houseProposalReply";
 	private final static String CAMUNDA_PROPOSAL_LIST_VARIABLE = "proposalList";
+	private final static String CAMUNDA_ACCEPTED_HOUSE_VARIABLE = "acceptedHouse";
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
 	private final static String REPLY_STOP = "stop";
+	private final static String ERROR = "error";
+	private final static String OK = "ok";
 	
 	
 	public BuyerWebService () {}
@@ -105,7 +108,8 @@ public class BuyerWebService {
 	
 	@WebMethod
 	public HouseRequestReplyMessage houseProposalReply (
-			@WebParam(name="replyAction") String replyAction) {
+			@WebParam(name="replyAction") String replyAction,
+			@WebParam(name="selectedHouseIndex") int selectedHouseIndex){
 		
 		// Session management
 		MessageContext mc = wsContext.getMessageContext();    	
@@ -123,21 +127,55 @@ public class BuyerWebService {
         
         // Set action in Camunda process
         processEngine.getRuntimeService().setVariable(camundaProcessId, CAMUNDA_ACTION_VARIABLE, replyAction);
+  
         
-        // Unlock process using message
-        processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
-		  .processInstanceId(camundaProcessId)
-		  .correlate();
         
-        // Accept or Stop case
-        if (replyAction.matches(REPLY_ACCEPT) || replyAction.matches(REPLY_STOP)) 
-        	return new HouseRequestReplyMessage(null, replyAction);
-      
+        // Stop case
+        if (replyAction.matches(REPLY_STOP)) {
+            // Unlock process using message
+            processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+    		  .processInstanceId(camundaProcessId)
+    		  .correlate();
+        
+        	return new HouseRequestReplyMessage(null, replyAction);   
+        }
         			
         // More case
-        else        
+        else if (replyAction.matches(REPLY_MORE)) {
+        	// Unlock process using message
+            processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+    		  .processInstanceId(camundaProcessId)
+    		  .correlate();
+            
         	return new HouseRequestReplyMessage(
         			(ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE),
-        			"Ok, more");
+        			OK);
+        }
+        
+        // Accept case
+        if (replyAction.matches(REPLY_ACCEPT)) { 
+        	// check if selectedHouseIndex is acceptable
+        	ArrayList<House> proposedHouseList = (ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE);
+        	
+        	if (proposedHouseList.size() <= selectedHouseIndex)
+        		return new HouseRequestReplyMessage(null, ERROR);
+        	
+        	else {
+        		// Set accepted house in Camunda process
+                processEngine.getRuntimeService().setVariable(
+                		camundaProcessId, 
+                		CAMUNDA_ACCEPTED_HOUSE_VARIABLE, 
+                		proposedHouseList.get(selectedHouseIndex));
+        		
+        		// Unlock process using message
+                processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+        		  .processInstanceId(camundaProcessId)
+        		  .correlate();
+                
+        		return new HouseRequestReplyMessage(null, OK);
+        	}
+        }
+        
+        return new HouseRequestReplyMessage(null, ERROR);
 	}
 }
