@@ -3,7 +3,7 @@ include "console.iol"
 include "string_utils.iol"
 include "math.iol"
 
-inputPort CadastreService {
+inputPort Cadastre {
     Location: "socket://localhost:7779"
     Protocol: soap
     Interfaces: CadastreInterface
