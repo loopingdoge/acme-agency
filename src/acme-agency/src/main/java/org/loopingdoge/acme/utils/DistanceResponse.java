@@ -1,3 +1,4 @@
+
 package org.loopingdoge.acme.utils;
 
 import com.google.gson.annotations.Expose;
@@ -5,22 +6,29 @@ import com.google.gson.annotations.SerializedName;
 
 public class DistanceResponse {
 
-    @SerializedName("status")
-    @Expose
-    private String status;
     @SerializedName("message")
     @Expose
     private String message;
     @SerializedName("distance")
     @Expose
-    private int distance;
+    private String distance;
 
-    public String getStatus() {
-        return status;
+    /**
+     * No args constructor for use in serialization
+     * 
+     */
+    public DistanceResponse() {
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    /**
+     * 
+     * @param message
+     * @param distance
+     */
+    public DistanceResponse(String message, String distance) {
+        super();
+        this.message = message;
+        this.distance = distance;
     }
 
     public String getMessage() {
@@ -31,11 +39,11 @@ public class DistanceResponse {
         this.message = message;
     }
 
-    public int getDistance() {
+    public String getDistance() {
         return distance;
     }
 
-    public void setDistance(int distance) {
+    public void setDistance(String distance) {
         this.distance = distance;
     }
 
