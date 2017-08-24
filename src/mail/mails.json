@@ -1,0 +1,16 @@
+{
+    "mails": [
+        {
+            "id": "HkFoOi2uZ",
+            "from": "alberto",
+            "to": "devid",
+            "text": "ciao"
+        },
+        {
+            "id": "HkgYiOjn_W",
+            "from": "devid",
+            "to": "alberto",
+            "text": "yo"
+        }
+    ]
+}
