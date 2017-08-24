@@ -54,21 +54,6 @@ public class BuyerWebService {
 			@WebParam(name="houseProfile") HouseProfile houseProfile,
 			@WebParam(name="buyerName") String buyerName) {
 		
-//		// House examples
-//		ArrayList<House> houseList = new ArrayList<House>();
-//		houseList.add(new House(
-//				new Address("Italia", "MO", "Quarantoli", "Via Unica", "31"),
-//				"Casa nel Bosco", "Geppetto", 125, true, 125000)
-//		);
-//		houseList.add(new House(
-//				new Address("Italia", "MO", "Mirandola", "Via Secca", "77"),
-//				"Grattacielo", "Paperone", 300, false, 500000)
-//		);
-//		houseList.add(new House(
-//				new Address("Italia", "MO", "Medolla", "Via Lunga", "1"),
-//				"Casa sull'Albero", "Luciano", 25, true, 7000)
-//		);
-		
 		// Session management
 		MessageContext mc = wsContext.getMessageContext();    	
         HttpSession session = ((HttpServletRequest)mc.get(MessageContext.SERVLET_REQUEST)).getSession();
@@ -99,7 +84,7 @@ public class BuyerWebService {
         	// TODO - Arresto il processo precedente (?)
         	LOGGER.info("Client with active session requested new process");
         }
-        System.out.println(((ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE)).toString());
+
         return new HouseRequestReplyMessage(
 				//houseList,
 				(ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE),

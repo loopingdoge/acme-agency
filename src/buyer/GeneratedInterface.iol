@@ -1,11 +1,47 @@
 type NOTATIONType:any
 
-type houseAddressType:void {
-	.civic?:string
-	.province?:string
+type addressType:void {
 	.streetName?:string
-	.nation?:string
+	.province?:string
 	.city?:string
+	.nation?:string
+	.civic?:string
+}
+
+type houseProposalReplyType:void {
+	.replyAction?:string
+}
+
+type requestHousesResponseType:void {
+	.return?:HouseRequestReplyMessageType
+}
+
+type HouseRequestReplyMessageType:any {
+	.houseList*:houseType
+	.message?:string
+}
+
+type houseProposalReplyResponseType:void {
+	.return?:HouseRequestReplyMessageType
+}
+
+type houseProfileType:void {
+	.addressReference?:addressType
+	.maxSquareFootage:int
+	.minSquareFootage:int
+	.maxKmToAddress:double
+	.minPrice:double
+	.maxPrice:double
+	.hasGarden:bool
+}
+
+type houseType:any {
+	.address?:addressType
+	.squareFootage:int
+	.price:double
+	.name?:string
+	.sellerName?:string
+	.hasGarden:bool
 }
 
 type requestHousesType:void {
@@ -13,27 +49,21 @@ type requestHousesType:void {
 	.buyerName?:string
 }
 
-type houseProfileType:any {
-	.minSquareFootage:int
-	.hasGarden:bool
-	.maxKmToAddress:double
-	.addressReference?:houseAddressType
-	.maxPrice:double
-	.maxSquareFootage:int
-	.minPrice:double
+type houseProposalReply:void {
+	.replyAction?:string
 }
 
-type houseType:void {
-	.price:double
-	.address?:houseAddressType
-	.hasGarden:bool
-	.name?:any
-	.squareFootage:int
-	.sellerName?:any
+type requestHousesResponse:void {
+	.return?:HouseRequestReplyMessageType
 }
 
-type requestHousesResponseType:void {
-	.return*:houseType
+type HouseRequestReplyMessage:void {
+	.houseList*:houseType
+	.message?:string
+}
+
+type houseProposalReplyResponse:void {
+	.return?:HouseRequestReplyMessageType
 }
 
 type requestHouses:void {
@@ -41,39 +71,9 @@ type requestHouses:void {
 	.buyerName?:string
 }
 
-type houseprofile:void {
-	.minSquareFootage:int
-	.hasGarden:bool
-	.maxKmToAddress:double
-	.addressReference?:houseAddressType
-	.maxPrice:double
-	.maxSquareFootage:int
-	.minPrice:double
-}
-
-type houseaddress:void {
-	.civic?:string
-	.province?:string
-	.streetName?:string
-	.nation?:string
-	.city?:string
-}
-
-type house:void {
-	.price:double
-	.address?:houseAddressType
-	.hasGarden:bool
-	.name?:any
-	.squareFootage:int
-	.sellerName?:any
-}
-
-type requestHousesResponse:void {
-	.return*:houseType
-}
-
 interface BuyerWebService {
 RequestResponse:
+	houseProposalReply(houseProposalReply)(houseProposalReplyResponse),
 	requestHouses(requestHouses)(requestHousesResponse)
 }
 
@@ -85,5 +85,3 @@ Protocol: soap {
 }
 Interfaces: BuyerWebService
 }
-
-

@@ -2,13 +2,12 @@ package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.utils.DistanceResponse;
 import org.loopingdoge.acme.utils.DistanceServiceAPI;
-import org.loopingdoge.acme.model.House;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import java.net.URLEncoder;
 import java.util.logging.Logger;
 
 public class CallDistance implements JavaDelegate {
@@ -26,11 +25,10 @@ public class CallDistance implements JavaDelegate {
     public void execute(DelegateExecution delegateExecution) throws Exception {
         logger.info("service started");
 
-        Address fromDistance = (Address) delegateExecution.getVariable("fromDistance");
-        Address toDistance = (Address) delegateExecution.getVariable("toDistance");
-
-//        TODO usare gli indirizzi completi escaped
-        DistanceResponse res = service.distance(fromDistance.getCity(), toDistance.getCity()).execute().body();
+        String fromDistance = URLEncoder.encode( delegateExecution.getVariable("fromDistance").toString(), "UTF-8");
+        String toDistance = URLEncoder.encode( delegateExecution.getVariable("toDistance").toString(), "UTF-8");
+        
+        DistanceResponse res = service.distance( fromDistance, toDistance ).execute().body();
         delegateExecution.setVariable("distance", res.getDistance());
 
     }
