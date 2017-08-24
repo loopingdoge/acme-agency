@@ -1,10 +1,8 @@
 
 package soseng.project.wsinterface;
 
-import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElementRef;
 import javax.xml.bind.annotation.XmlType;
 
 
@@ -18,12 +16,12 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="address" type="{http://acme.loopingdoge.org/}houseAddress" minOccurs="0"/>
+ *         &lt;element name="address" type="{http://acme.loopingdoge.org/}address" minOccurs="0"/>
+ *         &lt;element name="hasGarden" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="name" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
+ *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *         &lt;element name="sellerName" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="squareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="hasGarden" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="price" type="{http://www.w3.org/2001/XMLSchema}double"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,33 +33,30 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "house", propOrder = {
     "address",
-    "name",
-    "sellerName",
-    "squareFootage",
     "hasGarden",
-    "price"
+    "name",
+    "price",
+    "sellerName",
+    "squareFootage"
 })
 public class House {
 
-    @XmlElementRef(name = "address", type = JAXBElement.class, required = false)
-    protected JAXBElement<HouseAddress> address;
-    @XmlElementRef(name = "name", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> name;
-    @XmlElementRef(name = "sellerName", type = JAXBElement.class, required = false)
-    protected JAXBElement<String> sellerName;
-    protected int squareFootage;
+    protected Address address;
     protected boolean hasGarden;
+    protected String name;
     protected double price;
+    protected String sellerName;
+    protected int squareFootage;
 
     /**
      * Gets the value of the address property.
      * 
      * @return
      *     possible object is
-     *     {@link JAXBElement }{@code <}{@link HouseAddress }{@code >}
+     *     {@link Address }
      *     
      */
-    public JAXBElement<HouseAddress> getAddress() {
+    public Address getAddress() {
         return address;
     }
 
@@ -70,75 +65,11 @@ public class House {
      * 
      * @param value
      *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link HouseAddress }{@code >}
+     *     {@link Address }
      *     
      */
-    public void setAddress(JAXBElement<HouseAddress> value) {
+    public void setAddress(Address value) {
         this.address = value;
-    }
-
-    /**
-     * Gets the value of the name property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getName() {
-        return name;
-    }
-
-    /**
-     * Sets the value of the name property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public void setName(JAXBElement<String> value) {
-        this.name = value;
-    }
-
-    /**
-     * Gets the value of the sellerName property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public JAXBElement<String> getSellerName() {
-        return sellerName;
-    }
-
-    /**
-     * Sets the value of the sellerName property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link JAXBElement }{@code <}{@link String }{@code >}
-     *     
-     */
-    public void setSellerName(JAXBElement<String> value) {
-        this.sellerName = value;
-    }
-
-    /**
-     * Gets the value of the squareFootage property.
-     * 
-     */
-    public int getSquareFootage() {
-        return squareFootage;
-    }
-
-    /**
-     * Sets the value of the squareFootage property.
-     * 
-     */
-    public void setSquareFootage(int value) {
-        this.squareFootage = value;
     }
 
     /**
@@ -158,6 +89,30 @@ public class House {
     }
 
     /**
+     * Gets the value of the name property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the value of the name property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setName(String value) {
+        this.name = value;
+    }
+
+    /**
      * Gets the value of the price property.
      * 
      */
@@ -171,6 +126,46 @@ public class House {
      */
     public void setPrice(double value) {
         this.price = value;
+    }
+
+    /**
+     * Gets the value of the sellerName property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    /**
+     * Sets the value of the sellerName property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSellerName(String value) {
+        this.sellerName = value;
+    }
+
+    /**
+     * Gets the value of the squareFootage property.
+     * 
+     */
+    public int getSquareFootage() {
+        return squareFootage;
+    }
+
+    /**
+     * Sets the value of the squareFootage property.
+     * 
+     */
+    public void setSquareFootage(int value) {
+        this.squareFootage = value;
     }
 
 }
