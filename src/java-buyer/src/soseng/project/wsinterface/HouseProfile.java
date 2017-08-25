@@ -12,21 +12,21 @@ import javax.xml.bind.annotation.XmlType;
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="houseProfile">
- *   &lt;complexContent>
- *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;sequence>
- *         &lt;element name="addressReference" type="{http://acme.loopingdoge.org/}address" minOccurs="0"/>
- *         &lt;element name="hasGarden" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
- *         &lt;element name="maxKmToAddress" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="maxPrice" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="maxSquareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="minPrice" type="{http://www.w3.org/2001/XMLSchema}double"/>
- *         &lt;element name="minSquareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *       &lt;/sequence>
- *     &lt;/restriction>
- *   &lt;/complexContent>
- * &lt;/complexType>
+ * &lt;complexType name="houseProfile"&gt;
+ *   &lt;complexContent&gt;
+ *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
+ *       &lt;sequence&gt;
+ *         &lt;element name="addressReference" type="{http://acme.loopingdoge.org/}address" minOccurs="0"/&gt;
+ *         &lt;element name="hasGarden" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
+ *         &lt;element name="maxKmToAddress" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="maxPrice" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="maxSquareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *         &lt;element name="minPrice" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="minSquareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
+ *       &lt;/sequence&gt;
+ *     &lt;/restriction&gt;
+ *   &lt;/complexContent&gt;
+ * &lt;/complexType&gt;
  * </pre>
  * 
  * 

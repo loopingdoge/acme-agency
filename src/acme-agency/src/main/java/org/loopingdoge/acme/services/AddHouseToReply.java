@@ -13,12 +13,14 @@ public class AddHouseToReply implements JavaDelegate {
 
     public void execute(DelegateExecution delegateExecution) throws Exception {
         logger.info("service started");
+
         ArrayList<House> proposalList = (ArrayList<House>) delegateExecution.getVariable("proposalList");
         House currHouse = (House) delegateExecution.getVariable("house");
+
         proposalList.add(currHouse);
-        System.out.println("Proposal list: " + proposalList);
+
         delegateExecution.setVariable("proposalList", proposalList);
-        delegateExecution.setVariable("proposalListSize", proposalList.size());
+
     }
 
 }

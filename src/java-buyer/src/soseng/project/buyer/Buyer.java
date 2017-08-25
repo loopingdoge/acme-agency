@@ -1,17 +1,12 @@
 package soseng.project.buyer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
 import javax.xml.ws.BindingProvider;
 
-import soseng.project.wsinterface.BuyerWebService;
-import soseng.project.wsinterface.BuyerWebServiceService;
-import soseng.project.wsinterface.House;
-import soseng.project.wsinterface.HouseProfile;
-import soseng.project.wsinterface.HouseRequestReplyMessage;
+import soseng.project.wsinterface.*;
 
 public class Buyer {
 	
@@ -34,7 +29,17 @@ public class Buyer {
 	    houseProfile.setMinPrice(0);
 	    houseProfile.setMaxPrice(10000000);
 	    houseProfile.setMinSquareFootage(0);
-	    houseProfile.setMaxSquareFootage(1000000);
+        houseProfile.setMaxSquareFootage(1000000);
+        houseProfile.setMaxKmToAddress(1000000);
+
+		Address address = new Address();
+		address.setNation("Italy");
+		address.setProvince("BO");
+		address.setCity("Minerbio");
+		address.setStreetName("Via Roma");
+		address.setCivic("88");
+
+		houseProfile.setAddressReference(address);
 	    
 	    // Send request
 	    System.out.println("House request...");
@@ -71,7 +76,8 @@ public class Buyer {
 		    else if (s.matches("more")) {
 		    	response = buyerWs.houseProposalReply(REPLY_MORE, 0);
 		    	System.out.println(response.getMessage());
-		    	// Print response	
+                proposedHouses = response.getHouseList();
+                // Print response
 		    	prettyPrintHouses(proposedHouses);
 		    }
 	    }
