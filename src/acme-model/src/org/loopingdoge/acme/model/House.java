@@ -97,6 +97,10 @@ public class House implements Serializable {
 		return price;
 	}
 	
+	@Override
+	public String toString() {
+		return "\n [HOUSE]" + this.name + ", owned by: " + this.sellerName + " - " + this.address + "\n";
+	}
 	
 	// Check if every field is not null
 	public boolean isComplete() {

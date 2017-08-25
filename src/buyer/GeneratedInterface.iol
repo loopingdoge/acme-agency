@@ -10,6 +10,7 @@ type addressType:void {
 
 type houseProposalReplyType:void {
 	.replyAction?:string
+	.selectedHouseIndex:int
 }
 
 type requestHousesResponseType:void {
@@ -51,6 +52,7 @@ type requestHousesType:void {
 
 type houseProposalReply:void {
 	.replyAction?:string
+	.selectedHouseIndex:int
 }
 
 type requestHousesResponse:void {

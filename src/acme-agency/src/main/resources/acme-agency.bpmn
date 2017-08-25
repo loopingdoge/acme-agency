@@ -200,30 +200,40 @@
         <bpmn:incoming>SequenceFlow_1o79onc</bpmn:incoming>
       </bpmn:endEvent>
       <bpmn:subProcess id="PopulateHousesSubprocess" name="Until you have 10 available houses or we run out of houses">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="maxDistance">${houseProfile.getMaxKmToAddress()}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_1kbn2iy</bpmn:incoming>
         <bpmn:incoming>SequenceFlow_1954s5p</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_153tvso</bpmn:outgoing>
         <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="houseList" camunda:elementVariable="house">
-          <bpmn:completionCondition xsi:type="bpmn:tFormalExpression"><![CDATA[${proposalListSize >= 2}]]></bpmn:completionCondition>
+          <bpmn:completionCondition xsi:type="bpmn:tFormalExpression"><![CDATA[${proposalList.size() >= 2}]]></bpmn:completionCondition>
         </bpmn:multiInstanceLoopCharacteristics>
         <bpmn:startEvent id="StartPopulateHouses">
           <bpmn:outgoing>SequenceFlow_1dpi375</bpmn:outgoing>
         </bpmn:startEvent>
         <bpmn:sequenceFlow id="SequenceFlow_143qb2b" sourceRef="ContactDistanceServiceTask" targetRef="HouseDistanceReplyChoose" />
-        <bpmn:exclusiveGateway id="HouseDistanceReplyChoose" name="Check if it&#39;s closer than the buyer specified distance" default="SequenceFlow_1v53raw">
+        <bpmn:exclusiveGateway id="HouseDistanceReplyChoose" name="Check if it&#39;s closer than the buyer specified distance">
+          <bpmn:extensionElements>
+            <camunda:executionListener class="org.loopingdoge.acme.services.RemoveHouseFromAvail" event="start" />
+          </bpmn:extensionElements>
           <bpmn:incoming>SequenceFlow_143qb2b</bpmn:incoming>
           <bpmn:outgoing>SequenceFlow_0eb9hkt</bpmn:outgoing>
           <bpmn:outgoing>SequenceFlow_1v53raw</bpmn:outgoing>
         </bpmn:exclusiveGateway>
         <bpmn:sequenceFlow id="SequenceFlow_0eb9hkt" name="It&#39;s near" sourceRef="HouseDistanceReplyChoose" targetRef="AddHouseToReplyTask">
-          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${distance <= 100000}]]></bpmn:conditionExpression>
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${isInRange}</bpmn:conditionExpression>
         </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_1dpi375" sourceRef="StartPopulateHouses" targetRef="ContactDistanceServiceTask" />
         <bpmn:endEvent id="EndProposalList">
           <bpmn:incoming>SequenceFlow_1v53raw</bpmn:incoming>
           <bpmn:incoming>SequenceFlow_1mmm7j2</bpmn:incoming>
         </bpmn:endEvent>
-        <bpmn:sequenceFlow id="SequenceFlow_1v53raw" name="It&#39;s far" sourceRef="HouseDistanceReplyChoose" targetRef="EndProposalList" />
+        <bpmn:sequenceFlow id="SequenceFlow_1v53raw" name="It&#39;s far" sourceRef="HouseDistanceReplyChoose" targetRef="EndProposalList">
+          <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!isInRange}</bpmn:conditionExpression>
+        </bpmn:sequenceFlow>
         <bpmn:sequenceFlow id="SequenceFlow_1mmm7j2" sourceRef="AddHouseToReplyTask" targetRef="EndProposalList" />
         <bpmn:serviceTask id="AddHouseToReplyTask" name="Add to reply" camunda:class="org.loopingdoge.acme.services.AddHouseToReply">
           <bpmn:incoming>SequenceFlow_0eb9hkt</bpmn:incoming>
@@ -232,8 +242,10 @@
         <bpmn:sendTask id="ContactDistanceServiceTask" name="Contact distance service" camunda:class="org.loopingdoge.acme.services.CallDistance">
           <bpmn:extensionElements>
             <camunda:inputOutput>
-              <camunda:inputParameter name="fromDistance">${houseProfile.getAddress()}</camunda:inputParameter>
+              <camunda:inputParameter name="fromDistance"><![CDATA[${houseProfile.getAddressReference()}
+]]></camunda:inputParameter>
               <camunda:inputParameter name="toDistance">${house.getAddress()}</camunda:inputParameter>
+              <camunda:outputParameter name="distance">${distance}</camunda:outputParameter>
             </camunda:inputOutput>
           </bpmn:extensionElements>
           <bpmn:incoming>SequenceFlow_1dpi375</bpmn:incoming>
@@ -964,7 +976,7 @@
       <bpmndi:BPMNShape id="ExclusiveGateway_0d5xh2p_di" bpmnElement="HouseDistanceReplyChoose" isMarkerVisible="true">
         <dc:Bounds x="1002" y="282" width="50" height="50" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1056" y="296" width="74" height="48" />
+          <dc:Bounds x="1056" y="296" width="74" height="50" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0eb9hkt_di" bpmnElement="SequenceFlow_0eb9hkt">
@@ -1070,7 +1082,7 @@
         <di:waypoint xsi:type="dc:Point" x="249" y="40" />
         <di:waypoint xsi:type="dc:Point" x="249" y="181" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="302" y="25" width="0" height="0" />
+          <dc:Bounds x="257" y="25" width="90" height="0" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="IntermediateCatchEvent_07znt8i_di" bpmnElement="HouseProposalReply">
@@ -2159,20 +2171,20 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_0fnld2f_di" bpmnElement="MessageFlow_0fnld2f">
         <di:waypoint xsi:type="dc:Point" x="338" y="-731" />
-        <di:waypoint xsi:type="dc:Point" x="338" y="79" />
-        <di:waypoint xsi:type="dc:Point" x="212.18271604938286" y="79" />
+        <di:waypoint xsi:type="dc:Point" x="338" y="63" />
+        <di:waypoint xsi:type="dc:Point" x="212" y="63" />
         <di:waypoint xsi:type="dc:Point" x="212" y="656" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="230.09135802469143" y="57.5" width="90" height="13" />
+          <dc:Bounds x="230" y="41.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0kq85g7_di" bpmnElement="MessageFlow_0kq85g7">
         <di:waypoint xsi:type="dc:Point" x="338" y="634" />
-        <di:waypoint xsi:type="dc:Point" x="338" y="58" />
-        <di:waypoint xsi:type="dc:Point" x="520" y="58" />
+        <di:waypoint xsi:type="dc:Point" x="338" y="75" />
+        <di:waypoint xsi:type="dc:Point" x="520" y="75" />
         <di:waypoint xsi:type="dc:Point" x="517" y="-754" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="384" y="36.5" width="90" height="13" />
+          <dc:Bounds x="384" y="53.5" width="90" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_15onw8c_di" bpmnElement="ExclusiveGateway_15onw8c" isMarkerVisible="true">
