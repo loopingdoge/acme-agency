@@ -17,4 +17,5 @@ public class CollectHouses implements JavaDelegate {
         delegateExecution.setVariable("proposalList", new ArrayList<House>());
         delegateExecution.setVariable("proposalListSize", 0);
     }
+
 }

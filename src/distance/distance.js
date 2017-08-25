@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const express = require('express')
 const distance = require('google-distance-matrix')
+const timestamp = require('time-stamp')
 const argv = require('yargs')
     .usage('Usage: $0 -a [env | arg] [name] -p [port]')
     .example(
@@ -32,22 +33,29 @@ app.set('json spaces', 4)
 
 distance.key(MAPS_API_KEY)
 
+const log = (message) => {
+    console.log(`${timestamp('[YYYY/MM/DD HH:mm:ss]')} - ${message}`)
+}
+
 const response = (err, distance = 0, message = '') => ({
-    status: err ? 400 : 200,
     message: err ? err : message,
     distance: distance
 })
 
 app.get('/', (req, res) => {
-    return res.status(400).json(response("Missing 'from' and 'to' parameters"))
-})
+    const { from, to } = req.query
 
-app.get('/:from', (req, res) => {
-    return res.status(400).json(response("Missing 'to' parameter"))
-})
+    log(`[Request] From: ${from}, To: ${to}`)
 
-app.get('/:from/:to', (req, res) => {
-    const { from, to } = req.params
+    if (!from) {
+        log(`[Response] Missing [from] parameter`)
+        return res.status(400).json(response('Missing [from] parameter'))
+    }
+
+    if (!to) {
+        log(`[Response] Missing [to] parameter`)
+        return res.status(400).json(response('Missing [to] parameter'))
+    }
 
     distance.matrix([from], [to], (err, distances) => {
         if (err) {
@@ -61,6 +69,7 @@ app.get('/:from/:to', (req, res) => {
             const destination = distances.destination_addresses[0]
             if (distances.rows[0].elements[0].status === 'OK') {
                 const distance = distances.rows[0].elements[0].distance.value
+                log(`[Response] Distance(m) from [${origin}] to [${destination}]`)
                 return res
                     .status(200)
                     .json(
@@ -71,6 +80,7 @@ app.get('/:from/:to', (req, res) => {
                         )
                     )
             } else {
+                log(`[Response] ${destination} is not reachable by land from ${origin}`)
                 return res
                     .status(400)
                     .json(
@@ -86,7 +96,6 @@ app.get('/:from/:to', (req, res) => {
 
 app.get('*', (req, res) => {
     res.status(404).json({
-        status: 404,
         message: 'Not found'
     })
 })

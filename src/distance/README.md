@@ -2,7 +2,7 @@
 
 ## REST API
 
-`http://service/:from/:to`
+`http://service/?from&to`
 
 - `from`:  The URL encoded **origin** address
 - `to`: The URL encoded **destination** address 
@@ -13,7 +13,6 @@ The service will return a JSON response by means of the following schema:
 
 ```JSON
 {
-  "status": "The HTTP status code",
   "message": "A message describing the result",
   "distance": "The distance from origin to destination in meters"
 }
@@ -52,7 +51,6 @@ In another terminal:
 $ curl -X GET http://localhost:7778/Sasso%20Marconi/Bologna
 
 {
-    "status": 200,
     "message": "Distance(m) from [40037 Sasso Marconi, Metropolitan City of Bologna, Italy] to [Bologna, Metropolitan City of Bologna, Italy]",
     "distance": 17356
 }

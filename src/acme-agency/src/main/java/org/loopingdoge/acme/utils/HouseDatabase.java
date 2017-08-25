@@ -11,16 +11,16 @@ public class HouseDatabase {
 
     private static ArrayList<House> houseList = new ArrayList<House>(Arrays.asList(
             new House(
-                    new Address("Italia", "", "Bologna", "Via Marconi", "1"),
-                    "Casa sull'Albero", "Luciano", 25, true, 7000
+                new Address("Italia", "MO", "Quarantoli", "Via Unica", "31"),
+                    "Casa nel Bosco", "Geppetto", 125, true, 125000
             ),
             new House(
-                new Address("Italia", "BO", "Minerbio", "Via Garibaldi", "108"),
-                    "Casa nel Bosco", "Devid Farinelli", 125, true, 125000
-            ),
-            new House(
-                new Address("Italia", "BO", "Minerbio", "Via Roma", "15"),
+                new Address("Italia", "MO", "Mirandola", "Via Secca", "77"),
                 "Grattacielo", "Paperone", 300, false, 500000
+            ),
+            new House(
+                    new Address("Italia", "MO", "Medolla", "Via Lunga", "1"),
+                    "Casa sull'Albero", "Luciano", 25, true, 7000
             )
     ));
 
