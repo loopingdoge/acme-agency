@@ -79,6 +79,7 @@
         <bpmn:flowNodeRef>SubProcess_11azy6t</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>BoundaryEvent_0px713a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_03nvy7d</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_1t2r851</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="HouseLookupRequest" name="House lookup request&#10;&#10;">
@@ -367,6 +368,7 @@
     </bpmn:parallelGateway>
     <bpmn:subProcess id="SubProcess_0nqkp13" name="Get cadastrial coordinates">
       <bpmn:incoming>SequenceFlow_1722koq</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_04hsqux</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0d8mezb</bpmn:outgoing>
       <bpmn:startEvent id="StartCadastrialCoords">
         <bpmn:outgoing>SequenceFlow_12dwd54</bpmn:outgoing>
@@ -523,6 +525,11 @@
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_17fy25j" sourceRef="SubProcess_0mrzc2s" targetRef="ExclusiveGateway_1hdpsck" />
+    <bpmn:sequenceFlow id="SequenceFlow_04hsqux" sourceRef="StartEvent_1t2r851" targetRef="SubProcess_0nqkp13" />
+    <bpmn:startEvent id="StartEvent_1t2r851">
+      <bpmn:outgoing>SequenceFlow_04hsqux</bpmn:outgoing>
+      <bpmn:messageEventDefinition messageRef="Message_1gbmhgh" />
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:process id="Process_0yxmm2m" isExecutable="false">
     <bpmn:manualTask id="Task_0fsq57e" name="Meeting">
@@ -904,6 +911,7 @@
   <bpmn:message id="Message_00eh639" name="buyerMeetingResponseMessage" />
   <bpmn:message id="Message_1sq5gnf" name="sellerMeetingResponseMessage" />
   <bpmn:message id="Message_05h0w08" name="startNotary" />
+  <bpmn:message id="Message_1gbmhgh" name="startCadastrial" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_02izidy">
       <bpmndi:BPMNShape id="Participant_1chimxc_di" bpmnElement="Participant_1chimxc">
@@ -2966,6 +2974,19 @@
         <di:waypoint xsi:type="dc:Point" x="4267" y="212" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="3777" y="636" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="StartEvent_16rq1v4_di" bpmnElement="StartEvent_1t2r851">
+        <dc:Bounds x="3698" y="466" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3715.9555774925966" y="506" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_04hsqux_di" bpmnElement="SequenceFlow_04hsqux">
+        <di:waypoint xsi:type="dc:Point" x="3716" y="466" />
+        <di:waypoint xsi:type="dc:Point" x="3716" y="423" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3731" y="438.5" width="0" height="12" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>

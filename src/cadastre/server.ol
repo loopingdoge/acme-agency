@@ -5,7 +5,11 @@ include "math.iol"
 
 inputPort Cadastre {
     Location: "socket://localhost:7779"
-    Protocol: soap
+    Protocol: soap {
+        .dropRootValue = true;
+        .compabilityMode = true;
+        .namespace = "org.loopingdoge.acme.jolie.cadastre.xsd"
+    }
     Interfaces: CadastreInterface
 }
 
@@ -18,6 +22,7 @@ define genRandomCoordinate {
 
 main {
     cadastrialCoordinates( request )( response ) {
+        println@Console( request.address )();
         address = request.address;
         address.regex = ";";
         split@StringUtils( address )( splitResult );
@@ -26,7 +31,8 @@ main {
                 .error = "Incorrect address format";
                 .coordinates.nord = "0";
                 .coordinates.east = "0"
-            }
+            };
+            println@Console( response.error )()
         } else {
             with ( splitResult ) {
                 completeAddress.road     = .result[0];

@@ -1,0 +1,1 @@
+wsconsume -k -p org.loopingdoge.acme.jolie.cadastre -s src/acme-agency/src/main/java -o /dev/null src/cadastre/cadastre.wsdl

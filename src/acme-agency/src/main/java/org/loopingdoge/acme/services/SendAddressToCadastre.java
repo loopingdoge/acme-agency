@@ -6,6 +6,7 @@ import org.loopingdoge.acme.jolie.cadastre.Cadastre;
 import org.loopingdoge.acme.jolie.cadastre.CadastreService;
 import org.loopingdoge.acme.jolie.cadastre.Coordinate;
 import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.utils.HouseDatabase;
 
 import javax.xml.ws.Holder;
 import java.util.logging.Logger;
@@ -23,8 +24,12 @@ public class SendAddressToCadastre implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
 
-        House house = (House) execution.getVariable("house");
+        execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));    // For debug purposes
+
+        House house = (House) execution.getVariable("chosenHouse");
         String address = house.getAddress().toString();
+
+        logger.info(address);
 
         CadastreService service = new CadastreService();
         Cadastre server = service.getCadastreServicePort();

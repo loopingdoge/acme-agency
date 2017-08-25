@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="org.loopingdoge.acme.cadastre.wsdl" xmlns:xsd1="org.loopingdoge.acme.cadastre.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="org.loopingdoge.acme.cadastre.wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions targetNamespace="org.loopingdoge.acme.jolie.cadastre.wsdl" xmlns:xsd1="org.loopingdoge.acme.jolie.cadastre.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="org.loopingdoge.acme.jolie.cadastre.wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
-    <xs:schema targetNamespace="org.loopingdoge.acme.cadastre.xsd" xmlns:sch="org.loopingdoge.acme.cadastre.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="cadastrialCoordinates"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="address" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="Coordinate"><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="nord" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="east" type="xs:string"/></xs:sequence></xs:complexType><xs:element name="cadastrialCoordinatesResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="coordinates" type="sch:Coordinate"/><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:string"/></xs:sequence></xs:complexType></xs:element></xs:schema>
+    <xs:schema targetNamespace="org.loopingdoge.acme.jolie.cadastre.xsd" xmlns:sch="org.loopingdoge.acme.jolie.cadastre.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="cadastrialCoordinates"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="address" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="Coordinate"><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="nord" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="east" type="xs:string"/></xs:sequence></xs:complexType><xs:element name="cadastrialCoordinatesResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="coordinates" type="sch:Coordinate"/><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:string"/></xs:sequence></xs:complexType></xs:element></xs:schema>
   </wsdl:types>
-  <wsdl:message name="CoordinateResponse">
-    <wsdl:part name="body" element="xsd1:cadastrialCoordinatesResponse"/>
-  </wsdl:message>
   <wsdl:message name="Address">
     <wsdl:part name="body" element="xsd1:cadastrialCoordinates"/>
+  </wsdl:message>
+  <wsdl:message name="CoordinateResponse">
+    <wsdl:part name="body" element="xsd1:cadastrialCoordinatesResponse"/>
   </wsdl:message>
   <wsdl:portType name="Cadastre">
     <wsdl:operation name="cadastrialCoordinates">
