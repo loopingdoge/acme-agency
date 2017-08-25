@@ -1,6 +1,7 @@
 package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.model.Notary;
 import org.loopingdoge.acme.utils.NotaryDistanceTuple;
 
@@ -14,7 +15,7 @@ import java.util.logging.Logger;
  *
  * out: notaryDistances
  */
-public class AddDistanceToNotaryDistanceList {
+public class AddDistanceToNotaryDistanceList implements JavaDelegate {
 
     private final static Logger logger = Logger.getLogger("AddDistanceToNotaryDistanceList");
 

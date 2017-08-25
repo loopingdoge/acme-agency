@@ -31,7 +31,7 @@ public class CallDistance implements JavaDelegate {
 
 //        TODO usare gli indirizzi completi escaped
         DistanceResponse res = service.distance(fromDistance.getCity(), toDistance.getCity()).execute().body();
-        delegateExecution.setVariable("distance", res.getDistance());
+        delegateExecution.setVariable("distance", Integer.parseInt(res.getDistance()));
 
     }
 

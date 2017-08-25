@@ -27,6 +27,8 @@ public class ComputeNearestNotary implements JavaDelegate {
         }
 
         execution.setVariable("notary", nearestTuple.getNotary());
+
+        logger.info("Nearest notary: " + nearestTuple.getNotary().getName());
     }
 
 }
