@@ -3,6 +3,7 @@ const express = require('express')
 const timestamp = require('time-stamp')
 const shortid = require('shortid')
 const jsonfile = require('jsonfile')
+const bodyParser = require('body-parser')
 const argv = require('yargs')
     .usage('Usage: -p [port]')
     .alias('p', 'port')
@@ -20,22 +21,37 @@ const app = express()
 
 app.set('json spaces', 4)
 
-const JSON_DB = 'mails.json'
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+    extended: true
+}))
+
+const JSON_DB = 'mails_dump.json'
 
 const mail = (from, to, text) => ({
-    id: shortid.generate(),
     from,
     to,
-    text
+    text,
+    read: false,
 })
 
 const log = (message) => {
     console.log(`${timestamp('[YYYY/MM/DD HH:mm:ss]')} - ${message}`)
 }
 
+const mailsExample = () => ({
+    [shortid.generate()]: mail('alberto', 'devid', 'ciao'),
+    [shortid.generate()]: mail('devid', 'alberto', 'yo')
+})
+
 const initMails = () => {
-    const { mails } = jsonfile.readFileSync(JSON_DB)
-    return mails
+    try {
+        const { mails } = jsonfile.readFileSync(JSON_DB)
+        return mails
+    } catch (err) {
+        return {}
+    }
+    
 }
 
 const saveDatabase = (mailsToSave) => {
@@ -45,27 +61,50 @@ const saveDatabase = (mailsToSave) => {
     }
 }
 
-const mails = initMails()
+let mails = initMails()
 
 app.get('/:user', (req, res) => {
     const { user } = req.params
+    const unread = req.query.unread === 'true'
 
     log(`GET from ${user}`)
 
     if (!user) {
         log('Undefined user')
-        return res.status(400).json(response('Undefined user'))
+        return res.status(400).json({error: 'Undefined user'})
+    }
+    
+    let mailsIdsOfUser = Object.keys(mails).filter((key) => mails[key].to === user)
+    
+    if (unread) {
+        mailsIdsOfUser = mailsIdsOfUser.filter((key) => !mails[key].read)
     }
 
-    const mailOfUser = mails.filter((mail) => mail.to === user)
+    const mailsOfUser = mailsIdsOfUser.map((key) => mails[key])
+
+    mailsIdsOfUser.forEach((key) => mails[key].read = true)
 
     return res.status(200).json({
-        mails: mailOfUser
+        mails: mailsOfUser
     })
 })
 
 app.post('/:user', (req, res) => {
+    const { from, text } = req.body
+    const to = req.params.user
 
+    if (!from || !text) {
+        log('Undefined mail property')
+        return res.status(400).json({error: 'Undefined user'})
+    }
+
+    const newMail = {
+        [shortid.generate()]: mail(from, to, text)
+    }
+
+    mails = Object.assign(newMail, mails)
+
+    return res.status(200).json({ error: '' })
 })
 
 app.get('*', (req, res) => {
