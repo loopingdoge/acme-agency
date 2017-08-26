@@ -8,29 +8,32 @@ import java.io.Serializable;
 @XmlRootElement(name = "houseaddress")
 @XmlType(name = "houseAddress")
 public class Address implements Serializable {
-	
-	@XmlElement(name = "nation")
-	private String nation;
+
+	@XmlElement(name = "streetName")
+	private String streetName;
+
+	@XmlElement(name = "civic")
+	private String civic;
+
+	@XmlElement(name = "city")
+	private String city;
+
+	@XmlElement(name = "cap")
+	private String cap;
 	
 	@XmlElement(name = "province")
 	private String province;
+
+	@XmlElement(name = "nation")
+	private String nation;
 	
-	@XmlElement(name = "city")
-	private String city;
-	
-	@XmlElement(name = "streetName")
-	private String streetName;
-	
-	@XmlElement(name = "civic")
-	private String civic;
-	
-	public Address(String nation, String province, String city, 
-			String streetName, String civic) {
+	public Address(String streetName, String civic, String city, String cap, String province, String nation) {
 		this.nation = nation;
 		this.province = province;
 		this.city = city;
 		this.streetName = streetName;
 		this.civic = civic;
+		this.cap = cap;
 	}
 
 	public Address() {
@@ -39,6 +42,7 @@ public class Address implements Serializable {
 		this.city = null;
 		this.streetName = null;
 		this.civic = null;
+		this.cap = null;
 	}
 	
 	public void setNation(String nation) {
@@ -60,7 +64,10 @@ public class Address implements Serializable {
 	public void setCivic(String civic) {
 		this.civic = civic;
 	}
-	
+
+	public void setCap(String cap) {
+		this.cap = cap;
+	}
 	
 	public String getNation() {
 		return nation;
@@ -82,14 +89,31 @@ public class Address implements Serializable {
 		return civic;
 	}
 
+	public String getCap() {
+		return cap;
+	}
+
+	public String toCadastreFormat() {
+		return String.format("%s;%s;%s;%s;%s;%s",
+				this.streetName,
+				this.civic,
+				this.city,
+				this.cap,
+				this.province,
+				this.nation
+		);
+	}
+
 	@Override
 	public String toString() {
-		return String.format("%s, %s, %s, %s, %s", 
+		return String.format("%s, %s, %s, %s, %s, %s",
 			this.streetName,
 			this.civic,
 			this.city,
+			this.cap,
 			this.province,
-			this.nation);
+			this.nation
+		);
 	}
 	
 	// Check if every field is not null
@@ -103,7 +127,9 @@ public class Address implements Serializable {
 			streetName == null ||
 			streetName.isEmpty() ||
 			civic == null ||
-			civic.isEmpty())
+			civic.isEmpty() ||
+			cap == null ||
+			cap.isEmpty())
 			return false;
 		
 		return true;
