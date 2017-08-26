@@ -37,7 +37,7 @@ public class HouseProfile {
 		this.maxPrice = maxPrice;
 		this.hasGarden = hasGarden;
 		this.addressReference = addressReference;
-		this.maxKmToAddress = maxKmToAddress;
+		this.maxDistance = maxKmToAddress;
 	}
 	
 	public HouseProfile() {
@@ -47,7 +47,7 @@ public class HouseProfile {
 		this.maxPrice = 0;
 		this.hasGarden = false;
 		this.addressReference = null;
-		this.maxKmToAddress = 0;
+		this.maxDistance = 0;
 	}
 	
 	public int getMinSquareFootage() {
@@ -74,8 +74,8 @@ public class HouseProfile {
 		return addressReference;
 	}
 	
-	public double getMaxKmToAddress() {
-		return maxKmToAddress;
+	public double getMaxDistance() {
+		return maxDistance;
 	}
 	
 	public void setMinSquareFootage(int minSquareFootage) {
@@ -102,8 +102,8 @@ public class HouseProfile {
 		this.addressReference = addressReference;
 	}
 	
-	public void setMaxKmToAddress(double maxKmToAddress) {
-		this.maxKmToAddress = maxKmToAddress;
+	public void setMaxDistance(double maxDistance) {
+		this.maxDistance = maxDistance;
 	}
 
 }

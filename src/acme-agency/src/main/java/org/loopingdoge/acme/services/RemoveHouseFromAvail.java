@@ -17,14 +17,8 @@ public class RemoveHouseFromAvail implements JavaDelegate {
         House house = (House) delegateExecution.getVariable("house");
 
         houseList.remove(house);
+
         delegateExecution.setVariable("houseList" , houseList);
-
-        double distance = (double) delegateExecution.getVariable("distance");
-        double maxDistance = (double) delegateExecution.getVariable("maxDistance");
-
-        boolean isInRange = distance <= maxDistance;
-
-        delegateExecution.setVariable("isInRange", isInRange);
 
     }
 }

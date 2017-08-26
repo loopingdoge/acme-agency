@@ -25,6 +25,10 @@ public class HouseDatabase {
             new House(
                     new Address("Via Boccherini", "9", "Casalecchio di Reno", "40033", "BO", "Italia"),
                     "Casa di Piero", "Piero", 250, true, 70000
+            ),
+            new House(
+                    new Address("Italia", "BO", "Marzabotto", "40043", "Via dei Ciclamini", "16"),
+                    "Casa di Alby", "Albyxyz", 280, true, 90000
             )
     ));
 

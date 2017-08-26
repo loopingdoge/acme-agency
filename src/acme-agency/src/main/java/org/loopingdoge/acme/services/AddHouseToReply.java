@@ -15,9 +15,9 @@ public class AddHouseToReply implements JavaDelegate {
         logger.info("service started");
 
         ArrayList<House> proposalList = (ArrayList<House>) delegateExecution.getVariable("proposalList");
-        House currHouse = (House) delegateExecution.getVariable("house");
+        House house = (House) delegateExecution.getVariable("house");
 
-        proposalList.add(currHouse);
+        proposalList.add(house);
 
         delegateExecution.setVariable("proposalList", proposalList);
 
