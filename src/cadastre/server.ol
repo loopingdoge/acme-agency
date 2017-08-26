@@ -26,7 +26,15 @@ main {
         address = request.address;
         address.regex = ";";
         split@StringUtils( address )( splitResult );
-        if ( #splitResult.result != 6 ) {
+        if (
+            #splitResult.result != 6
+            || splitResult.result[0] == ""
+            || splitResult.result[1] == ""
+            || splitResult.result[2] == ""
+            || splitResult.result[3] == ""
+            || splitResult.result[4] == ""
+            || splitResult.result[5] == ""
+        ) {
             with ( response ) {
                 .error = "Incorrect address format";
                 .coordinates.nord = "0";

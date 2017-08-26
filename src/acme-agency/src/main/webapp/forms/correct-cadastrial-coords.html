@@ -1,0 +1,33 @@
+<form name="correctAddress" role="form">
+
+    <script cam-script type="text/form-script">
+        camForm.on("form-loaded", function() {
+
+            camForm.variableManager.fetchVariable("cadastrialCoordinates");
+
+            camForm.on('variables-fetched', function() {
+                $scope.coordinates = camForm.variableManager.variable("cadastrialCoordinates").value;
+            });
+        });
+    </script>
+
+    <h3>House Address</h3>
+
+    <div class="form-group">
+        <label for="nord">Nord</label>
+        <input class="form-control"
+               id="nord"
+               type="text"
+               required
+               ng-model="coordinates.nord"
+        />
+
+        <label for="east">East</label>
+        <input class="form-control"
+               id="east"
+               type="text"
+               required
+               ng-model="coordinates.east"
+        />
+    </div>
+</form>

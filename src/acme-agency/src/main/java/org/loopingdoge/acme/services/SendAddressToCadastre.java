@@ -9,6 +9,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.jolie.cadastre.Cadastre;
 import org.loopingdoge.acme.jolie.cadastre.CadastreService;
 import org.loopingdoge.acme.jolie.cadastre.Coordinate;
+import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.HouseDatabase;
 
@@ -28,12 +29,13 @@ public class SendAddressToCadastre implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
 
-        execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));    // For debug purposes
+//        execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));    // For debug purposes
 
         House house = (House) execution.getVariable("chosenHouse");
-        String address = house.getAddress().toCadastreFormat();
+        Address address = house.getAddress();
+        String cadastreAddress = address.toCadastreFormat();
 
-        logger.info(address);
+        logger.info(cadastreAddress);
 
         final Bus defaultBus = BusFactory.getDefaultBus();
         final ConduitInitiatorManager extension = defaultBus.getExtension(ConduitInitiatorManager.class);
@@ -45,7 +47,7 @@ public class SendAddressToCadastre implements JavaDelegate {
         Holder<Coordinate> coordinatesResult = new Holder<>();
         Holder<String> errorResult = new Holder<>();
 
-        server.cadastrialCoordinates(address, coordinatesResult, errorResult);
+        server.cadastrialCoordinates(cadastreAddress, coordinatesResult, errorResult);
 
         logger.info("Coordinates: " + coordinatesResult.value.getNord() + " " + coordinatesResult.value.getEast());
         logger.info("Error: " +  errorResult.value);
@@ -53,6 +55,7 @@ public class SendAddressToCadastre implements JavaDelegate {
         String cadastrialError = errorResult.value;
 
         execution.setVariableLocal("cadastrialError", cadastrialError);
+        execution.setVariableLocal("house", house);
 
         if (!cadastrialError.equals("")) {
             execution.setVariable("cadastrialCoordinates", coordinatesResult.value);

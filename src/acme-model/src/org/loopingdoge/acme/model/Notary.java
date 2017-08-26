@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Notary implements Serializable {
 
-    private String name;
+    protected String name;
 
-    private Address address;
+    protected Address address;
 
     public Notary(String name, Address address) {
         this.name = name;

@@ -1,0 +1,59 @@
+<form name="correctAddress" role="form">
+
+    <script cam-script type="text/form-script">
+        camForm.on("form-loaded", function() {
+
+            camForm.variableManager.fetchVariable("chosenHouse");
+
+            camForm.on('variables-fetched', function() {
+                $scope.chosenHouse = camForm.variableManager.variable("chosenHouse").value;
+            });
+        });
+    </script>
+
+    <h3>House Address</h3>
+
+    <div class="form-group">
+        <label for="streetName">Street</label>
+        <input class="form-control"
+               id="street-name"
+               type="text"
+               ng-model="chosenHouse.address.streetName"
+        />
+
+        <label for="civic">Civic</label>
+        <input class="form-control"
+               id="civic"
+               type="text"
+               ng-model="chosenHouse.address.civic"
+        />
+
+        <label for="city">City</label>
+        <input class="form-control"
+               id="city"
+               type="text"
+               ng-model="chosenHouse.address.city"
+        />
+
+        <label for="cap">CAP</label>
+        <input class="form-control"
+               id="cap"
+               type="text"
+               ng-model="chosenHouse.address.cap"
+        />
+
+        <label for="province">Province</label>
+        <input class="form-control"
+               id="province"
+               type="text"
+               ng-model="chosenHouse.address.province"
+        />
+
+        <label for="nation">Nation</label>
+        <input class="form-control"
+               id="nation"
+               type="text"
+               ng-model="chosenHouse.address.nation"
+        />
+    </div>
+</form>

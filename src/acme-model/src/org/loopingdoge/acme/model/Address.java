@@ -1,31 +1,29 @@
 package org.loopingdoge.acme.model;
 
 import javax.xml.bind.annotation.*;
-import java.io.Serializable;
-
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "houseaddress")
 @XmlType(name = "houseAddress")
-public class Address implements Serializable {
+public class Address {
 
 	@XmlElement(name = "streetName")
-	private String streetName;
+	protected String streetName;
 
 	@XmlElement(name = "civic")
-	private String civic;
+	protected String civic;
 
 	@XmlElement(name = "city")
-	private String city;
+	protected String city;
 
 	@XmlElement(name = "cap")
-	private String cap;
+	protected String cap;
 	
 	@XmlElement(name = "province")
-	private String province;
+	protected String province;
 
 	@XmlElement(name = "nation")
-	private String nation;
+	protected String nation;
 	
 	public Address(String streetName, String civic, String city, String cap, String province, String nation) {
 		this.nation = nation;

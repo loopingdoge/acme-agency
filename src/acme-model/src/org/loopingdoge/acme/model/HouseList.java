@@ -11,7 +11,7 @@ import java.util.List;
 public class HouseList {
 	
 	@XmlElement(name = "list")
-	private ArrayList<House> list;
+	protected ArrayList<House> list;
 	
 	public HouseList() {
 		this.list = new ArrayList<House>();
