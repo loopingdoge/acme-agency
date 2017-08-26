@@ -12,11 +12,11 @@ public class NotariesDatabase {
     private static ArrayList<Notary> notaries = new ArrayList<Notary>(Arrays.asList(
             new Notary(
                     "Giancarlo",
-                    new Address("Italia", "MO", "Quarantoli", "Via Unica", "31")
+                    new Address("Via Unica", "31", "Quarantopoli", "41037", "MO", "Italia")
             ),
             new Notary(
                     "Armando",
-                    new Address("Italia", "MO", "Mirandola", "Via Secca", "77")
+                    new Address("Via Secca", "77", "Mirandola", "41037", "Mo", "Italia")
             )
     ));
 

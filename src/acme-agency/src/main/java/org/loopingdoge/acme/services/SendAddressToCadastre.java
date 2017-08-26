@@ -1,5 +1,9 @@
 package org.loopingdoge.acme.services;
 
+import org.apache.cxf.Bus;
+import org.apache.cxf.BusFactory;
+import org.apache.cxf.transport.ConduitInitiatorManager;
+import org.apache.cxf.transport.http.HTTPTransportFactory;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.jolie.cadastre.Cadastre;
@@ -27,9 +31,13 @@ public class SendAddressToCadastre implements JavaDelegate {
         execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));    // For debug purposes
 
         House house = (House) execution.getVariable("chosenHouse");
-        String address = house.getAddress().toString();
+        String address = house.getAddress().toCadastreFormat();
 
         logger.info(address);
+
+        final Bus defaultBus = BusFactory.getDefaultBus();
+        final ConduitInitiatorManager extension = defaultBus.getExtension(ConduitInitiatorManager.class);
+        extension.registerConduitInitiator("http://schemas.xmlsoap.org/soap/http/", new HTTPTransportFactory());
 
         CadastreService service = new CadastreService();
         Cadastre server = service.getCadastreServicePort();
