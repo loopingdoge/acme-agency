@@ -24,8 +24,8 @@ public class HouseProfile implements Serializable {
 	@XmlElement(name = "addressReference")
 	private Address addressReference;
 	
-	@XmlElement(name = "maxKmToAddress")
-	private double maxKmToAddress;
+	@XmlElement(name = "maxDistance")
+	private double maxDistance;
 	
 	@XmlElement(name = "hasGarden")
 	private boolean hasGarden;
@@ -39,7 +39,7 @@ public class HouseProfile implements Serializable {
 		this.maxPrice = maxPrice;
 		this.hasGarden = hasGarden;
 		this.addressReference = addressReference;
-		this.maxKmToAddress = maxKmToAddress;
+		this.maxDistance = maxKmToAddress;
 	}
 	
 	public HouseProfile() {
@@ -49,7 +49,7 @@ public class HouseProfile implements Serializable {
 		this.maxPrice = 0;
 		this.hasGarden = false;
 		this.addressReference = null;
-		this.maxKmToAddress = 0;
+		this.maxDistance = 0;
 	}
 	
 	public int getMinSquareFootage() {
@@ -76,8 +76,8 @@ public class HouseProfile implements Serializable {
 		return addressReference;
 	}
 	
-	public double getMaxKmToAddress() {
-		return maxKmToAddress;
+	public double getMaxDistance() {
+		return maxDistance;
 	}
 	
 	public void setMinSquareFootage(int minSquareFootage) {
@@ -104,8 +104,8 @@ public class HouseProfile implements Serializable {
 		this.addressReference = addressReference;
 	}
 	
-	public void setMaxKmToAddress(double maxKmToAddress) {
-		this.maxKmToAddress = maxKmToAddress;
+	public void setMaxDistance(double maxDistance) {
+		this.maxDistance = maxDistance;
 	}
 
 }

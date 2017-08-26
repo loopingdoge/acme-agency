@@ -21,16 +21,16 @@ public class CallDistance implements JavaDelegate {
     private DistanceServiceAPI service = retrofit.create(DistanceServiceAPI.class);
 
     public void execute(DelegateExecution delegateExecution) throws Exception {
-        logger.info("service started");
 
         String fromDistance = delegateExecution.getVariable("fromDistance").toString();
         String toDistance = delegateExecution.getVariable("toDistance").toString();
 
-        logger.info("CALLDISTANCE " + fromDistance + " " + toDistance);
         DistanceResponse res = service.distance(fromDistance, toDistance).execute().body();
 
         double distance = Double.parseDouble(res.getDistance());
         delegateExecution.setVariable("distance", distance);
+
+        logger.info("DISTANCE: " + distance + "\nfrom: " + fromDistance + "\nto: " + toDistance );
 
     }
 

@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *       &lt;sequence&gt;
  *         &lt;element name="addressReference" type="{http://acme.loopingdoge.org/}address" minOccurs="0"/&gt;
  *         &lt;element name="hasGarden" type="{http://www.w3.org/2001/XMLSchema}boolean"/&gt;
- *         &lt;element name="maxKmToAddress" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
+ *         &lt;element name="maxDistance" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="maxPrice" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
  *         &lt;element name="maxSquareFootage" type="{http://www.w3.org/2001/XMLSchema}int"/&gt;
  *         &lt;element name="minPrice" type="{http://www.w3.org/2001/XMLSchema}double"/&gt;
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "houseProfile", propOrder = {
     "addressReference",
     "hasGarden",
-    "maxKmToAddress",
+    "maxDistance",
     "maxPrice",
     "maxSquareFootage",
     "minPrice",
@@ -45,7 +45,7 @@ public class HouseProfile {
 
     protected Address addressReference;
     protected boolean hasGarden;
-    protected double maxKmToAddress;
+    protected double maxDistance;
     protected double maxPrice;
     protected int maxSquareFootage;
     protected double minPrice;
@@ -92,19 +92,19 @@ public class HouseProfile {
     }
 
     /**
-     * Gets the value of the maxKmToAddress property.
+     * Gets the value of the maxDistance property.
      * 
      */
-    public double getMaxKmToAddress() {
-        return maxKmToAddress;
+    public double getMaxDistance() {
+        return maxDistance;
     }
 
     /**
-     * Sets the value of the maxKmToAddress property.
+     * Sets the value of the maxDistance property.
      * 
      */
-    public void setMaxKmToAddress(double value) {
-        this.maxKmToAddress = value;
+    public void setMaxDistance(double value) {
+        this.maxDistance = value;
     }
 
     /**

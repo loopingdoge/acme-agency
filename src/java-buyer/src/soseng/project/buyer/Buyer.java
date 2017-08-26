@@ -30,7 +30,7 @@ public class Buyer {
 	    houseProfile.setMaxPrice(10000000);
 	    houseProfile.setMinSquareFootage(0);
         houseProfile.setMaxSquareFootage(1000000);
-        houseProfile.setMaxKmToAddress(1000000);
+        houseProfile.setMaxDistance(8000.0);
 
 		Address address = new Address();
 		address.setNation("Italy");
