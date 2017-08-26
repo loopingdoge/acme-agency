@@ -107,4 +107,4 @@ fabric.properties
 
 .idea/vcs.xml
 
-src/main/java/org/loopingdoge/acme/jolie
+src/main/java/org/loopingdoge/acme/jolie/**/*

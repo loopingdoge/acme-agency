@@ -14,6 +14,32 @@
           <element id="library" level="project" name="Maven: com.squareup.okio:okio:1.13.0" />
           <element id="library" level="project" name="Maven: com.squareup.retrofit2:converter-gson:2.3.0" />
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.1" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-frontend-jaxws:3.1.12" />
+          <element id="library" level="project" name="Maven: xml-resolver:xml-resolver:1.2" />
+          <element id="library" level="project" name="Maven: org.ow2.asm:asm:5.0.4" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-core:3.1.12" />
+          <element id="library" level="project" name="Maven: org.codehaus.woodstox:woodstox-core-asl:4.4.1" />
+          <element id="library" level="project" name="Maven: org.codehaus.woodstox:stax2-api:3.1.4" />
+          <element id="library" level="project" name="Maven: org.apache.ws.xmlschema:xmlschema-core:2.2.2" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-bindings-soap:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-wsdl:3.1.12" />
+          <element id="library" level="project" name="Maven: wsdl4j:wsdl4j:1.6.3" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-databinding-jaxb:3.1.12" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-impl:2.2.11" />
+          <element id="library" level="project" name="Maven: com.sun.xml.bind:jaxb-core:2.2.11" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-bindings-xml:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-frontend-simple:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-ws-addr:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-ws-policy:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.neethi:neethi:3.0.3" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-transports-http:3.1.12" />
+          <element id="library" level="project" name="Maven: org.apache.cxf:cxf-rt-transports-http-jetty:3.1.12" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-server:9.2.21.v20170120" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-util:9.2.21.v20170120" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-io:9.2.21.v20170120" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-security:9.2.21.v20170120" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-continuation:9.2.21.v20170120" />
+          <element id="library" level="project" name="Maven: org.eclipse.jetty:jetty-http:9.2.21.v20170120" />
         </element>
       </element>
       <element id="directory" name="META-INF">
