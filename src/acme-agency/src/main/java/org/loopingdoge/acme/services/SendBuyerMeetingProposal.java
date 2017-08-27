@@ -9,6 +9,8 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServer;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.utils.AcmeExternalServices;
+import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.MailServiceAPI;
 
 import retrofit2.Retrofit;
@@ -20,7 +22,7 @@ public class SendBuyerMeetingProposal implements JavaDelegate {
 
     private final static Logger logger = Logger.getLogger("SendBuyerMeetingProposal");
 
-    private final String BASE_URL = "http://localhost:7774/";
+    private final String BASE_URL = AcmeExternalServices.MAIL;
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -43,18 +45,18 @@ public class SendBuyerMeetingProposal implements JavaDelegate {
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
         sessionWs.removeSession(execution.getProcessInstanceId());
         
-        House acceptedHouse = (House) execution.getVariable("acceptedHouse");
+        House acceptedHouse = (House) execution.getVariable(AcmeVariables.CHOSEN_HOUSE);
         
         // Send mail notification to buyer
         mailService.send(
-        		(String) execution.getVariable("buyerName"), 
+        		(String) execution.getVariable(AcmeVariables.BUYER_NAME),
         		"AcmeAgency", 
         		"Il proprietario di " + acceptedHouse.getName() + "ha specificato date di disponibilita'")
         		.execute().body();
         
         // Add buyer session
         sessionWs.addSession(
-        		(String) execution.getVariable("buyerName"), 
+        		(String) execution.getVariable(AcmeVariables.BUYER_NAME),
         		execution.getProcessInstanceId(), 
         		"WaitForMeetingResponse");
     }

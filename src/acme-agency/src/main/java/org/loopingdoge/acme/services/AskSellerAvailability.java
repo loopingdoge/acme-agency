@@ -9,6 +9,8 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServer;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.utils.AcmeExternalServices;
+import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.DistanceServiceAPI;
 import org.loopingdoge.acme.utils.MailServiceAPI;
 
@@ -21,7 +23,7 @@ public class AskSellerAvailability implements JavaDelegate {
 
     private final static Logger logger = Logger.getLogger("AskSellerAvailability");
 
-    private final String BASE_URL = "http://localhost:7774/";
+    private final String BASE_URL = AcmeExternalServices.MAIL;
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -36,8 +38,8 @@ public class AskSellerAvailability implements JavaDelegate {
         logger.info("service started");
         // TODO implement this
         
-        House acceptedHouse = (House) execution.getVariable("acceptedHouse");
-        String buyerName = (String) execution.getVariable("buyerName");
+        House acceptedHouse = (House) execution.getVariable(AcmeVariables.CHOSEN_HOUSE);
+        String buyerName = (String) execution.getVariable(AcmeVariables.BUYER_NAME);
         
         // Send mail notification to house owner
         mailService.send(

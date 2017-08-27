@@ -3,6 +3,7 @@ package org.loopingdoge.acme.services;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.model.Notary;
+import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.HouseDatabase;
 import org.loopingdoge.acme.utils.NotariesDatabase;
 import org.loopingdoge.acme.utils.NotaryDistanceTuple;
@@ -19,8 +20,8 @@ public class CollectNotaries implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
         List<Notary> notaries = new ArrayList<>(NotariesDatabase.getNotaryList());
-        execution.setVariableLocal("notaries", notaries);
-        execution.setVariableLocal("notaryDistances", new ArrayList<NotaryDistanceTuple>());
+        execution.setVariableLocal(AcmeVariables.NOTARIES, notaries);
+        execution.setVariableLocal(AcmeVariables.NOTARY_DISTANCES, new ArrayList<NotaryDistanceTuple>());
 //        execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));          // For debug purposes
     }
 

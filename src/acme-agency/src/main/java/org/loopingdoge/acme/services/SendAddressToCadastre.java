@@ -11,6 +11,7 @@ import org.loopingdoge.acme.jolie.cadastre.CadastreService;
 import org.loopingdoge.acme.jolie.cadastre.Coordinate;
 import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.HouseDatabase;
 
 import javax.xml.ws.Holder;
@@ -31,7 +32,7 @@ public class SendAddressToCadastre implements JavaDelegate {
 
 //        execution.setVariable("chosenHouse", HouseDatabase.getHouse(0));    // For debug purposes
 
-        House house = (House) execution.getVariable("chosenHouse");
+        House house = (House) execution.getVariable(AcmeVariables.CHOSEN_HOUSE);
         Address address = house.getAddress();
         String cadastreAddress = address.toCadastreFormat();
 
@@ -54,11 +55,10 @@ public class SendAddressToCadastre implements JavaDelegate {
 
         String cadastrialError = errorResult.value;
 
-        execution.setVariableLocal("cadastrialError", cadastrialError);
-        execution.setVariableLocal("house", house);
+        execution.setVariableLocal(AcmeVariables.CADASTRIAL_ERROR, cadastrialError);
 
         if (!cadastrialError.equals("")) {
-            execution.setVariable("cadastrialCoordinates", coordinatesResult.value);
+            execution.setVariable(AcmeVariables.CADASTRIAL_COORDINATES, coordinatesResult.value);
         }
     }
 
