@@ -2,7 +2,10 @@ package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServer;
+import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class SendMeetingConfirm implements JavaDelegate {
@@ -13,6 +16,20 @@ public class SendMeetingConfirm implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
         // TODO implement this
+        
+        // remove session        
+        ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
+        sessionWs.removeSession(execution.getProcessInstanceId());
+        
+        String meetingDate = (String) execution.getVariable("meetingDate");
+        
+        if (meetingDate != null) {
+        	logger.info("Meeting date ok!");
+        }
+        
+        else {
+        	logger.info("No meeting date found");
+        }
     }
 
 }

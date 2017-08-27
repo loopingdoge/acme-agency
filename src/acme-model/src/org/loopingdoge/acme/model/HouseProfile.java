@@ -22,22 +22,22 @@ public class HouseProfile {
 	@XmlElement(name = "addressReference")
 	protected Address addressReference;
 	
-	@XmlElement(name = "maxKmToAddress")
-	protected double maxKmToAddress;
+	@XmlElement(name = "maxDistance")
+	protected double maxDistance;
 	
 	@XmlElement(name = "hasGarden")
 	protected boolean hasGarden;
 	
 	
 	public HouseProfile(int minSquareFootage, int maxSquareFootage, int minPrice, int maxPrice,
-			boolean hasGarden, Address addressReference, double maxKmToAddress) {
+			boolean hasGarden, Address addressReference, double maxDistance) {
 		this.minSquareFootage = minSquareFootage;
 		this.maxSquareFootage = maxSquareFootage;
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 		this.hasGarden = hasGarden;
 		this.addressReference = addressReference;
-		this.maxDistance = maxKmToAddress;
+		this.maxDistance = maxDistance;
 	}
 	
 	public HouseProfile() {

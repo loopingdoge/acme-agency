@@ -1,10 +1,18 @@
 package soseng.project.buyer;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Holder;
+
+import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServer;
+import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServerService;
+import org.loopingdoge.acme.jolie.sessionmanager.SessionType;
 
 import soseng.project.wsinterface.*;
 
@@ -17,6 +25,15 @@ public class Buyer {
 	
 	public static void main (String[] args) {
 		
+		
+		//houseLookup();
+		//acceptDate();
+		proposeDifferentDates();
+		
+	}	
+	
+	
+	public static void houseLookup() {
 		BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 		
 		// Setting requestContext so that session could be maintained
@@ -43,7 +60,7 @@ public class Buyer {
 	    
 	    // Send request
 	    System.out.println("House request...");
-	    HouseRequestReplyMessage response = buyerWs.requestHouses(houseProfile, "Test Username");
+	    HouseRequestReplyMessage response = buyerWs.requestHouses(houseProfile, "Bertoli");
 	    List<House> proposedHouses = response.getHouseList();	    
 	    
 	    // Print response
@@ -82,6 +99,77 @@ public class Buyer {
 		    }
 	    }
 	}
+	
+	
+	
+	
+	
+	public static void acceptDate() {
+		
+		ClientSessionServer sessionWs = new ClientSessionServerService().getClientSessionServerServicePort();
+		
+		Holder<String> message = new Holder<String>();
+		Holder<List<SessionType>> sessions = new Holder<List<SessionType>>();
+		
+		System.out.println("Asking for active sessions...");
+		sessionWs.getSessions("Bertoli", message, sessions);
+		System.out.println("Result : " + message.value + " (" + sessions.value.size() + " sessions)");
+		
+		for (SessionType session : sessions.value) {
+			System.out.println(sessions.value.indexOf(session));
+			System.out.println("\t" + session.getState());
+		}
+		
+		String processId = sessions.value.get(0).getProcessId();
+		
+		BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+		List<String> sellerDateList = buyerWs.getSellerMeetingDateList(processId);
+		
+		MeetingProposalReplyMessage meetingReply = new MeetingProposalReplyMessage();
+		meetingReply.setAcceptedDate(sellerDateList.get(0));
+		meetingReply.setMessage("Ok");
+		
+		buyerWs.replyToMeetingProposal(
+				processId,
+				sellerDateList.get(0),
+				null);		
+	}
+	
+	
+	
+	
+	
+	public static void proposeDifferentDates() {
+		
+		ClientSessionServer sessionWs = new ClientSessionServerService().getClientSessionServerServicePort();
+		
+		Holder<String> message = new Holder<String>();
+		Holder<List<SessionType>> sessions = new Holder<List<SessionType>>();
+		
+		System.out.println("Asking for active sessions...");
+		sessionWs.getSessions("Bertoli", message, sessions);
+		System.out.println("Result : " + message.value + " (" + sessions.value.size() + " sessions)");
+		
+		for (SessionType session : sessions.value) {
+			System.out.println(sessions.value.indexOf(session));
+			System.out.println("\t" + session.getState());
+		}
+		
+		String processId = sessions.value.get(0).getProcessId();
+		
+		BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+		List<String> sellerDateList = buyerWs.getSellerMeetingDateList(processId);
+		
+		List<String> buyerDateList = new ArrayList<String>();
+		buyerDateList.add("2017.12.28 14:45");
+		
+		buyerWs.replyToMeetingProposal(
+				processId,
+				null,
+				buyerDateList);
+	}
+	
+	
 	
 	
 	

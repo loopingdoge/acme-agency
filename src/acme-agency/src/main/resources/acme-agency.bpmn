@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.9.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.3.0">
   <bpmn:collaboration id="Collaboration_02izidy">
     <bpmn:participant id="Participant_1chimxc" name="ACME" processRef="acme-agency" />
     <bpmn:participant id="Participant_0qzbhdt" name="Buyertdi" processRef="Process_0yxmm2m" />
@@ -142,26 +142,26 @@
       </bpmn:sequenceFlow>
       <bpmn:sequenceFlow id="SequenceFlow_0vifd1r" sourceRef="Task_1faitar" targetRef="IntermediateThrowEvent_1c21v3d" />
       <bpmn:sequenceFlow id="SequenceFlow_0ve1d7s" sourceRef="BuyerMeetingReplyChoose" targetRef="SendMeetingConfirmation">
-        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${buyerMeetingReply == 'stop' || buyerMeetingReply == 'accept'}]]></bpmn:conditionExpression>
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${buyerMeetingReply == 'accept'}]]></bpmn:conditionExpression>
       </bpmn:sequenceFlow>
       <bpmn:sendTask id="Task_1faitar" name="Send seller meeting proposal" camunda:class="org.loopingdoge.acme.services.SendSellerMeetingProposal">
         <bpmn:incoming>SequenceFlow_1bt61js</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_0vifd1r</bpmn:outgoing>
       </bpmn:sendTask>
       <bpmn:sequenceFlow id="SequenceFlow_1gwm0cr" sourceRef="IntermediateThrowEvent_1c21v3d" targetRef="SendMeetingConfirmation" />
-      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1c21v3d" name="Wait for seller meeting response">
+      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1c21v3d" name="Wait for seller meeting response" camunda:asyncAfter="true" camunda:exclusive="false">
         <bpmn:incoming>SequenceFlow_0vifd1r</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_1gwm0cr</bpmn:outgoing>
         <bpmn:messageEventDefinition messageRef="Message_1sq5gnf" />
       </bpmn:intermediateCatchEvent>
       <bpmn:sequenceFlow id="SequenceFlow_1u2fqny" sourceRef="IntermediateThrowEvent_1fj6giu" targetRef="SendBuyerMeetingProposal" />
       <bpmn:sequenceFlow id="SequenceFlow_14gztmd" sourceRef="IntermediateThrowEvent_15t842a" targetRef="BuyerMeetingReplyChoose" />
-      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1fj6giu" name="Wait for seller availability">
+      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_1fj6giu" name="Wait for seller availability" camunda:asyncAfter="true" camunda:exclusive="false">
         <bpmn:incoming>SequenceFlow_1qvtkuo</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_1u2fqny</bpmn:outgoing>
         <bpmn:messageEventDefinition messageRef="Message_1daz0jo" />
       </bpmn:intermediateCatchEvent>
-      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_15t842a" name="Wait for buyer meeting response">
+      <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_15t842a" name="Wait for buyer meeting response" camunda:asyncAfter="true" camunda:exclusive="false">
         <bpmn:incoming>SequenceFlow_1s4sl4q</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_14gztmd</bpmn:outgoing>
         <bpmn:messageEventDefinition messageRef="Message_00eh639" />
@@ -376,7 +376,7 @@
       <bpmn:incoming>SequenceFlow_1xao07l</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1rl142w</bpmn:outgoing>
       <bpmn:timerEventDefinition>
-        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">2 months</bpmn:timeDuration>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P2M</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:parallelGateway id="ParallelNotaryAndCadastrial">

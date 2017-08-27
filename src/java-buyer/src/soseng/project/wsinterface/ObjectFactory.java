@@ -25,40 +25,20 @@ import javax.xml.namespace.QName;
 public class ObjectFactory {
 
     private final static QName _HouseRequestReplyMessage_QNAME = new QName("http://acme.loopingdoge.org/", "HouseRequestReplyMessage");
-    private final static QName _HouseProposalReply_QNAME = new QName("http://acme.loopingdoge.org/", "houseProposalReply");
+    private final static QName _ReplyToMeetingProposalResponse_QNAME = new QName("http://acme.loopingdoge.org/", "replyToMeetingProposalResponse");
     private final static QName _HouseProposalReplyResponse_QNAME = new QName("http://acme.loopingdoge.org/", "houseProposalReplyResponse");
     private final static QName _RequestHouses_QNAME = new QName("http://acme.loopingdoge.org/", "requestHouses");
+    private final static QName _ReplyToMeetingProposal_QNAME = new QName("http://acme.loopingdoge.org/", "replyToMeetingProposal");
+    private final static QName _GetSellerMeetingDateList_QNAME = new QName("http://acme.loopingdoge.org/", "getSellerMeetingDateList");
+    private final static QName _HouseProposalReply_QNAME = new QName("http://acme.loopingdoge.org/", "houseProposalReply");
     private final static QName _RequestHousesResponse_QNAME = new QName("http://acme.loopingdoge.org/", "requestHousesResponse");
+    private final static QName _GetSellerMeetingDateListResponse_QNAME = new QName("http://acme.loopingdoge.org/", "getSellerMeetingDateListResponse");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: soseng.project.wsinterface
      * 
      */
     public ObjectFactory() {
-    }
-
-    /**
-     * Create an instance of {@link HouseRequestReplyMessage }
-     * 
-     */
-    public HouseRequestReplyMessage createHouseRequestReplyMessage() {
-        return new HouseRequestReplyMessage();
-    }
-
-    /**
-     * Create an instance of {@link HouseProposalReply }
-     * 
-     */
-    public HouseProposalReply createHouseProposalReply() {
-        return new HouseProposalReply();
-    }
-
-    /**
-     * Create an instance of {@link HouseProposalReplyResponse }
-     * 
-     */
-    public HouseProposalReplyResponse createHouseProposalReplyResponse() {
-        return new HouseProposalReplyResponse();
     }
 
     /**
@@ -70,6 +50,62 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link HouseProposalReplyResponse }
+     * 
+     */
+    public HouseProposalReplyResponse createHouseProposalReplyResponse() {
+        return new HouseProposalReplyResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReplyToMeetingProposal }
+     * 
+     */
+    public ReplyToMeetingProposal createReplyToMeetingProposal() {
+        return new ReplyToMeetingProposal();
+    }
+
+    /**
+     * Create an instance of {@link GetSellerMeetingDateList }
+     * 
+     */
+    public GetSellerMeetingDateList createGetSellerMeetingDateList() {
+        return new GetSellerMeetingDateList();
+    }
+
+    /**
+     * Create an instance of {@link HouseRequestReplyMessage }
+     * 
+     */
+    public HouseRequestReplyMessage createHouseRequestReplyMessage() {
+        return new HouseRequestReplyMessage();
+    }
+
+    /**
+     * Create an instance of {@link ReplyToMeetingProposalResponse }
+     * 
+     */
+    public ReplyToMeetingProposalResponse createReplyToMeetingProposalResponse() {
+        return new ReplyToMeetingProposalResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetSellerMeetingDateListResponse }
+     * 
+     */
+    public GetSellerMeetingDateListResponse createGetSellerMeetingDateListResponse() {
+        return new GetSellerMeetingDateListResponse();
+    }
+
+    /**
+     * Create an instance of {@link HouseProposalReply }
+     * 
+     */
+    public HouseProposalReply createHouseProposalReply() {
+        return new HouseProposalReply();
+    }
+
+    /**
      * Create an instance of {@link RequestHousesResponse }
      * 
      */
@@ -78,11 +114,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link House }
+     * Create an instance of {@link HouseProfile }
      * 
      */
-    public House createHouse() {
-        return new House();
+    public HouseProfile createHouseProfile() {
+        return new HouseProfile();
     }
 
     /**
@@ -94,11 +130,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link HouseProfile }
+     * Create an instance of {@link House }
      * 
      */
-    public HouseProfile createHouseProfile() {
-        return new HouseProfile();
+    public House createHouse() {
+        return new House();
     }
 
     /**
@@ -111,12 +147,12 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link HouseProposalReply }{@code >}}
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReplyToMeetingProposalResponse }{@code >}}
      * 
      */
-    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "houseProposalReply")
-    public JAXBElement<HouseProposalReply> createHouseProposalReply(HouseProposalReply value) {
-        return new JAXBElement<HouseProposalReply>(_HouseProposalReply_QNAME, HouseProposalReply.class, null, value);
+    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "replyToMeetingProposalResponse")
+    public JAXBElement<ReplyToMeetingProposalResponse> createReplyToMeetingProposalResponse(ReplyToMeetingProposalResponse value) {
+        return new JAXBElement<ReplyToMeetingProposalResponse>(_ReplyToMeetingProposalResponse_QNAME, ReplyToMeetingProposalResponse.class, null, value);
     }
 
     /**
@@ -138,12 +174,48 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link ReplyToMeetingProposal }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "replyToMeetingProposal")
+    public JAXBElement<ReplyToMeetingProposal> createReplyToMeetingProposal(ReplyToMeetingProposal value) {
+        return new JAXBElement<ReplyToMeetingProposal>(_ReplyToMeetingProposal_QNAME, ReplyToMeetingProposal.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetSellerMeetingDateList }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "getSellerMeetingDateList")
+    public JAXBElement<GetSellerMeetingDateList> createGetSellerMeetingDateList(GetSellerMeetingDateList value) {
+        return new JAXBElement<GetSellerMeetingDateList>(_GetSellerMeetingDateList_QNAME, GetSellerMeetingDateList.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link HouseProposalReply }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "houseProposalReply")
+    public JAXBElement<HouseProposalReply> createHouseProposalReply(HouseProposalReply value) {
+        return new JAXBElement<HouseProposalReply>(_HouseProposalReply_QNAME, HouseProposalReply.class, null, value);
+    }
+
+    /**
      * Create an instance of {@link JAXBElement }{@code <}{@link RequestHousesResponse }{@code >}}
      * 
      */
     @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "requestHousesResponse")
     public JAXBElement<RequestHousesResponse> createRequestHousesResponse(RequestHousesResponse value) {
         return new JAXBElement<RequestHousesResponse>(_RequestHousesResponse_QNAME, RequestHousesResponse.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link GetSellerMeetingDateListResponse }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://acme.loopingdoge.org/", name = "getSellerMeetingDateListResponse")
+    public JAXBElement<GetSellerMeetingDateListResponse> createGetSellerMeetingDateListResponse(GetSellerMeetingDateListResponse value) {
+        return new JAXBElement<GetSellerMeetingDateListResponse>(_GetSellerMeetingDateListResponse_QNAME, GetSellerMeetingDateListResponse.class, null, value);
     }
 
 }

@@ -20,7 +20,9 @@ import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -40,6 +42,9 @@ public class BuyerWebService {
 	private final static String CAMUNDA_ACTION_VARIABLE = "houseProposalReply";
 	private final static String CAMUNDA_PROPOSAL_LIST_VARIABLE = "proposalList";
 	private final static String CAMUNDA_ACCEPTED_HOUSE_VARIABLE = "acceptedHouse";
+	private final static String CAMUNDA_BUYER_MEETING_REPLY_VARIABLE = "buyerMeetingReply";
+	private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
+	private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingResponseMessage";
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
 	private final static String REPLY_STOP = "stop";
@@ -165,4 +170,59 @@ public class BuyerWebService {
         
         return new HouseRequestReplyMessage(null, ERROR);
 	}
+	
+	
+	@SuppressWarnings("unchecked")
+	@WebMethod
+	public List<String> getSellerMeetingDateList (@WebParam(name="processId") String processId) {
+		List<String> dateList = (List<String>) processEngine.getRuntimeService().getVariable(
+				processId, 
+				"meetingDateList");
+		return dateList;
+	}
+	
+	@WebMethod
+	public String replyToMeetingProposal (
+			@WebParam(name="processId") String processId,
+			@WebParam(name="acceptedDate") String acceptedDate,
+			@WebParam(name="newDateList") List<String> newDateList) {
+		
+		// Buyer has accepted a date
+		if (acceptedDate != null) {
+			// set meeting accepted
+			processEngine.getRuntimeService().setVariable(
+					processId, 
+					CAMUNDA_BUYER_MEETING_REPLY_VARIABLE, 
+					"accept");
+			
+			// set meeting accepted
+			processEngine.getRuntimeService().setVariable(
+					processId, 
+					CAMUNDA_MEETING_DATE_VARIABLE, 
+					acceptedDate);
+		}
+		
+		// Buyer proposed new dates
+		else {
+			// set meeting accepted
+			processEngine.getRuntimeService().setVariable(
+					processId, 
+					CAMUNDA_BUYER_MEETING_REPLY_VARIABLE, 
+					"newDateProposed");
+			
+			// set new meeting date list
+			processEngine.getRuntimeService().setVariable(
+					processId, 
+					"meetingDateList", 
+					newDateList);
+		}
+		
+		// Unlock process using message
+        processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_MEETING_REPLY_MESSAGE)
+		  .processInstanceId(processId)
+		  .correlate();
+		
+		return "Ok";
+	}
+	
 }
