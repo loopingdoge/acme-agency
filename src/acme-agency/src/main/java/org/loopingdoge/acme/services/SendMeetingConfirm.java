@@ -4,6 +4,7 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServer;
 import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
+import org.loopingdoge.acme.utils.AcmeVariables;
 
 import java.util.Date;
 import java.util.logging.Logger;
@@ -21,7 +22,7 @@ public class SendMeetingConfirm implements JavaDelegate {
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
         sessionWs.removeSession(execution.getProcessInstanceId());
         
-        String meetingDate = (String) execution.getVariable("meetingDate");
+        String meetingDate = (String) execution.getVariable(AcmeVariables.MEETING_DATE);
         
         if (meetingDate != null) {
         	logger.info("Meeting date ok!");

@@ -112,4 +112,11 @@ public class AcmeVariables {
      * The buyer's offer
      */
     public static final String BUYER_OFFER = "buyerOffer";
+
+    /**
+     * String
+     * Global
+     * The chosen meeting date
+     */
+    public static final String MEETING_DATE = "meetingDate";
 }
