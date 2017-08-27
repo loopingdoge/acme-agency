@@ -66,6 +66,8 @@ public class BuyerWebService {
 
 //        TODO usare new HouseProfile
         vars.put("houseProfile", houseProfile);
+        vars.put("buyerName", buyerName);
+        
 
 		// Start a process in Camunda, which is waiting on the specified messageId
 		String startMessageId = "houseLookup";

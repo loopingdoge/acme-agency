@@ -3,14 +3,26 @@ include "file.iol"
 include "session_manager.iol"
 include "string_utils.iol"
 
-inputPort SessionServer {
+inputPort ACMESessionServer {
 	Location: "socket://localhost:8844"
 	Protocol: soap {
-		.wsdl = "./session_manager.wsdl";
-		.wsdl.port = "SessionManagerServicePort";
+		.wsdl = "./acme_session_manager.wsdl";
+		.wsdl.port = "ACMESessionManagerServicePort";
+		.namespace = "org.loopingdoge.acme.jolie.sessionmanager.xsd";
 		.dropRootValue = true
 	}
-	Interfaces: SessionManager
+	Interfaces: ACMESessionManager
+}
+
+inputPort ClientSessionServer {
+	Location: "socket://localhost:8845"
+	Protocol: soap {
+		.wsdl = "./client_session_manager.wsdl";
+		.wsdl.port = "ClientSessionManagerServicePort";
+		.namespace = "org.loopingdoge.acme.jolie.sessionmanager.xsd";
+		.dropRootValue = true
+	}
+	Interfaces: ClientSessionManager
 }
 
 execution {concurrent} 

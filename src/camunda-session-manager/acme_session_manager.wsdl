@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="org.loopingdoge.acme.jolie.sessionmanager.wsdl" xmlns:tns="org.loopingdoge.acme.jolie.sessionmanager.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd1="org.loopingdoge.acme.jolie.sessionmanager.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema targetNamespace="org.loopingdoge.acme.jolie.sessionmanager.xsd" xmlns:sch="org.loopingdoge.acme.jolie.sessionmanager.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="getSessions"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="username" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="SessionType"><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="nextUser" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="processId" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="state" type="xs:string"/></xs:sequence></xs:complexType><xs:element name="getSessionsResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/><xs:element maxOccurs="unbounded" minOccurs="0" name="sessions" type="sch:SessionType"/></xs:sequence></xs:complexType></xs:element><xs:element name="removeSession"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="processId" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="removeSessionResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="addSession"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="nextUser" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="processId" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="state" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="addSessionResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="message" type="xs:string"/></xs:sequence></xs:complexType></xs:element></xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SessionGetResponse">
+    <wsdl:part name="body" element="xsd1:getSessionsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SessionRemoveResponse">
+    <wsdl:part name="body" element="xsd1:removeSessionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SessionAddResponse">
+    <wsdl:part name="body" element="xsd1:addSessionResponse"/>
+  </wsdl:message>
+  <wsdl:message name="SessionElementRemove">
+    <wsdl:part name="body" element="xsd1:removeSession"/>
+  </wsdl:message>
+  <wsdl:message name="SessionElementAdd">
+    <wsdl:part name="body" element="xsd1:addSession"/>
+  </wsdl:message>
+  <wsdl:message name="SessionElementGet">
+    <wsdl:part name="body" element="xsd1:getSessions"/>
+  </wsdl:message>
+  <wsdl:portType name="ACMESessionServer">
+    <wsdl:operation name="getSessions">
+      <wsdl:input message="tns:SessionElementGet"/>
+      <wsdl:output message="tns:SessionGetResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="removeSession">
+      <wsdl:input message="tns:SessionElementRemove"/>
+      <wsdl:output message="tns:SessionRemoveResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addSession">
+      <wsdl:input message="tns:SessionElementAdd"/>
+      <wsdl:output message="tns:SessionAddResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ACMESessionServerSOAPBinding" type="tns:ACMESessionServer">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
+    <wsdl:operation name="getSessions">
+      <soap:operation soapAction="getSessions" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="removeSession">
+      <soap:operation soapAction="removeSession" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addSession">
+      <soap:operation soapAction="addSession" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ACMESessionServerService">
+    <wsdl:port name="ACMESessionServerServicePort" binding="tns:ACMESessionServerSOAPBinding">
+      <soap:address location="http://localhost:8844"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

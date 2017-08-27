@@ -32,9 +32,14 @@ type SessionGetResponse: void {
 }
 
 
-interface SessionManager {
+interface ACMESessionManager {
 	RequestResponse:
 		addSession(SessionElementAdd)(SessionAddResponse),
 		removeSession(SessionElementRemove)(SessionRemoveResponse),
+		getSessions(SessionElementGet)(SessionGetResponse)
+}
+
+interface ClientSessionManager {
+	RequestResponse:
 		getSessions(SessionElementGet)(SessionGetResponse)
 }
