@@ -490,7 +490,7 @@
       <bpmn:outgoing>SequenceFlow_0auyxzy</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_04kb1aq</bpmn:outgoing>
     </bpmn:eventBasedGateway>
-    <bpmn:sendTask id="SendOfferRefusalTask" name="Send offer refusal to buyer" camunda:class="org.loopingdoge.acme.services.SendOfferToSeller">
+    <bpmn:sendTask id="SendOfferRefusalTask" name="Send offer refusal to buyer" camunda:class="org.loopingdoge.acme.services.SendRefusalToBuyer">
       <bpmn:incoming>SequenceFlow_07pa5b6</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1ew1f2x</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1n37jzk</bpmn:outgoing>
