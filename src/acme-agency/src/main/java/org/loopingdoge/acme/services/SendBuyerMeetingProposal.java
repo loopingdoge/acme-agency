@@ -33,13 +33,13 @@ public class SendBuyerMeetingProposal implements JavaDelegate {
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
         // TODO implement this
-        // settare la variabile di processo String buyerMeetingReply = "retry" || "accept"
-    
-        // Remove seller session info
-        final Bus defaultBus = BusFactory.getDefaultBus();
+         
+        /*final Bus defaultBus = BusFactory.getDefaultBus();
         final ConduitInitiatorManager extension = defaultBus.getExtension(ConduitInitiatorManager.class);
         extension.registerConduitInitiator("http://schemas.xmlsoap.org/soap/http/", new HTTPTransportFactory());
+        */
         
+        // Remove seller session info
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
         sessionWs.removeSession(execution.getProcessInstanceId());
         
@@ -49,7 +49,7 @@ public class SendBuyerMeetingProposal implements JavaDelegate {
         mailService.send(
         		(String) execution.getVariable("buyerName"), 
         		"AcmeAgency", 
-        		"Il proprietario di " + acceptedHouse.getName() + "ha specificato date di disponibilita'")
+        		"Il proprietario di " + acceptedHouse.getName() + " ha specificato date di disponibilita'")
         		.execute().body();
         
         // Add buyer session

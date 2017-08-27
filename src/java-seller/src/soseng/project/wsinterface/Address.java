@@ -16,6 +16,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
+ *         &lt;element name="cap" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="city" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="civic" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
  *         &lt;element name="nation" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/>
@@ -31,6 +32,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "address", propOrder = {
+    "cap",
     "city",
     "civic",
     "nation",
@@ -39,11 +41,36 @@ import javax.xml.bind.annotation.XmlType;
 })
 public class Address {
 
+    protected String cap;
     protected String city;
     protected String civic;
     protected String nation;
     protected String province;
     protected String streetName;
+
+    /**
+     * Gets the value of the cap property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getCap() {
+        return cap;
+    }
+
+    /**
+     * Sets the value of the cap property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setCap(String value) {
+        this.cap = value;
+    }
 
     /**
      * Gets the value of the city property.

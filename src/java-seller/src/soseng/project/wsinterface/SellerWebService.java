@@ -1,6 +1,7 @@
 
 package soseng.project.wsinterface;
 
+import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebResult;
@@ -25,6 +26,20 @@ public interface SellerWebService {
 
     /**
      * 
+     * @param processId
+     * @return
+     *     returns java.util.List<java.lang.String>
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "getBuyerMeetingDateList", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.GetBuyerMeetingDateList")
+    @ResponseWrapper(localName = "getBuyerMeetingDateListResponse", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.GetBuyerMeetingDateListResponse")
+    public List<String> getBuyerMeetingDateList(
+        @WebParam(name = "processId", targetNamespace = "")
+        String processId);
+
+    /**
+     * 
      * @param house
      * @return
      *     returns java.lang.String
@@ -36,5 +51,42 @@ public interface SellerWebService {
     public String proposeHouse(
         @WebParam(name = "house", targetNamespace = "")
         House house);
+
+    /**
+     * 
+     * @param processId
+     * @param accept
+     * @param accepedDate
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "confirmMeeting", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.ConfirmMeeting")
+    @ResponseWrapper(localName = "confirmMeetingResponse", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.ConfirmMeetingResponse")
+    public String confirmMeeting(
+        @WebParam(name = "processId", targetNamespace = "")
+        String processId,
+        @WebParam(name = "accept", targetNamespace = "")
+        boolean accept,
+        @WebParam(name = "accepedDate", targetNamespace = "")
+        String accepedDate);
+
+    /**
+     * 
+     * @param processId
+     * @param dateList
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod
+    @WebResult(targetNamespace = "")
+    @RequestWrapper(localName = "sendAvailability", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.SendAvailability")
+    @ResponseWrapper(localName = "sendAvailabilityResponse", targetNamespace = "http://acme.loopingdoge.org/", className = "soseng.project.wsinterface.SendAvailabilityResponse")
+    public String sendAvailability(
+        @WebParam(name = "processId", targetNamespace = "")
+        String processId,
+        @WebParam(name = "dateList", targetNamespace = "")
+        List<String> dateList);
 
 }
