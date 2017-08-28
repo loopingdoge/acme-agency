@@ -11,6 +11,7 @@ import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeExternalServices;
 import org.loopingdoge.acme.utils.AcmeVariables;
+import org.loopingdoge.acme.utils.AcmeWaitStateNames;
 import org.loopingdoge.acme.utils.MailServiceAPI;
 
 import retrofit2.Retrofit;
@@ -34,14 +35,6 @@ public class SendSellerMeetingProposal implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
-        // TODO implement this
-        // settare la variabile di processo String buyerMeetingReply = "retry" || "accept"
-    
-       
-        /*final Bus defaultBus = BusFactory.getDefaultBus();
-        final ConduitInitiatorManager extension = defaultBus.getExtension(ConduitInitiatorManager.class);
-        extension.registerConduitInitiator("http://schemas.xmlsoap.org/soap/http/", new HTTPTransportFactory());
-        */
         
         // Remove seller session info
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
@@ -60,7 +53,7 @@ public class SendSellerMeetingProposal implements JavaDelegate {
         sessionWs.addSession(
         		acceptedHouse.getSellerName(), 
         		execution.getProcessInstanceId(), 
-        		"WaitForFinalMeetingResponse");
+        		AcmeWaitStateNames.WAIT_SELLER_MEETING_RESPONSE);
     }
 
 }

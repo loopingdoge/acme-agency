@@ -11,6 +11,7 @@ import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeExternalServices;
 import org.loopingdoge.acme.utils.AcmeVariables;
+import org.loopingdoge.acme.utils.AcmeWaitStateNames;
 import org.loopingdoge.acme.utils.DistanceServiceAPI;
 import org.loopingdoge.acme.utils.MailServiceAPI;
 
@@ -36,7 +37,6 @@ public class AskSellerAvailability implements JavaDelegate {
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         logger.info("service started");
-        // TODO implement this
         
         House acceptedHouse = (House) execution.getVariable(AcmeVariables.CHOSEN_HOUSE);
         String buyerName = (String) execution.getVariable(AcmeVariables.BUYER_NAME);
@@ -57,7 +57,7 @@ public class AskSellerAvailability implements JavaDelegate {
         sessionWs.addSession(
         		acceptedHouse.getSellerName(),
         		execution.getProcessInstanceId(), 
-        		"WaitForSellerAvailability");
+        		AcmeWaitStateNames.WAIT_SELLER_AVAILABILITY);
     }
 
 }

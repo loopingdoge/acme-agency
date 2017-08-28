@@ -1,0 +1,11 @@
+package org.loopingdoge.acme.utils;
+
+public class AcmeWaitStateNames {
+	
+	public static final String  WAIT_SELLER_AVAILABILITY = "WaitingForSellerAvailabilityDates";
+	
+    public static final String WAIT_BUYER_MEETING_RESPONSE = "WaitingForBuyerMeetingResponse";
+    
+    public static final String WAIT_SELLER_MEETING_RESPONSE = "WaitingForSellerMeetingResponse";
+
+}
