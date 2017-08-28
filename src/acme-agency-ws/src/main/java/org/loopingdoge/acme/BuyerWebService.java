@@ -229,4 +229,24 @@ public class BuyerWebService {
 		return OK;
 	}
 	
+	
+	@WebMethod
+	public String makeOffer (
+			@WebParam(name="processId") String processId, 
+			@WebParam(name="buyerOffer") double buyerOffer) {
+		
+		// Set buyer offer variable
+		processEngine.getRuntimeService().setVariable(
+				processId, 
+				AcmeVariables.BUYER_OFFER, 
+				buyerOffer);
+		
+		// Unlock process using message
+        processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.BUYER_OFFER)
+		  .processInstanceId(processId)
+		  .correlate();
+		
+		return "Ok";		
+	}
+	
 }

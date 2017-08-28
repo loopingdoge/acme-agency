@@ -268,7 +268,9 @@ public class Buyer {
 		else if (session.getState().matches(WAIT_FOR_BUYER_OFFER)) {
 			BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 			
-			// TODO offer
+			String res = buyerWs.makeOffer(session.getProcessId(), 100000);
+			System.out.println(res);
+			
 		}
 		
 		else {

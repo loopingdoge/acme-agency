@@ -24,14 +24,14 @@ public class AddDistanceToNotaryDistanceList implements JavaDelegate {
         logger.info("service started");
 
         Notary currNotary = (Notary) execution.getVariable(AcmeVariables.CURR_NOTARY);
-        Integer distance = (Integer) execution.getVariable(AcmeVariables.DISTANCE);
+        Double distance = (Double) execution.getVariable(AcmeVariables.DISTANCE);
         Object tempNotaryDistances = execution.getVariable(AcmeVariables.NOTARY_DISTANCES);
         if (tempNotaryDistances == null) {
             tempNotaryDistances = new ArrayList<NotaryDistanceTuple>();
         }
         ArrayList<NotaryDistanceTuple> notaryDistances = (ArrayList<NotaryDistanceTuple>) tempNotaryDistances;
 
-        notaryDistances.add(new NotaryDistanceTuple(currNotary, distance));
+        notaryDistances.add(new NotaryDistanceTuple(currNotary, distance.intValue()));
 
         execution.setVariableLocal(AcmeVariables.NOTARY_DISTANCES, notaryDistances);
     }

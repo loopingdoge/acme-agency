@@ -55,7 +55,8 @@ public class SendMeetingConfirm implements JavaDelegate {
                     "AcmeAgency",
                     "Meeting date is ok").execute().body();
             
-         // Add session (buyer can now make an offer)      
+            // Add session (buyer can now make an offer)     
+            logger.info("Adding session");
             sessionWs.addSession(
             		buyerName, 
             		execution.getProcessInstanceId(), 
