@@ -5,7 +5,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.model.HouseProfile;
-import org.loopingdoge.acme.model.SerializableHouse;
+import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.HouseRequestReplyMessage;
 
 import com.sun.mail.mbox.NewlineOutputStream;
@@ -39,14 +39,11 @@ public class BuyerWebService {
 
 	private final static Logger LOGGER = Logger.getLogger("acme-agency-ws");
 	
-	private final static String CAMUNDA_PROCESS_ID = "camundaProcessId";
-	private final static String CAMUNDA_ACTION_MESSAGE = "houseProposalReply";
-	private final static String CAMUNDA_ACTION_VARIABLE = "houseProposalReply";
-	private final static String CAMUNDA_PROPOSAL_LIST_VARIABLE = "proposalList";
-	private final static String CAMUNDA_ACCEPTED_HOUSE_VARIABLE = "chosenHouse";
-	private final static String CAMUNDA_BUYER_MEETING_REPLY_VARIABLE = "buyerMeetingReply";
-	private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
-	private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingResponseMessage";
+	private final static String PROCESS_ID = "camundaProcessId";	
+	
+	
+	
+	
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
 	private final static String REPLY_STOP = "stop";
@@ -71,20 +68,20 @@ public class BuyerWebService {
 		// Process initial variables 
 		Map<String, Object> vars = new HashMap<String, Object>();
 
-//        TODO usare new HouseProfile
-        vars.put("houseProfile", houseProfile);
-        vars.put("buyerName", buyerName);
+		// TODO usare new HouseProfile
+        vars.put(AcmeVariables.HOUSE_PROFILE, houseProfile);
+        vars.put(AcmeVariables.BUYER_NAME, buyerName);
         
 
 		// Start a process in Camunda, which is waiting on the specified messageId
-		String startMessageId = "houseLookup";
+		String startMessageId = AcmeVariables.HOUSE_LOOKUP_MESSAGE;
 		ProcessInstance processInstance = processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
 		
 		// Associate session with Camunda processId
-		String camundaProcessId = (String)session.getAttribute(CAMUNDA_PROCESS_ID);
+		String camundaProcessId = (String)session.getAttribute(PROCESS_ID);
         if (camundaProcessId == null) {
             camundaProcessId = processInstance.getProcessInstanceId();
-            session.setAttribute("camundaProcessId", camundaProcessId);
+            session.setAttribute(PROCESS_ID, camundaProcessId);
             LOGGER.info("Starting new buyer session...");
         }
         else {
@@ -92,19 +89,20 @@ public class BuyerWebService {
         	LOGGER.info("Client with active session requested new process");
         }
 
+		@SuppressWarnings("unchecked")
 		ArrayList<House> proposalList = (ArrayList<House>)
-				processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE);
+				processEngine.getRuntimeService().getVariable(camundaProcessId, AcmeVariables.PROPOSAL_LIST);
         ArrayList<House> houseProposalList = new ArrayList<House>();
         for (House h : proposalList) {
         	houseProposalList.add(h);
 		}
 
-        return new HouseRequestReplyMessage(houseProposalList,
-				"Ok");
+        return new HouseRequestReplyMessage(houseProposalList, OK);
 	}
 	
 	
 	
+	@SuppressWarnings("unchecked")
 	@WebMethod
 	public HouseRequestReplyMessage houseProposalReply (
 			@WebParam(name="replyAction") String replyAction,
@@ -118,21 +116,24 @@ public class BuyerWebService {
         }
         
         // Get Camunda processId from session
-        String camundaProcessId = (String)session.getAttribute(CAMUNDA_PROCESS_ID);
+        String camundaProcessId = (String)session.getAttribute(PROCESS_ID);
         if (camundaProcessId == null) {
             LOGGER.warning("No process associated");
             return new HouseRequestReplyMessage(null, "No process associated");
         }
         
         // Set action in Camunda process
-        processEngine.getRuntimeService().setVariable(camundaProcessId, CAMUNDA_ACTION_VARIABLE, replyAction);
+        processEngine.getRuntimeService().setVariable(
+        		camundaProcessId, 
+        		AcmeVariables.HOUSE_LOOKUP_ACTION_VARIABLE, 
+        		replyAction);
   
         
         
         // Stop case
         if (replyAction.matches(REPLY_STOP)) {
             // Unlock process using message
-            processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+            processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.HOUSE_LOOKUP_ACTION_MESSAGE)
     		  .processInstanceId(camundaProcessId)
     		  .correlate();
         
@@ -142,19 +143,23 @@ public class BuyerWebService {
         // More case
         else if (replyAction.matches(REPLY_MORE)) {
         	// Unlock process using message
-            processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+            processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.HOUSE_LOOKUP_ACTION_MESSAGE)
     		  .processInstanceId(camundaProcessId)
     		  .correlate();
             
         	return new HouseRequestReplyMessage(
-        			(ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE),
+        			(ArrayList<House>)processEngine.getRuntimeService().getVariable(
+        					camundaProcessId,
+        					AcmeVariables.PROPOSAL_LIST),
         			OK);
         }
         
         // Accept case
         if (replyAction.matches(REPLY_ACCEPT)) { 
         	// check if selectedHouseIndex is acceptable
-        	ArrayList<House> proposedHouseList = (ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE);
+        	ArrayList<House> proposedHouseList = (ArrayList<House>)processEngine.getRuntimeService().getVariable(
+        			camundaProcessId, 
+        			AcmeVariables.PROPOSAL_LIST);
         	
         	if (proposedHouseList.size() <= selectedHouseIndex)
         		return new HouseRequestReplyMessage(null, ERROR);
@@ -163,11 +168,11 @@ public class BuyerWebService {
         		// Set accepted house in Camunda process
                 processEngine.getRuntimeService().setVariable(
                 		camundaProcessId, 
-                		CAMUNDA_ACCEPTED_HOUSE_VARIABLE, 
+                		AcmeVariables.CHOSEN_HOUSE, 
                 		proposedHouseList.get(selectedHouseIndex));
         		
         		// Unlock process using message
-                processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_ACTION_MESSAGE)
+                processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.HOUSE_LOOKUP_ACTION_MESSAGE)
         		  .processInstanceId(camundaProcessId)
         		  .correlate();
                 
@@ -199,13 +204,13 @@ public class BuyerWebService {
 			// set meeting accepted
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_BUYER_MEETING_REPLY_VARIABLE, 
-					"accept");
+					AcmeVariables.BUYER_MEETING_REPLY, 
+					REPLY_ACCEPT);
 			
 			// set meeting accepted
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_MEETING_DATE_VARIABLE, 
+					AcmeVariables.MEETING_DATE, 
 					acceptedDate);
 		}
 		
@@ -214,22 +219,22 @@ public class BuyerWebService {
 			// set meeting accepted
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_BUYER_MEETING_REPLY_VARIABLE, 
+					AcmeVariables.BUYER_MEETING_REPLY, 
 					"newDateProposed");
 			
 			// set new meeting date list
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					"meetingDateList", 
+					AcmeVariables.MEETING_DATE_LIST, 
 					newDateList);
 		}
 		
 		// Unlock process using message
-        processEngine.getRuntimeService().createMessageCorrelation(CAMUNDA_MEETING_REPLY_MESSAGE)
+        processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.BUYER_MEETING_REPLY_MESSAGE)
 		  .processInstanceId(processId)
 		  .correlate();
 		
-		return "Ok";
+		return OK;
 	}
 	
 }

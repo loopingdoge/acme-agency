@@ -2,6 +2,7 @@ package org.loopingdoge.acme;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.loopingdoge.acme.model.House;
+import org.loopingdoge.acme.utils.AcmeVariables;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
@@ -18,10 +19,6 @@ import java.util.Map;
 public class SellerWebService {
 	@Resource(mappedName = "java:global/camunda-bpm-platform/process-engine/default")
 	private ProcessEngine processEngine;
-	
-	public final static String SELLER_AVAILABILITY_MESSAGE = "sellerAvailabilityMessage";
-	private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingReply";
-	private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
 	
 	
 	public SellerWebService () {}
@@ -56,7 +53,7 @@ public class SellerWebService {
 				dateList);
 		
 		// Unlock process using message
-        processEngine.getRuntimeService().createMessageCorrelation(SELLER_AVAILABILITY_MESSAGE)
+        processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.SELLER_AVAILABILITY_MESSAGE)
 		  .processInstanceId(processId)
 		  .correlate();
 
@@ -83,13 +80,13 @@ public class SellerWebService {
 			// set meeting accepted
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_MEETING_REPLY_MESSAGE, 
+					AcmeVariables.BUYER_MEETING_REPLY, 
 					"accept");
 			
 			// set meeting accepted
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_MEETING_DATE_VARIABLE, 
+					AcmeVariables.MEETING_DATE, 
 					acceptedDate);
 		}
 		
@@ -97,7 +94,7 @@ public class SellerWebService {
 			// set meeting refused
 			processEngine.getRuntimeService().setVariable(
 					processId, 
-					CAMUNDA_MEETING_REPLY_MESSAGE, 
+					AcmeVariables.BUYER_MEETING_REPLY, 
 					"stop");
 		}
 		
