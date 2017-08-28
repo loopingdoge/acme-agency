@@ -26,9 +26,9 @@ public class Buyer {
 	public static void main (String[] args) {
 		
 		
-		//houseLookup();
+		houseLookup();
 		//acceptDate();
-		proposeDifferentDates();
+		//proposeDifferentDates();
 		
 	}	
 	
@@ -53,6 +53,7 @@ public class Buyer {
 		address.setNation("Italy");
 		address.setProvince("BO");
 		address.setCity("Minerbio");
+		address.setCap("40061");
 		address.setStreetName("Via Roma");
 		address.setCivic("88");
 

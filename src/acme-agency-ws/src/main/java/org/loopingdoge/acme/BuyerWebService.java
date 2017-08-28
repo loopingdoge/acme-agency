@@ -92,11 +92,11 @@ public class BuyerWebService {
         	LOGGER.info("Client with active session requested new process");
         }
 
-		ArrayList<SerializableHouse> proposalList = (ArrayList<SerializableHouse>)
+		ArrayList<House> proposalList = (ArrayList<House>)
 				processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE);
         ArrayList<House> houseProposalList = new ArrayList<House>();
-        for (SerializableHouse h : proposalList) {
-        	houseProposalList.add(h.toHouse());
+        for (House h : proposalList) {
+        	houseProposalList.add(h);
 		}
 
         return new HouseRequestReplyMessage(houseProposalList,
