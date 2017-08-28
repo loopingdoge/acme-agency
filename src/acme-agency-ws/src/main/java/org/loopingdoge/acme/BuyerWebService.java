@@ -5,6 +5,7 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.model.HouseProfile;
+import org.loopingdoge.acme.model.SerializableHouse;
 import org.loopingdoge.acme.utils.HouseRequestReplyMessage;
 
 import com.sun.mail.mbox.NewlineOutputStream;
@@ -19,6 +20,7 @@ import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.WebServiceException;
 import javax.xml.ws.handler.MessageContext;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,7 +43,7 @@ public class BuyerWebService {
 	private final static String CAMUNDA_ACTION_MESSAGE = "houseProposalReply";
 	private final static String CAMUNDA_ACTION_VARIABLE = "houseProposalReply";
 	private final static String CAMUNDA_PROPOSAL_LIST_VARIABLE = "proposalList";
-	private final static String CAMUNDA_ACCEPTED_HOUSE_VARIABLE = "acceptedHouse";
+	private final static String CAMUNDA_ACCEPTED_HOUSE_VARIABLE = "chosenHouse";
 	private final static String CAMUNDA_BUYER_MEETING_REPLY_VARIABLE = "buyerMeetingReply";
 	private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
 	private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingResponseMessage";
@@ -90,9 +92,14 @@ public class BuyerWebService {
         	LOGGER.info("Client with active session requested new process");
         }
 
-        return new HouseRequestReplyMessage(
-				//houseList,
-				(ArrayList<House>)processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE),
+		ArrayList<SerializableHouse> proposalList = (ArrayList<SerializableHouse>)
+				processEngine.getRuntimeService().getVariable(camundaProcessId, CAMUNDA_PROPOSAL_LIST_VARIABLE);
+        ArrayList<House> houseProposalList = new ArrayList<House>();
+        for (SerializableHouse h : proposalList) {
+        	houseProposalList.add(h.toHouse());
+		}
+
+        return new HouseRequestReplyMessage(houseProposalList,
 				"Ok");
 	}
 	

@@ -104,3 +104,8 @@ crashlytics-build.properties
 fabric.properties
 
 .idea/vcs.xml
+
+bin/org
+bin/soseng
+src/org/loopingdoge/acme/jolie
+src/soseng/project/wsinterface
