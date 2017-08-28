@@ -7,7 +7,9 @@ import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeExternalServices;
 import org.loopingdoge.acme.utils.AcmeVariables;
+import org.loopingdoge.acme.utils.AcmeWaitStateNames;
 import org.loopingdoge.acme.utils.MailServiceAPI;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -52,6 +54,12 @@ public class SendMeetingConfirm implements JavaDelegate {
                     sellerName,
                     "AcmeAgency",
                     "Meeting date is ok").execute().body();
+            
+         // Add session (buyer can now make an offer)      
+            sessionWs.addSession(
+            		buyerName, 
+            		execution.getProcessInstanceId(), 
+            		AcmeWaitStateNames.WAIT_FOR_BUYER_OFFER);
         } else {
             logger.info("No meeting date found");
 

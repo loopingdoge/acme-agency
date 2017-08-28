@@ -18,15 +18,22 @@ import soseng.project.wsinterface.*;
 
 public class Buyer {
 	
+	private final static String USER = "Bertoli";
+	
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
 	private final static String REPLY_STOP = "stop";
 	private final static String OK = "ok";
 	
-	public static void main (String[] args) {
+	/* Session wait states */
+	public static final String WAIT_BUYER_MEETING_RESPONSE = "WaitingForBuyerMeetingResponse";
+	public static final String WAIT_FOR_BUYER_OFFER = "WaitingForBuyerOffer";
+	
+    public static void main (String[] args) {
 		
+		interactiveMain();
 		
-		houseLookup();
+		//houseLookup();
 		//acceptDate();
 		//proposeDifferentDates();
 		
@@ -61,7 +68,7 @@ public class Buyer {
 	    
 	    // Send request
 	    System.out.println("House request...");
-	    HouseRequestReplyMessage response = buyerWs.requestHouses(houseProfile, "Bertoli");
+	    HouseRequestReplyMessage response = buyerWs.requestHouses(houseProfile, USER);
 	    List<House> proposedHouses = response.getHouseList();	    
 	    
 	    // Print response
@@ -74,13 +81,13 @@ public class Buyer {
 		    System.out.println("Select action (more, stop, accept):");
 		    String s = scan.next();
 		    
-		    if (s.matches("stop")) {
+		    if (s.matches(REPLY_STOP)) {
 		    	response = buyerWs.houseProposalReply(REPLY_STOP, 0);
 		    	System.out.println(response.getMessage());
 		    	stop = true;
 		    }
 		    	
-		    else if (s.matches("accept")) {
+		    else if (s.matches(REPLY_ACCEPT)) {
 		    	System.out.println("Select house number:");
 			    int index = scan.nextInt();
 		    	
@@ -91,7 +98,7 @@ public class Buyer {
 	    			stop = true;
 		    }
 	    
-		    else if (s.matches("more")) {
+		    else if (s.matches(REPLY_MORE)) {
 		    	response = buyerWs.houseProposalReply(REPLY_MORE, 0);
 		    	System.out.println(response.getMessage());
                 proposedHouses = response.getHouseList();
@@ -113,7 +120,7 @@ public class Buyer {
 		Holder<List<SessionType>> sessions = new Holder<List<SessionType>>();
 		
 		System.out.println("Asking for active sessions...");
-		sessionWs.getSessions("Bertoli", message, sessions);
+		sessionWs.getSessions(USER, message, sessions);
 		System.out.println("Result : " + message.value + " (" + sessions.value.size() + " sessions)");
 		
 		for (SessionType session : sessions.value) {
@@ -144,7 +151,7 @@ public class Buyer {
 		Holder<List<SessionType>> sessions = new Holder<List<SessionType>>();
 		
 		System.out.println("Asking for active sessions...");
-		sessionWs.getSessions("Bertoli", message, sessions);
+		sessionWs.getSessions(USER, message, sessions);
 		System.out.println("Result : " + message.value + " (" + sessions.value.size() + " sessions)");
 		
 		for (SessionType session : sessions.value) {
@@ -167,6 +174,107 @@ public class Buyer {
 	}
 	
 	
+	
+	public static void interactiveMain() {
+		Scanner scan = new Scanner(System.in);
+		boolean done = false;
+		
+		while (!done) {
+			System.out.println("Select action (lookup or sessions):");
+			String action = scan.next();
+			
+			if (action.matches("lookup")) {
+				houseLookup();
+			}
+			
+			else if (action.matches("sessions")) {
+				getSessions();
+			}
+			
+			System.out.println();
+		}
+	}
+	
+	public static void getSessions() {
+		ClientSessionServer sessionWs = new ClientSessionServerService().getClientSessionServerServicePort();
+		
+		Holder<String> message = new Holder<String>();
+		Holder<List<SessionType>> sessions = new Holder<List<SessionType>>();
+		
+		System.out.println("\nAsking for active sessions...");
+		sessionWs.getSessions(USER, message, sessions);
+		System.out.println("Result : " + message.value + " (" + sessions.value.size() + " active sessions)");
+		
+		for (SessionType session : sessions.value) {
+			System.out.println(sessions.value.indexOf(session));
+			System.out.println("\t" + session.getState());
+		}
+		
+		if (sessions.value.size() > 0) {
+			Scanner scan = new Scanner(System.in);
+			System.out.println("\nSelect session to continue...");
+			int sessionIndex = scan.nextInt();
+			if (sessions.value.size() <= sessionIndex) {
+				System.out.println("Out of bounds");
+				return;
+			}
+			
+			continueSession(sessions.value.get(sessionIndex));
+			
+		}
+	}
+	
+	
+	
+	public static void continueSession(SessionType session) {
+		
+		if (session.getState().matches(WAIT_BUYER_MEETING_RESPONSE)) {
+			BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+			List<String> sellerDateList = buyerWs.getSellerMeetingDateList(session.getProcessId());
+			
+			System.out.println("Seller proposed dates:\n");
+			for (String d : sellerDateList) {
+				System.out.println(sellerDateList.indexOf(d));
+				System.out.println("\t" + d);
+			}
+			
+			System.out.println("Select action (accept or propose)");
+			Scanner scan = new Scanner(System.in);
+			String action = scan.next();
+			
+			if (action.matches("accept")) {			
+				String res = buyerWs.replyToMeetingProposal(
+						session.getProcessId(),
+						sellerDateList.get(0),
+						null);	
+				System.out.println(res);
+			}
+			
+			else if (action.matches("propose")) {
+				List<String> buyerDateList = new ArrayList<String>();
+				buyerDateList.add("2017.12.28 14:45");
+				
+				String res = buyerWs.replyToMeetingProposal(
+						session.getProcessId(),
+						null,
+						buyerDateList);
+				System.out.println(res);
+			}
+			
+			else 
+				System.out.println("Error");
+		}
+		
+		else if (session.getState().matches(WAIT_FOR_BUYER_OFFER)) {
+			BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+			
+			// TODO offer
+		}
+		
+		else {
+			System.out.println("Unknown state");
+		}
+	}
 	
 	
 	
