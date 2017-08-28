@@ -125,10 +125,6 @@ public class Buyer {
 		BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 		List<String> sellerDateList = buyerWs.getSellerMeetingDateList(processId);
 		
-		MeetingProposalReplyMessage meetingReply = new MeetingProposalReplyMessage();
-		meetingReply.setAcceptedDate(sellerDateList.get(0));
-		meetingReply.setMessage("Ok");
-		
 		buyerWs.replyToMeetingProposal(
 				processId,
 				sellerDateList.get(0),
