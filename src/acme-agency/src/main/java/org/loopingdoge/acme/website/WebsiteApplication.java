@@ -5,5 +5,5 @@ import org.camunda.bpm.application.impl.ServletProcessApplication;
 
 @ProcessApplication("Website App")
 public class WebsiteApplication extends ServletProcessApplication {
-  // empty implementation
+    // empty implementation
 }

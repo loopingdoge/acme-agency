@@ -116,23 +116,19 @@ public class Address implements Serializable {
 		);
 	}
 	
-	// Check if every field is not null
-	public boolean isComplete() {
-		if (nation == null || 
-			nation.isEmpty() ||
-			province == null || 
-			province.isEmpty() ||
-			city == null ||
-			city.isEmpty() ||
-			streetName == null ||
-			streetName.isEmpty() ||
-			civic == null ||
-			civic.isEmpty() ||
-			cap == null ||
-			cap.isEmpty())
-			return false;
-		
-		return true;
+	public boolean toComplete() {
+		return !(nation == null ||
+				nation.isEmpty() ||
+				province == null ||
+				province.isEmpty() ||
+				city == null ||
+				city.isEmpty() ||
+				streetName == null ||
+				streetName.isEmpty() ||
+				civic == null ||
+				civic.isEmpty() ||
+				cap == null ||
+				cap.isEmpty());
 	}
 
 }

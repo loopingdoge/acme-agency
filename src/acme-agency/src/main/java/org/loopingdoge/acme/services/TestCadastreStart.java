@@ -9,7 +9,12 @@ import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.HouseDatabase;
 
+import java.util.logging.Logger;
+
 public class TestCadastreStart implements JavaDelegate {
+
+    private final static Logger logger = Logger.getLogger("TestCadastreStart");
+
     @Override
     public void execute(DelegateExecution execution) throws Exception {
         House chosenHouse = HouseDatabase.getHouse(0);

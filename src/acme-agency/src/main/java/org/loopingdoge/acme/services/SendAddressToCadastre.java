@@ -12,7 +12,6 @@ import org.loopingdoge.acme.jolie.cadastre.Coordinate;
 import org.loopingdoge.acme.model.Address;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeVariables;
-import org.loopingdoge.acme.utils.HouseDatabase;
 
 import javax.xml.ws.Holder;
 import java.util.logging.Logger;
@@ -20,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * in:  House house
  * out: String cadastrialError
- *      Coordinate cadastrialCoordinates?
+ * Coordinate cadastrialCoordinates?
  */
 public class SendAddressToCadastre implements JavaDelegate {
 
@@ -51,7 +50,7 @@ public class SendAddressToCadastre implements JavaDelegate {
         server.cadastrialCoordinates(cadastreAddress, coordinatesResult, errorResult);
 
         logger.info("Coordinates: " + coordinatesResult.value.getNord() + " " + coordinatesResult.value.getEast());
-        logger.info("Error: " +  errorResult.value);
+        logger.info("Error: " + errorResult.value);
 
         String cadastrialError = errorResult.value;
 

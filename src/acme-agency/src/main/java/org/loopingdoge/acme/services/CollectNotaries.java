@@ -4,7 +4,6 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.loopingdoge.acme.model.Notary;
 import org.loopingdoge.acme.utils.AcmeVariables;
-import org.loopingdoge.acme.utils.HouseDatabase;
 import org.loopingdoge.acme.utils.NotariesDatabase;
 import org.loopingdoge.acme.utils.NotaryDistanceTuple;
 

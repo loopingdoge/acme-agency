@@ -6,7 +6,6 @@ import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.HouseDatabase;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class AddHouseToDatabase implements JavaDelegate {

@@ -11,9 +11,9 @@ import java.util.logging.Logger;
 
 /**
  * in:  distance
- *      notary
- *      notaryDistances
- *
+ * notary
+ * notaryDistances
+ * <p>
  * out: notaryDistances
  */
 public class AddDistanceToNotaryDistanceList implements JavaDelegate {

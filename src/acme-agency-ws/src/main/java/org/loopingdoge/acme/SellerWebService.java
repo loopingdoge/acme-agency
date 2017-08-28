@@ -7,8 +7,6 @@ import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
-
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,96 +14,95 @@ import java.util.Map;
 @SuppressWarnings("restriction")
 @WebService
 public class SellerWebService {
-	@Resource(mappedName = "java:global/camunda-bpm-platform/process-engine/default")
-	private ProcessEngine processEngine;
-	
-	public final static String SELLER_AVAILABILITY_MESSAGE = "sellerAvailabilityMessage";
-	private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingReply";
-	private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
-	
-	
-	public SellerWebService () {}
+    @Resource(mappedName = "java:global/camunda-bpm-platform/process-engine/default")
+    private ProcessEngine processEngine;
 
-	
-	@WebMethod
-	public String proposeHouse(@WebParam(name="house") House house) {
-		System.out.println(house);
-		if (house != null && house.isComplete()) {
-			String message = "MSG";
-			Map<String, Object> vars = new HashMap<String, Object>();
-			/* Process initial variables */
-			vars.put("newHouse", house);
+    public final static String SELLER_AVAILABILITY_MESSAGE = "sellerAvailabilityMessage";
+    private final static String CAMUNDA_MEETING_REPLY_MESSAGE = "buyerMeetingReply";
+    private final static String CAMUNDA_MEETING_DATE_VARIABLE = "meetingDate";
+
+
+    public SellerWebService() {
+    }
+
+
+    @WebMethod
+    public String proposeHouse(@WebParam(name = "house") House house) {
+        System.out.println(house);
+        if (house != null && house.toComplete()) {
+            String message = "MSG";
+            Map<String, Object> vars = new HashMap<String, Object>();
+            /* Process initial variables */
+            vars.put("newHouse", house);
 			/* Start a process in Camunda, which is waiting on the specified messageId */
-			String startMessageId = "houseAddition";
-			System.out.println(startMessageId);
-			processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
-			return "Proposal accepted";
-		} else
-			return "Proposal refused: data is missing";
-	}
-	
-	
-	@WebMethod
-	public String sendAvailability(
-			@WebParam(name="processId") String processId,
-			@WebParam(name="dateList") List<String> dateList) {
-		
-		processEngine.getRuntimeService().setVariable(
-				processId, 
-				"meetingDateList", 
-				dateList);
-		
-		// Unlock process using message
-        processEngine.getRuntimeService().createMessageCorrelation(SELLER_AVAILABILITY_MESSAGE)
-		  .processInstanceId(processId)
-		  .correlate();
+            String startMessageId = "houseAddition";
+            System.out.println(startMessageId);
+            processEngine.getRuntimeService().startProcessInstanceByMessage(startMessageId, vars);
+            return "Proposal accepted";
+        } else
+            return "Proposal refused: data is missing";
+    }
 
-		return "Ok";
-	}
-	
-	@SuppressWarnings("unchecked")
-	@WebMethod
-	public List<String> getBuyerMeetingDateList (@WebParam(name="processId") String processId) {
-		List<String> dateList = (List<String>) processEngine.getRuntimeService().getVariable(
-				processId, 
-				"meetingDateList");
-		return dateList;
-	}
-	
-	@WebMethod
-	public String confirmMeeting (
-			@WebParam(name="processId") String processId,
-			@WebParam(name="accept") boolean accept,
-			@WebParam(name="accepedDate") String acceptedDate) {
-		
-		// Seller has accepted a date
-		if (accept) {
-			// set meeting accepted
-			processEngine.getRuntimeService().setVariable(
-					processId, 
-					CAMUNDA_MEETING_REPLY_MESSAGE, 
-					"accept");
-			
-			// set meeting accepted
-			processEngine.getRuntimeService().setVariable(
-					processId, 
-					CAMUNDA_MEETING_DATE_VARIABLE, 
-					acceptedDate);
-		}
-		
-		else {
-			// set meeting refused
-			processEngine.getRuntimeService().setVariable(
-					processId, 
-					CAMUNDA_MEETING_REPLY_MESSAGE, 
-					"stop");
-		}
-		
-		// Unlock process using message
+
+    @WebMethod
+    public String sendAvailability(
+            @WebParam(name = "processId") String processId,
+            @WebParam(name = "dateList") List<String> dateList) {
+
+        processEngine.getRuntimeService().setVariable(
+                processId,
+                "meetingDateList",
+                dateList);
+
+        // Unlock process using message
+        processEngine.getRuntimeService().createMessageCorrelation(SELLER_AVAILABILITY_MESSAGE)
+                .processInstanceId(processId)
+                .correlate();
+
+        return "Ok";
+    }
+
+    @SuppressWarnings("unchecked")
+    @WebMethod
+    public List<String> getBuyerMeetingDateList(@WebParam(name = "processId") String processId) {
+        List<String> dateList = (List<String>) processEngine.getRuntimeService().getVariable(
+                processId,
+                "meetingDateList");
+        return dateList;
+    }
+
+    @WebMethod
+    public String confirmMeeting(
+            @WebParam(name = "processId") String processId,
+            @WebParam(name = "accept") boolean accept,
+            @WebParam(name = "accepedDate") String acceptedDate) {
+
+        // Seller has accepted a date
+        if (accept) {
+            // set meeting accepted
+            processEngine.getRuntimeService().setVariable(
+                    processId,
+                    CAMUNDA_MEETING_REPLY_MESSAGE,
+                    "accept");
+
+            // set meeting accepted
+            processEngine.getRuntimeService().setVariable(
+                    processId,
+                    CAMUNDA_MEETING_DATE_VARIABLE,
+                    acceptedDate);
+        } else {
+            // set meeting refused
+            processEngine.getRuntimeService().setVariable(
+                    processId,
+                    CAMUNDA_MEETING_REPLY_MESSAGE,
+                    "stop");
+        }
+
+        // Unlock process using message
         processEngine.getRuntimeService().createMessageCorrelation("sellerMeetingResponseMessage")
-		  .processInstanceId(processId)
-		  .correlate();
-		
-		return "Ok";
-	}
+                .processInstanceId(processId)
+                .correlate();
+
+        return "Ok";
+    }
 }

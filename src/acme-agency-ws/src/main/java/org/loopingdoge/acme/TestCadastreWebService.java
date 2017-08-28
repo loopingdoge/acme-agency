@@ -1,4 +1,5 @@
 package org.loopingdoge.acme;
+
 import org.camunda.bpm.engine.ProcessEngine;
 
 import javax.annotation.Resource;

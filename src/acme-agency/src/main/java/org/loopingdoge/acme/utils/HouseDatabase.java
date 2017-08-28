@@ -11,12 +11,12 @@ public class HouseDatabase {
 
     private static ArrayList<House> houseList = new ArrayList<House>(Arrays.asList(
             new House(
-                new Address("Via Roma", "10", "Minerbio", "40061", "BO", "Italia"),
+                    new Address("Via Roma", "10", "Minerbio", "40061", "BO", "Italia"),
                     "Casa nel Bosco", "Geppetto", 125, true, 125000
             ),
             new House(
-                new Address("Via Garibaldi", "108", "Minerbio", "40061", "BO", "Italia"),
-                "Grattacielo", "Paperone", 300, false, 500000
+                    new Address("Via Garibaldi", "108", "Minerbio", "40061", "BO", "Italia"),
+                    "Grattacielo", "Paperone", 300, false, 500000
             ),
             new House(
                     new Address("Via Canaletto", "1", "Minerbio", "40061", "BO", "Italia"),

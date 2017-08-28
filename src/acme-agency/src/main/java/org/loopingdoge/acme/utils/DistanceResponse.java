@@ -1,4 +1,3 @@
-
 package org.loopingdoge.acme.utils;
 
 import com.google.gson.annotations.Expose;
@@ -15,13 +14,11 @@ public class DistanceResponse {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public DistanceResponse() {
     }
 
     /**
-     * 
      * @param message
      * @param distance
      */

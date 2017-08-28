@@ -8,6 +8,7 @@ import org.loopingdoge.acme.utils.DistanceResponse;
 import org.loopingdoge.acme.utils.DistanceServiceAPI;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+
 import java.util.logging.Logger;
 
 public class CallDistance implements JavaDelegate {
@@ -32,7 +33,7 @@ public class CallDistance implements JavaDelegate {
         double distance = Double.parseDouble(res.getDistance());
         delegateExecution.setVariable(AcmeVariables.DISTANCE, distance);
 
-        logger.info("DISTANCE: " + distance + "\nfrom: " + fromDistance + "\nto: " + toDistance );
+        logger.info("DISTANCE: " + distance + "\nfrom: " + fromDistance + "\nto: " + toDistance);
 
     }
 

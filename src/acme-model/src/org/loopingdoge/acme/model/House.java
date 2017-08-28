@@ -102,13 +102,13 @@ public class House implements Serializable {
 	public String toString() {
 		return "\n [HOUSE]" + this.name + ", owned by: " + this.sellerName + " - " + this.address + "\n";
 	}
-	
+
 	// Check if every field is not null
-	public boolean isComplete() {
-		if (this.address == null || 
-			!this.address.isComplete() || 
-			this.squareFootage == 0 || 
-			this.price == 0 || 
+	public boolean toComplete() {
+		if (this.address == null ||
+			!this.address.toComplete() ||
+			this.squareFootage == 0 ||
+			this.price == 0 ||
 			this.name == null ||
 			this.name.isEmpty())
 			return false;

@@ -1,4 +1,3 @@
-
 package org.loopingdoge.acme.utils;
 
 import com.google.gson.annotations.Expose;
@@ -21,13 +20,11 @@ public class Mail {
 
     /**
      * No args constructor for use in serialization
-     * 
      */
     public Mail() {
     }
 
     /**
-     * 
      * @param to
      * @param text
      * @param read
