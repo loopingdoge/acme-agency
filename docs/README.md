@@ -1,6 +1,13 @@
 # Indice
 
-- [Coreografia](#coreografia)
+- [Coreografia completa](choreographies/choreography.md)
+- [Coreografia proiettata sui ruoli](choreographies/roles.md)
+  - [ACME](choreographies/roles.md#acme)
+  - [Acquirente](choreographies/roles.md#acquirente)
+  - [Venditore](choreographies/roles.md#venditore)
+  - [Banca](choreographies/roles.md#banca)
+  - [Catasto](choreographies/roles.md#catasto)
+  - [Distanze](choreographies/roles.md#distanze)
 - [BPMN](#bpmn)
 - [Servizi esterni](#servizi-esterni)
   - [Banca](#banca)
@@ -15,51 +22,19 @@
   - [Buyer](#buyer)
   - [Seller](#seller)
 
-# Coreografie
+# Introduzione
 
-- [Coreografia completa](/choreographies/choreography.md)
-- [ACME](/choreographies/acme_role.md)
-- [Acquirente](/choreographies/buyer_role.md)
-- [Venditore](/choreographies/seller_role.md)
-- [Banca](/choreographies/bank_role.md)
-- [Catasto](/choreographies/cadastre_role.md)
-- [Distanze](/choreographies/distance_role.md)
+| Nome              | Matricola | Email                             |
+| ----------------- | --------- | --------------------------------- |
+| Alberto Nicoletti | 819697    | alberto.nicoletti@studio.unibo.it |
+| Devid Farinelli   | 819683    | devid.farinelli@studio.unibo.it   |
+| Filippo Morselli  |           |                                   |
 
-# [BPMN](https://github.com/MisterDev/ACME-agency/blob/master/bpmn)
 
-# Servizi esterni
 
-## [Banca](https://github.com/MisterDev/ACME-agency/blob/master/src/bank)
 
-Come da specifiche, la banca è stata implementata in Jolie e comunica attraverso il protocollo SOAP.
 
-Sono state implementate le operazioni di:
-- login
-- logout
-- deposito di denaro
-- ritiro di denaro
-- pagamento
-- richiesta di mutuo
-- report
 
-Non tutte queste operazioni sono usate nella coreografia
 
-## [Catasto](https://github.com/MisterDev/ACME-agency/blob/master/src/cadastre)
+> Prossimo capitolo: [**👉 Coreografia completa 👈**](choreographies/choreography.md)
 
-## [Distanze](https://github.com/MisterDev/ACME-agency/blob/master/src/distance)
-
-## [Mail](https://github.com/MisterDev/ACME-agency/blob/master/src/mail)
-
-## [Session manager](https://github.com/MisterDev/ACME-agency/blob/master/src/camunda-session-manager)
-
-# Agenzia ACME
-
-## [Web service](https://github.com/MisterDev/ACME-agency/blob/master/src/acme-agency-ws)
-
-## [BPMS](https://github.com/MisterDev/ACME-agency/blob/master/src/acme-agency)
-
-# Clients
-
-## [Buyer](https://github.com/MisterDev/ACME-agency/blob/master/src/java-buyer)
-
-## [Seller](https://github.com/MisterDev/ACME-agency/blob/master/src/java-seller)
