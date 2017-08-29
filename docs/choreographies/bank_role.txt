@@ -1,0 +1,17 @@
+BANCA
+
+(
+	(
+		loanRequest#a;							// Riceve richiesta di mutuo
+		loanReply@a
+	)
+		|
+	(
+		agreeDeposit#a;							// Riceve richiesta di caparra
+		sendDeposit@v;
+		depositDone@a;
+		agreePayment#a;
+		pay@acme;
+		pay@v
+	)
+)*
