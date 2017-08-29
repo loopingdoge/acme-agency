@@ -15,15 +15,34 @@
   - [Buyer](#buyer)
   - [Seller](#seller)
 
-# Coreografia
+# Coreografie
 
-TODO: Link alle varie coreografie
+- [Coreografia completa](/choreographies/choreography.md)
+- [ACME](/choreographies/acme_role.md)
+- [Acquirente](/choreographies/buyer_role.md)
+- [Venditore](/choreographies/seller_role.md)
+- [Banca](/choreographies/bank_role.md)
+- [Catasto](/choreographies/cadastre_role.md)
+- [Distanze](/choreographies/distance_role.md)
 
 # [BPMN](https://github.com/MisterDev/ACME-agency/blob/master/bpmn)
 
 # Servizi esterni
 
 ## [Banca](https://github.com/MisterDev/ACME-agency/blob/master/src/bank)
+
+Come da specifiche, la banca è stata implementata in Jolie e comunica attraverso il protocollo SOAP.
+
+Sono state implementate le operazioni di:
+- login
+- logout
+- deposito di denaro
+- ritiro di denaro
+- pagamento
+- richiesta di mutuo
+- report
+
+Non tutte queste operazioni sono usate nella coreografia
 
 ## [Catasto](https://github.com/MisterDev/ACME-agency/blob/master/src/cadastre)
 
