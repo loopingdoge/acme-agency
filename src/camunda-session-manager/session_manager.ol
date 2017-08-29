@@ -6,8 +6,6 @@ include "string_utils.iol"
 inputPort ACMESessionServer {
 	Location: "socket://localhost:8844"
 	Protocol: soap {
-		.wsdl = "./acme_session_manager.wsdl";
-		.wsdl.port = "ACMESessionManagerServicePort";
 		.namespace = "org.loopingdoge.acme.jolie.sessionmanager.xsd";
 		.dropRootValue = true
 	}
@@ -17,15 +15,13 @@ inputPort ACMESessionServer {
 inputPort ClientSessionServer {
 	Location: "socket://localhost:8845"
 	Protocol: soap {
-		.wsdl = "./client_session_manager.wsdl";
-		.wsdl.port = "ClientSessionManagerServicePort";
 		.namespace = "org.loopingdoge.acme.jolie.sessionmanager.xsd";
 		.dropRootValue = true
 	}
 	Interfaces: ClientSessionManager
 }
 
-execution {concurrent} 
+execution {concurrent}
 
 init {
 	readFileRequest.filename = "sessions.json";
@@ -45,7 +41,7 @@ main {
 
 		synchronized(sessions) {
 			readFile@File(readFileRequest)(sessionList);
-		
+
 			// Check if id is already present
 			toAdd = true;
 			for (i = 0, i < #sessionList.sessions, i++) {
@@ -60,11 +56,11 @@ main {
 				sessionList.sessions[#sessionList.sessions] << newsession;
 				writeFileRequest.content << sessionList;
 				writeFile@File(writeFileRequest)();
-				response.message = "Ok" 
+				response.message = "Ok"
 			}
 			else {
-				response.message = "Id already present" 
-			}	
+				response.message = "Id already present"
+			}
 		};
 
 		println@Console("Done\n")()
@@ -72,7 +68,7 @@ main {
 
 	[removeSession(sessionDel)(response) {
 		println@Console("Requested remove...")();
-		
+
 		synchronized(sessions) {
 			readFile@File(readFileRequest)(sessionList);
 
@@ -87,13 +83,13 @@ main {
 			writeFile@File(writeFileRequest)()
 		};
 
-		response.message = "Ok"; 
+		response.message = "Ok";
 		println@Console("Done\n")()
 	}] {nullProcess}
 
 	[getSessions(sessionGet)(response) {
 		println@Console("Requested get for '" + sessionGet.username + "'...")();
-		
+
 		synchronized(sessions) {
 			readFile@File(readFileRequest)(sessionList);
 			for (i = 0, i < #sessionList.sessions, i++) {
@@ -107,7 +103,7 @@ main {
 
 		response.sessions << userSessionList;
 		response.message = "Ok";
-	
+
 		println@Console("Done\n")()
 	}] {nullProcess}
 }
