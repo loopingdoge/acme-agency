@@ -26,11 +26,12 @@ execution{ concurrent }
 cset {
     sid:
         LoginResponse.sid
-        SimpleRequest.sid
+        LogoutRequest.sid
         WithdrawRequest.sid
         DepositRequest.sid
         PaymentRequest.sid
         LoanRequest.sid
+        ReportRequest.sid
 }
 
 define roundRequestAmount {
