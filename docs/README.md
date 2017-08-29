@@ -1,6 +1,4 @@
-# ACME Service
-
-## Indice
+# Indice
 
 - [Coreografia](#coreografia)
 - [BPMN](#bpmn)
