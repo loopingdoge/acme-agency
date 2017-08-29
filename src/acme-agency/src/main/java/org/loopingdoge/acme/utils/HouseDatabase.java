@@ -28,7 +28,7 @@ public class HouseDatabase {
             ),
             new House(
                     new Address("Italia", "BO", "Marzabotto", "40043", "Via dei Ciclamini", "16"),
-                    "Casa di Alby", "Albyxyz", 280, true, 90000
+                    "Casa di Alby", "Alberto", 280, true, 90000
             )
     ));
 

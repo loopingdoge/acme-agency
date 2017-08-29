@@ -49,17 +49,55 @@ define log {
 }
 
 init {
-    with ( users.IT88T1927501600001011018000 ) {	// Buyer
+    with ( users.USER1 ) {    // Buyer
+        .password = "user1";
+        .money = 400000.00;
+        .iban = "IT88T1927501600001011018555"
+    };
+    with ( users.USER2 ) {    // Buyer
+        .password = "user2";
+        .money = 550000.00;
+        .iban = "IT88T1927501600001011018666"
+    };
+    with ( users.BERTOLI ) {    // Buyer
         .password = "qwerty";
-        .money = 400000.00
+        .money = 400000.00;
+        .iban = "IT88T1927501600001011018000"
     };
-    with ( users.IT88T1927501600001011018111 ) {	// Seller
+    with ( users.BERTOLI ) {	// Buyer
+        .password = "qwerty";
+        .money = 400000.00;
+        .iban = "IT88T1927501600001011018000"
+    };
+    with ( users.PAPERONE ) {	// Seller
         .password = "asdfg";
-        .money = 300000.00
+        .money = 300000.00;
+        .iban = "IT88T1927501600001011018111"
     };
-    with ( users.IT88T1927501600001011018222 ) {	// ACME
+    with ( users.ACME ) {   // ACME
         .password = "zxcvb";
-        .money = 5000000.00
+        .money = 5000000.00;
+        .iban = "IT88T1927501600001011018222"
+    };
+    with ( users.ALBERTO ) {   // ACME
+        .password = "nicoletto";
+        .money = 500000.00;
+        .iban = "IT88T1927501600001011018333"
+    };
+    with ( users.PIERO ) {   // ACME
+        .password = "suppini";
+        .money = 20000.00;
+        .iban = "IT88T1927501600001011018444"
+    };
+    with ( users.LUCIANO ) {   // ACME
+        .password = "ligabue";
+        .money = 70000000.00;
+        .iban = "IT88T1927501600001011018555"
+    };
+    with ( users.GEPPETTO ) {   // ACME
+        .password = "wasd";
+        .money = 60000.00;
+        .iban = "IT88T1927501600001011018666"
     };
     timestamp
 }

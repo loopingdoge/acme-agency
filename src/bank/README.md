@@ -7,9 +7,9 @@
 | deposit  | [DepositRequest](#depositrequest)   |                                       |
 | loan     | [LoanRequest](#loanrequest)         | [LoanResponse](#loanresponse)         |
 | login    | [LoginRequest](#loginrequest)       | [LoginResponse](#loginresponse)       |
-| logout   | [SimpleRequest](#simplerequest)     |                                       |
+| logout   | [LogoutRequest](#simplerequest)     |                                       |
 | pay      | [PaymentRequest](#paymentrequest)   | [PaymentResponse](#paymentresponse)   |
-| report   | [SimpleRequest](#simplerequest)     | [ReportResponse](#reportresponse)     |
+| report   | [ReportRequest](#simplerequest)     | [ReportResponse](#reportresponse)     |
 | withdraw | [WithdrawRequest](#withdrawrequest) | [WithdrawResponse](#withdrawresponse) |
 
 ## Types

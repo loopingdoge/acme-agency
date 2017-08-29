@@ -20,7 +20,7 @@ import soseng.project.wsinterface.*;
 
 public class Buyer {
 	
-	private final static String USER = "Bertoli";
+	private final static String USER = "BERTOLI";
 	private final static String BANK_IBAN = "IT88T1927501600001011018000";
 	private final static String BANK_PASSWORD = "qwerty";
 	
@@ -285,7 +285,7 @@ public class Buyer {
 				// bank login
 				bankWs.login(
                         BANK_PASSWORD,
-                        BANK_IBAN,
+                        USER,
 						error,
                         sid);
 
