@@ -12,3 +12,5 @@ start jolie session_manager.ol
 
 cd %ACME_ROOT%\src\distance
 start node distance.js -a env MAPS_API_KEY
+
+cd %ACME_ROOT%
