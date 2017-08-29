@@ -1,0 +1,137 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Mail service for ACME agency",
+    "version": "1.0.0",
+    "title": "Mail service"
+  },
+  "host": "localhost:7774",
+  "tags": [
+    {
+      "name": "user",
+      "description": "User's email"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/{username}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get the user's emails",
+        "description": "",
+        "operationId": "getMail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "unread",
+            "in": "query",
+            "description": "Show only the unread emails",
+            "required": false,
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/MailGetResponse"
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Send mail",
+        "operationId": "sendMail",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "description": "The user who will receive the email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Mail to send",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MailSend"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation"
+          },
+          "400": {
+            "description": "Invalid parameters supplied"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Mail": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "to": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "read": {
+          "type": "boolean"
+        }
+      }
+    },
+    "MailGetResponse": {
+      "type": "object",
+      "properties": {
+        "mails": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Mail"
+          }
+        }
+      }
+    },
+    "MailSend": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ const timestamp = require('time-stamp')
 const shortid = require('shortid')
 const jsonfile = require('jsonfile')
 const bodyParser = require('body-parser')
+// const cors = require('cors')
 const argv = require('yargs')
     .usage('Usage: -p [port]')
     .alias('p', 'port')
@@ -20,6 +21,8 @@ jsonfile.spaces = 4
 const app = express()
 
 app.set('json spaces', 4)
+
+// app.use(cors())
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
@@ -71,7 +74,7 @@ app.get('/:user', (req, res) => {
 
     if (!user) {
         log('Undefined user')
-        return res.status(400).json({error: 'Undefined user'})
+        return res.status(400).json({})
     }
     
     let mailsIdsOfUser = Object.keys(mails).filter((key) => mails[key].to === user)
@@ -93,9 +96,11 @@ app.post('/:user', (req, res) => {
     const { from, text } = req.body
     const to = req.params.user
 
+    log(`POST to ${to}`)
+
     if (!from || !text) {
         log('Undefined mail property')
-        return res.status(400).json({error: 'Undefined user'})
+        return res.status(400).json({})
     }
 
     const newMail = {
@@ -104,17 +109,18 @@ app.post('/:user', (req, res) => {
 
     mails = Object.assign(newMail, mails)
 
-    return res.status(200).json({ error: '' })
+    return res.status(200).json({})
 })
 
 app.get('*', (req, res) => {
+    console.log(req.query)
     res.status(404).json({
         message: 'Not found'
     })
 })
 
 app.listen(PORT, () => {
-    console.log(`\nDistance service listening on port ${PORT}`)
+    console.log(`\nMail service listening on port ${PORT}`)
 })
 
 process.on('exit', () => saveDatabase(mails))
