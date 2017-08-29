@@ -1,91 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions targetNamespace="org.loopingdoge.acme.jolie.bank.wsdl" xmlns:tns="org.loopingdoge.acme.jolie.bank.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd1="org.loopingdoge.acme.jolie.bank.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+<wsdl:definitions targetNamespace="org.loopingdoge.acme.jolie.bank.wsdl" xmlns:xsd1="org.loopingdoge.acme.jolie.bank.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="org.loopingdoge.acme.jolie.bank.wsdl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
   <wsdl:types>
-    <xs:schema targetNamespace="org.loopingdoge.acme.jolie.bank.xsd" xmlns:sch="org.loopingdoge.acme.jolie.bank.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="logout"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="deposit"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="withdraw"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="withdrawResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:boolean"/></xs:sequence></xs:complexType></xs:element><xs:element name="report"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="reportResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/></xs:sequence></xs:complexType></xs:element><xs:element name="pay"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="iban" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="PaymentErrors"><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="insufficientMoney" type="xs:boolean"/><xs:element maxOccurs="1" minOccurs="1" name="unexistingIban" type="xs:boolean"/></xs:sequence></xs:complexType><xs:element name="payResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="errors" type="sch:PaymentErrors"/></xs:sequence></xs:complexType></xs:element><xs:element name="login"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="username" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="password" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="loginResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:boolean"/></xs:sequence></xs:complexType></xs:element><xs:element name="loan"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="loanResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="accepted" type="xs:boolean"/></xs:sequence></xs:complexType></xs:element></xs:schema>
+    <xs:schema targetNamespace="org.loopingdoge.acme.jolie.bank.xsd" xmlns:sch="org.loopingdoge.acme.jolie.bank.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:element name="loan"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="loanResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="accepted" type="xs:boolean"/></xs:sequence></xs:complexType></xs:element><xs:element name="logout"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="report"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="reportResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/></xs:sequence></xs:complexType></xs:element><xs:element name="pay"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="user" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:complexType name="PaymentErrors"><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="insufficientMoney" type="xs:boolean"/><xs:element maxOccurs="1" minOccurs="1" name="unexistingUser" type="xs:boolean"/></xs:sequence></xs:complexType><xs:element name="payResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="errors" type="sch:PaymentErrors"/></xs:sequence></xs:complexType></xs:element><xs:element name="deposit"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="login"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="password" type="xs:string"/><xs:element maxOccurs="1" minOccurs="1" name="username" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="loginResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:boolean"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="withdraw"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="amount" type="xs:double"/><xs:element maxOccurs="1" minOccurs="1" name="sid" type="xs:string"/></xs:sequence></xs:complexType></xs:element><xs:element name="withdrawResponse"><xs:complexType><xs:sequence><xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:boolean"/></xs:sequence></xs:complexType></xs:element></xs:schema>
   </wsdl:types>
-  <wsdl:message name="PaymentRequest">
-    <wsdl:part name="body" element="xsd1:pay"/>
-  </wsdl:message>
-  <wsdl:message name="PaymentResponse">
-    <wsdl:part name="body" element="xsd1:payResponse"/>
+  <wsdl:message name="LoginRequest">
+    <wsdl:part name="body" element="xsd1:login"/>
   </wsdl:message>
   <wsdl:message name="WithdrawRequest">
     <wsdl:part name="body" element="xsd1:withdraw"/>
   </wsdl:message>
+  <wsdl:message name="LogoutRequest">
+    <wsdl:part name="body" element="xsd1:logout"/>
+  </wsdl:message>
   <wsdl:message name="DepositRequest">
     <wsdl:part name="body" element="xsd1:deposit"/>
-  </wsdl:message>
-  <wsdl:message name="LoginRequest">
-    <wsdl:part name="body" element="xsd1:login"/>
   </wsdl:message>
   <wsdl:message name="LoanRequest">
     <wsdl:part name="body" element="xsd1:loan"/>
   </wsdl:message>
-  <wsdl:message name="SimpleRequest">
-    <wsdl:part name="body" element="xsd1:report"/>
-  </wsdl:message>
-  <wsdl:message name="LoanResponse">
-    <wsdl:part name="body" element="xsd1:loanResponse"/>
+  <wsdl:message name="PaymentResponse">
+    <wsdl:part name="body" element="xsd1:payResponse"/>
   </wsdl:message>
   <wsdl:message name="ReportResponse">
     <wsdl:part name="body" element="xsd1:reportResponse"/>
   </wsdl:message>
-  <wsdl:message name="WithdrawResponse">
-    <wsdl:part name="body" element="xsd1:withdrawResponse"/>
-  </wsdl:message>
   <wsdl:message name="LoginResponse">
     <wsdl:part name="body" element="xsd1:loginResponse"/>
   </wsdl:message>
+  <wsdl:message name="LoanResponse">
+    <wsdl:part name="body" element="xsd1:loanResponse"/>
+  </wsdl:message>
+  <wsdl:message name="PaymentRequest">
+    <wsdl:part name="body" element="xsd1:pay"/>
+  </wsdl:message>
+  <wsdl:message name="WithdrawResponse">
+    <wsdl:part name="body" element="xsd1:withdrawResponse"/>
+  </wsdl:message>
+  <wsdl:message name="ReportRequest">
+    <wsdl:part name="body" element="xsd1:report"/>
+  </wsdl:message>
   <wsdl:portType name="BankService">
+    <wsdl:operation name="loan">
+      <wsdl:input message="tns:LoanRequest"/>
+      <wsdl:output message="tns:LoanResponse"/>
+    </wsdl:operation>
     <wsdl:operation name="logout">
-      <wsdl:input message="tns:SimpleRequest"/>
-    </wsdl:operation>
-    <wsdl:operation name="deposit">
-      <wsdl:input message="tns:DepositRequest"/>
-    </wsdl:operation>
-    <wsdl:operation name="withdraw">
-      <wsdl:input message="tns:WithdrawRequest"/>
-      <wsdl:output message="tns:WithdrawResponse"/>
+      <wsdl:input message="tns:LogoutRequest"/>
     </wsdl:operation>
     <wsdl:operation name="report">
-      <wsdl:input message="tns:SimpleRequest"/>
+      <wsdl:input message="tns:ReportRequest"/>
       <wsdl:output message="tns:ReportResponse"/>
     </wsdl:operation>
     <wsdl:operation name="pay">
       <wsdl:input message="tns:PaymentRequest"/>
       <wsdl:output message="tns:PaymentResponse"/>
     </wsdl:operation>
+    <wsdl:operation name="deposit">
+      <wsdl:input message="tns:DepositRequest"/>
+    </wsdl:operation>
     <wsdl:operation name="login">
       <wsdl:input message="tns:LoginRequest"/>
       <wsdl:output message="tns:LoginResponse"/>
     </wsdl:operation>
-    <wsdl:operation name="loan">
-      <wsdl:input message="tns:LoanRequest"/>
-      <wsdl:output message="tns:LoanResponse"/>
+    <wsdl:operation name="withdraw">
+      <wsdl:input message="tns:WithdrawRequest"/>
+      <wsdl:output message="tns:WithdrawResponse"/>
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BankServiceSOAPBinding" type="tns:BankService">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http/"/>
+    <wsdl:operation name="loan">
+      <soap:operation soapAction="loan" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="logout">
       <soap:operation soapAction="logout" style="document"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="deposit">
-      <soap:operation soapAction="deposit" style="document"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="withdraw">
-      <soap:operation soapAction="withdraw" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -111,6 +105,15 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="deposit">
+      <soap:operation soapAction="deposit" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="login">
       <soap:operation soapAction="login" style="document"/>
       <wsdl:input>
@@ -120,8 +123,8 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="loan">
-      <soap:operation soapAction="loan" style="document"/>
+    <wsdl:operation name="withdraw">
+      <soap:operation soapAction="withdraw" style="document"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

@@ -22,7 +22,11 @@ type LoginResponse: void {
     .sid: string
 }
 
-type SimpleRequest: void {
+type LogoutRequest: void {
+    .sid: string
+}
+
+type ReportRequest: void {
     .sid: string
 }
 
@@ -59,11 +63,11 @@ interface BankInterface {
         loan(LoanRequest)(LoanResponse),
         login(LoginRequest)(LoginResponse),
         withdraw(WithdrawRequest)(WithdrawResponse),
-        report(SimpleRequest)(ReportResponse),
+        report(ReportRequest)(ReportResponse),
         pay(PaymentRequest)(PaymentResponse)
     OneWay:
         deposit(DepositRequest),
-        logout(SimpleRequest)
+        logout(LogoutRequest)
 }
 
 type PostMailRequest: void {
