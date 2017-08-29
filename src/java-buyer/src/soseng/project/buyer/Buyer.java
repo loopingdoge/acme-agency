@@ -10,6 +10,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;
 
+import org.loopingdoge.acme.jolie.bank.BankService;
+import org.loopingdoge.acme.jolie.bank.BankServiceService;
 import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServer;
 import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServerService;
 import org.loopingdoge.acme.jolie.sessionmanager.SessionType;
@@ -19,6 +21,8 @@ import soseng.project.wsinterface.*;
 public class Buyer {
 	
 	private final static String USER = "Bertoli";
+	private final static String BANK_USER = "IT88T1927501600001011018000";
+	private final static String BANK_PASSWORD = "qwerty";
 	
 	private final static String REPLY_ACCEPT = "accept";
 	private final static String REPLY_MORE = "more";
@@ -268,8 +272,41 @@ public class Buyer {
 		else if (session.getState().matches(WAIT_FOR_BUYER_OFFER)) {
 			BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 			
-			String res = buyerWs.makeOffer(session.getProcessId(), 100000);
-			System.out.println(res);
+			System.out.println("Request loan? (yes or no)");
+			Scanner scan = new Scanner(System.in);
+			String action = scan.next();
+			
+			if (action.matches("yes")) {
+				BankService bankWs = new BankServiceService().getBankServiceServicePort();
+				
+				Holder<String> sid = new Holder<String>();
+				Holder<Boolean> error = new Holder<Boolean>();
+				
+				// bank login
+				bankWs.login(
+						BANK_USER, 
+						BANK_PASSWORD, 
+						sid, 
+						error);
+				
+				if (!error.value) {
+				
+					boolean loanPerformed = bankWs.loan(10000, sid.value);
+					
+					if (loanPerformed) {
+						System.out.println("Loan accepted");
+						String res = buyerWs.makeOffer(session.getProcessId(), 100000);
+						System.out.println(res);
+					}
+					else 
+						System.out.println("Loan refused");
+				}
+			}
+			
+			else if (action.matches("no")) {
+				String res = buyerWs.makeOffer(session.getProcessId(), 100000);
+				System.out.println(res);
+			}
 			
 		}
 		

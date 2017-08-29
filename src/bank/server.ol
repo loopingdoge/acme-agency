@@ -5,7 +5,12 @@ include "time.iol"
 
 inputPort BankService {
     Location: "socket://localhost:7777"
-    Protocol: soap
+    Protocol: soap {
+	.wsdl = "./bank.wsdl";
+        .wsdl.port = "BankInterfaceServicePort";
+        .namespace = "org.loopingdoge.acme.jolie.bank.xsd";
+        .dropRootValue = true
+    }
     Interfaces: BankInterface
 }
 
