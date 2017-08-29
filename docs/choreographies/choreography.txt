@@ -87,9 +87,8 @@
 							(
 								agreeOffer: v → acme;     		// Venditore accetta
 								vendorAgreed: acme → a;
-								agreeDeposit: a → bank; 
-								sendDeposit: bank → v; 
-								depositDone: bank → a;
+								pay: a → bank; 				// Caparra
+								paymentNotify: bank → a;
                         					
 								( 
 									signContract: a → nota | signContract: v → nota 
@@ -97,9 +96,9 @@
 		        					
 								( contractDone: nota → a | contractDone: nota → v );
                         				
-								agreePayment: a → bank; 
-								pay: bank → acme; 
-								pay: bank → v
+								pay: a → bank; 				// Pagamento
+								paymentNotify: bank → acme; 
+								paymentNotify: bank → v
 							)				
 						)
 					)	
