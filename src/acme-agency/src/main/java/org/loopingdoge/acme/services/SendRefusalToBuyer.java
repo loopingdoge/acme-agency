@@ -2,10 +2,13 @@ package org.loopingdoge.acme.services;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServer;
+import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeExternalServices;
 import org.loopingdoge.acme.utils.AcmeVariables;
 import org.loopingdoge.acme.utils.MailServiceAPI;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -32,6 +35,10 @@ public class SendRefusalToBuyer implements JavaDelegate {
         String buyerName = (String) execution.getVariable(AcmeVariables.BUYER_NAME);
         Double buyerOffer = (Double) execution.getVariable(AcmeVariables.BUYER_OFFER);
 
+        // Remove seller session info
+        ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
+        sessionWs.removeSession(execution.getProcessInstanceId());
+        
         mailService.send(
                 buyerName,
                 "AcmeAgency",

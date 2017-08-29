@@ -12,6 +12,9 @@ wsimport -keep -p soseng.project.wsinterface -s src/java-buyer/src -extension ht
 # session-manager interface for java-buyer
 wsimport -keep -p org.loopingdoge.acme.jolie.sessionmanager -s src/java-buyer/src -extension src/camunda-session-manager/client_session_manager.wsdl
 
+# bank interface for java-buyer
+wsimport -keep -p org.loopingdoge.acme.jolie.bank -s src/java-buyer/src -extension src/bank/bank.wsdl
+
 # acme-agency-ws interface for java-seller
 wsimport -keep -p soseng.project.wsinterface -s src/java-seller/src -extension http://localhost:8080/acme-agency-ws-0.0.1-SNAPSHOT/SellerWebService?wsdl
 
