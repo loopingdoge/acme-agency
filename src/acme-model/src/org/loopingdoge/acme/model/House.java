@@ -41,8 +41,8 @@ public class House implements Serializable {
 	public House() {
 
 		this.address = null;
-		this.name = null;
-		this.sellerName = null;
+		this.name = "";
+		this.sellerName = "";
 		this.squareFootage = 0;
 		this.hasGarden = false;
 		this.price = 0;		

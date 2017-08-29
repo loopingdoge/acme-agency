@@ -37,12 +37,12 @@ public class Address implements Serializable {
 	}
 
 	public Address() {
-		this.nation = null;
-		this.province = null;
-		this.city = null;
-		this.streetName = null;
-		this.civic = null;
-		this.cap = null;
+		this.nation = "";
+		this.province = "";
+		this.city = "";
+		this.streetName = "";
+		this.civic = "";
+		this.cap = "";
 	}
 	
 	public void setNation(String nation) {
