@@ -19,35 +19,30 @@
 
 # Coreografia
 
-Link alle varie coreografie
+TODO: Link alle varie coreografie
 
-# BPMN
-
-[BPMN](https://github.com/MisterDev/ACME-agency/blob/master/bpmn/acme-agency.bpmn)
+# [BPMN](https://github.com/MisterDev/ACME-agency/blob/master/bpmn)
 
 # Servizi esterni
 
-## Banca
+## [Banca](https://github.com/MisterDev/ACME-agency/blob/master/src/bank)
 
-[Banca](https://github.com/MisterDev/ACME-agency/blob/master/src/bank/README.md)
+## [Catasto](https://github.com/MisterDev/ACME-agency/blob/master/src/cadastre)
 
-## Catasto
+## [Distanze](https://github.com/MisterDev/ACME-agency/blob/master/src/distance)
 
-## Distanze
+## [Mail](https://github.com/MisterDev/ACME-agency/blob/master/src/mail)
 
-## Mail
-
-## Session manager
+## [Session manager](https://github.com/MisterDev/ACME-agency/blob/master/src/camunda-session-manager)
 
 # Agenzia ACME
 
-## Web service
+## [Web service](https://github.com/MisterDev/ACME-agency/blob/master/src/acme-agency-ws)
 
-## BPMS
+## [BPMS](https://github.com/MisterDev/ACME-agency/blob/master/src/acme-agency)
 
 # Clients
 
-## Buyer
+## [Buyer](https://github.com/MisterDev/ACME-agency/blob/master/src/java-buyer)
 
-## Seller
-
+## [Seller](https://github.com/MisterDev/ACME-agency/blob/master/src/java-seller)
