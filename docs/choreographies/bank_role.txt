@@ -2,16 +2,16 @@ BANCA
 
 (
 	(
-		loanRequest#a;							// Riceve richiesta di mutuo
+		loanRequest#a;							// Richiesta di mutuo
 		loanReply@a
 	)
 		|
 	(
-		agreeDeposit#a;							// Riceve richiesta di caparra
-		sendDeposit@v;
-		depositDone@a;
-		agreePayment#a;
-		pay@acme;
-		pay@v
-	)
+		pay#a;								// Richiesta di effettuare un pagamento
+		notifyPayment@a;
+
+		1
+				+
+		notifyPayment@other						// Puo' notificare anche Acme o venditore
+	) 
 )*
