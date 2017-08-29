@@ -272,4 +272,4 @@
   replyDist@acme
 )*
 ```
-Prossimo capitolo: [**👉 BPMN 👈**](/bpmn.md)
+Prossimo capitolo: [**👉 BPMN 👈**](../bpmn.md)
