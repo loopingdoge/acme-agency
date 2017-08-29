@@ -3,11 +3,13 @@ package org.loopingdoge.acme;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeVariables;
+import org.loopingdoge.acme.utils.BuyerOfferMessage;
 
 import javax.annotation.Resource;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -95,10 +97,42 @@ public class SellerWebService {
 		}
 		
 		// Unlock process using message
-        processEngine.getRuntimeService().createMessageCorrelation("sellerMeetingResponseMessage")
+        processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.SELLER_MEETING_REPLY_MESSAGE)
                 .processInstanceId(processId)
                 .correlate();
 
         return "Ok";
     }
+	
+	@WebMethod
+	public BuyerOfferMessage getOffer (
+			@WebParam(name="processId") String processId) {
+		
+		String buyerName = (String) processEngine.getRuntimeService().getVariable(processId, AcmeVariables.BUYER_NAME);
+		Double buyerOffer = (Double) processEngine.getRuntimeService().getVariable(processId, AcmeVariables.BUYER_OFFER);
+		House chosenHouse = (House) processEngine.getRuntimeService().getVariable(processId, AcmeVariables.CHOSEN_HOUSE);
+		
+		BuyerOfferMessage offerMessage = new BuyerOfferMessage(buyerName, buyerOffer, chosenHouse);
+		
+		return offerMessage;
+	}
+	
+	@WebMethod
+	public String offerReply (
+			@WebParam(name="processId") String processId,
+			@WebParam(name="accept") boolean accept) {	
+		
+			processEngine.getRuntimeService().setVariable(
+					processId, 
+					AcmeVariables.OFFER_REPLY, 
+					accept);
+			
+			// Unlock process using message
+	        processEngine.getRuntimeService().createMessageCorrelation(AcmeVariables.SELLER_OFFER_REPLY_MESSAGE)
+	                .processInstanceId(processId)
+	                .correlate();		
+		
+		return "Ok";
+		
+	}
 }

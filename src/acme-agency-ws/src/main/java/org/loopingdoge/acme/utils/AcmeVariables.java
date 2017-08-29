@@ -119,6 +119,13 @@ public class AcmeVariables {
      * The buyer's offer
      */
     public static final String BUYER_OFFER = "buyerOffer";
+    
+    /**
+     * boolean
+     * Global
+     * Seller reply to buyer/s offer
+     */
+    public static final String OFFER_REPLY = "offerReply";
 
     /**
      * String
@@ -159,5 +166,8 @@ public class AcmeVariables {
     public final static String SELLER_AVAILABILITY_MESSAGE = "sellerAvailabilityMessage";
     
     public final static String BUYER_MEETING_REPLY_MESSAGE = "buyerMeetingResponseMessage";
+    
+    public final static String SELLER_MEETING_REPLY_MESSAGE = "sellerMeetingResponseMessage";
 
+    public final static String SELLER_OFFER_REPLY_MESSAGE = "offerReply";
 }
