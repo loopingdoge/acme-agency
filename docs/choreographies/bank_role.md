@@ -10,10 +10,8 @@
   (
     pay#a;                    // Richiesta di effettuare un pagamento
     notifyPayment@a;
-
-    1
-    +
-    notifyPayment@other       // Puo' notificare anche Acme o venditore
+    notifyPayment@b           // Notifica il ricevente
+                              // (Acme o venditore)
   ) 
 )*
 ```
