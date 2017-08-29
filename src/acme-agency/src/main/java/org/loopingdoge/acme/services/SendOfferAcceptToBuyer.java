@@ -7,6 +7,7 @@ import org.loopingdoge.acme.jolie.sessionmanager.ACMESessionServerService;
 import org.loopingdoge.acme.model.House;
 import org.loopingdoge.acme.utils.AcmeExternalServices;
 import org.loopingdoge.acme.utils.AcmeVariables;
+import org.loopingdoge.acme.utils.AcmeWaitStateNames;
 import org.loopingdoge.acme.utils.MailServiceAPI;
 
 import retrofit2.Retrofit;
@@ -38,7 +39,12 @@ public class SendOfferAcceptToBuyer implements JavaDelegate {
         // Remove seller session info
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
         sessionWs.removeSession(execution.getProcessInstanceId());
-        
+
+        sessionWs.addSession(
+                buyerName,
+                execution.getProcessInstanceId(),
+                AcmeWaitStateNames.WAIT_BUYER_DEPOSIT);
+
         mailService.send(
                 buyerName,
                 "AcmeAgency",

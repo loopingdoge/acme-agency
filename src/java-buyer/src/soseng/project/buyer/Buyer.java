@@ -12,6 +12,7 @@ import javax.xml.ws.Holder;
 
 import org.loopingdoge.acme.jolie.bank.BankService;
 import org.loopingdoge.acme.jolie.bank.BankServiceService;
+import org.loopingdoge.acme.jolie.bank.PaymentErrors;
 import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServer;
 import org.loopingdoge.acme.jolie.sessionmanager.ClientSessionServerService;
 import org.loopingdoge.acme.jolie.sessionmanager.SessionType;
@@ -20,7 +21,7 @@ import soseng.project.wsinterface.*;
 
 public class Buyer {
 	
-	private final static String USER = "BERTOLI";
+	private final static String USER = "Bertoli";
 	private final static String BANK_IBAN = "IT88T1927501600001011018000";
 	private final static String BANK_PASSWORD = "qwerty";
 	
@@ -32,6 +33,8 @@ public class Buyer {
 	/* Session wait states */
 	public static final String WAIT_BUYER_MEETING_RESPONSE = "WaitingForBuyerMeetingResponse";
 	public static final String WAIT_FOR_BUYER_OFFER = "WaitingForBuyerOffer";
+    public static final String WAIT_BUYER_DEPOSIT = "WaitingForBuyerDeposit";
+    public static final String WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment";
 	
     public static void main (String[] args) {
 		
@@ -285,7 +288,7 @@ public class Buyer {
 				// bank login
 				bankWs.login(
                         BANK_PASSWORD,
-                        USER,
+                        USER.toUpperCase(),
 						error,
                         sid);
 
@@ -309,7 +312,50 @@ public class Buyer {
 			}
 			
 		}
-		
+
+		else if(session.getState().matches(WAIT_BUYER_DEPOSIT)) {
+            System.out.println("Do you appprove deposit? (yes or no)");
+            Scanner scan = new Scanner(System.in);
+            String action = scan.next();
+
+            if (action.matches("yes")) {
+                BankService bankWs = new BankServiceService().getBankServiceServicePort();
+
+                Holder<String> sid = new Holder<String>();
+                Holder<Boolean> error = new Holder<Boolean>();
+
+                // bank login
+                bankWs.login(
+                        BANK_PASSWORD,
+                        USER.toUpperCase(),
+                        error,
+                        sid);
+
+                if (!error.value) {
+                    BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+
+                    House chosenHouse = buyerWs.getChosenHouse(session.getProcessId());
+
+                    PaymentErrors depositConfirm = bankWs.pay(
+                            10000,
+                            chosenHouse.getSellerName().toUpperCase(),
+                            sid.value);
+
+                    if(depositConfirm.isInsufficientMoney()) {
+                        System.out.println("Insufficient money");
+                    } else if (depositConfirm.isUnexistingUser()) {
+                        System.out.println("Unexisting user: " + chosenHouse.getSellerName().toUpperCase());
+                    } else {
+                        // TODO: payment after contract signing
+                    )
+                }
+            }
+
+            else if (action.matches("no")) {
+                System.out.println("Deposit canceled");
+            }
+        }
+
 		else {
 			System.out.println("Unknown state");
 		}
