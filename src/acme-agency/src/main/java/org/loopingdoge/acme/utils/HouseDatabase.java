@@ -15,7 +15,7 @@ public class HouseDatabase {
                     "Casa nel Bosco", "Geppetto", 125, true, 125000
             ),
             new House(
-                    new Address("Via Garibaldi", "108", "Minerbio", "40061", "BO", "Italia"),
+                    new Address("Via Garibaldi", "108", "Minerbio", "", "BO", "Italia"),
                     "Grattacielo", "Paperone", 300, false, 500000
             ),
             new House(
