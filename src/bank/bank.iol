@@ -29,11 +29,11 @@ type SimpleRequest: void {
 type PaymentRequest: void {
     .sid: string
     .amount: double
-    .iban: string
+    .user: string
 }
 
 type PaymentErrors: void {
-    .unexistingIban: bool
+    .unexistingUser: bool
     .insufficientMoney: bool
 }
 
@@ -64,4 +64,19 @@ interface BankInterface {
     OneWay:
         deposit(DepositRequest),
         logout(SimpleRequest)
+}
+
+type PostMailRequest: void {
+    .username: string
+    .from: string
+    .text: string
+}
+
+type PostMailResponse: void {
+}
+
+/**! @Rest: method=post, template=/{username} */
+interface MailInterface {
+    RequestResponse:
+        sendMail(PostMailRequest)(PostMailResponse)
 }

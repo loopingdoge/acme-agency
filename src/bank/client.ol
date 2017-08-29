@@ -74,16 +74,16 @@ main {
         scope ( client_2_payment ) {
             install(
                 PaymentInsufficientMoney => println@Console("client 2 - " + "Payment error: you don't have enough money")(),
-                PaymentUnexistingIban => println@Console("client 2 - " + "Payment error: unexisting iban")()
+                PaymentUnexistingUser => println@Console("client 2 - " + "Payment error: unexisting user")()
             );
             paymentRequest2.sid = sid2;
             paymentRequest2.amount = 1000;
-            paymentRequest2.iban = "IT88T1927501600001011018000";
+            paymentRequest2.user = "IT88T1927501600001011018000";
             pay@BankService(paymentRequest2)(paymentResponse2);
             if ( paymentResponse2.errors.insufficientMoney ) {
                 throw( PaymentInsufficientMoney )
             } else if ( paymentResponse2.errors.unexistingIban ) {
-                throw( PaymentUnexistingIban )
+                throw( PaymentUnexistingUser )
             }
         };
 

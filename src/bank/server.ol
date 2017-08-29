@@ -9,6 +9,15 @@ inputPort BankService {
     Interfaces: BankInterface
 }
 
+outputPort MailService {
+    Location: "socket://localhost:7774"
+    Protocol: http {
+        .format = "json";
+        .osc.sendMail.alias="%!{username}"
+    }
+    Interfaces: MailInterface
+}
+
 execution{ concurrent }
 
 cset {
@@ -91,7 +100,7 @@ main {
 
         [pay(request)(paymentResponse) {
             roundRequestAmount;
-            logmessage = username + " requested a payment to " + request.iban; log;
+            logmessage = username + " requested a payment to " + request.user; log;
             with( paymentResponse ) {
                 if (users.(username).money < roundedAmount) {
                     .errors.insufficientMoney = true;
@@ -100,17 +109,21 @@ main {
                     .errors.insufficientMoney = false
                 };
 
-                if (!#users.(request.iban)) {
-                   .errors.unexistingIban = true;
-                   logmessage = username + " payment refused due to unexisting iban"; log
+                if (!#users.(request.user)) {
+                   .errors.unexistingUser = true;
+                   logmessage = username + " payment refused due to unexisting user"; log
                } else {
-                   .errors.unexistingIban = false
+                   .errors.unexistingUser = false
                };
 
-               if (!.errors.insufficientMoney && !.errors.unexistingIban) {
+               if (!.errors.insufficientMoney && !.errors.unexistingUser) {
                    users.(username).money -= roundedAmount;
-                   users.(request.iban).money += roundedAmount;
-                   logmessage = username + " payed " + request.iban + " a total of " + roundedAmount + " euros"; log
+                   users.(request.user).money += roundedAmount;
+                   mailRequest.username = request.user;
+                   mailRequest.from = username;
+                   mailRequest.text = "You received " + roundedAmount + " euros from " + username;
+                   sendMail@MailService(mailRequest)();
+                   logmessage = username + " payed " + request.user + " a total of " + roundedAmount + " euros"; log
                }
             }
         } ]
