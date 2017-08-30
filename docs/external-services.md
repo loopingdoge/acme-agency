@@ -72,4 +72,4 @@ Il servizio delle mail è realizzato in REST tramite Node.js ed espone una risor
 Per ulteriori informazioni sull'interfaccia e le operazioni consigliamo di consultare il file [swagger.json](https://github.com/MisterDev/ACME-agency/blob/master/src/mail/swagger.json) attraverso l'[editor di swagger](https://editor.swagger.io/), con il quale è possibile anche provare le richieste.
 
 ------
-Prossimo capitolo: [**👉 Agenzia ACME 👈**](acme-agency.md)
+### [**➡️ Next**](acme-agency.md)
