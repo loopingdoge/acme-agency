@@ -41,8 +41,5 @@ Per eseguire il progetto, avviare:
 - `java-buyer.jar`,  `java-seller.jar` ed eseguire le istruzioni a riga di comando
 - Aprire con il browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo e loggare usando `john` come *username* e *password*
 
-
-
-
-
-Prossimo capitolo: [**👉 Coreografia completa 👈**](choreographies/choreography.md)
+------
+### [**➡️ Next**](choreographies/choreography.md)
