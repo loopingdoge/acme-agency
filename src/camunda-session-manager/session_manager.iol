@@ -31,6 +31,15 @@ type SessionGetResponse: void {
 	.message: string
 }
 
+type InformDepositElement: void {
+	.processId: string
+	.bankOpId: string
+}
+
+type InformDepositResponse: void {
+	.message: string
+}
+
 
 interface ACMESessionManager {
 	RequestResponse:
@@ -41,5 +50,6 @@ interface ACMESessionManager {
 
 interface ClientSessionManager {
 	RequestResponse:
-		getSessions(SessionElementGet)(SessionGetResponse)
+		getSessions(SessionElementGet)(SessionGetResponse),
+		informDepositDone(InformDepositElement)(InformDepositResponse)
 }

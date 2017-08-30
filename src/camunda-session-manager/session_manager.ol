@@ -23,6 +23,11 @@ inputPort ClientSessionServer {
 
 execution {concurrent}
 
+constants {
+	WAIT_BUYER_DEPOSIT = "WaitingForBuyerDeposit",
+	WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment" 
+}
+
 init {
 	readFileRequest.filename = "sessions.json";
 	readFileRequest.format = "json";
@@ -104,6 +109,39 @@ main {
 		response.sessions << userSessionList;
 		response.message = "Ok";
 
+		println@Console("Done\n")()
+	}] {nullProcess}
+
+	[informDepositDone(depositInfo)(response) {
+		println@Console("Inform deposit " + depositInfo.processId + " ...")();
+
+		synchronized(sessions) {
+			readFile@File(readFileRequest)(sessionList);
+			for (i = 0, i < #sessionList.sessions, i++) {
+				if (is_defined(sessionList.sessions[i])) {
+					if (sessionList.sessions[i].processId == depositInfo.processId) {
+						depositSession << sessionList.sessions[i];
+						index << i
+					}
+				}
+			}
+		};
+
+		if (is_defined(depositSession) && depositSession.state == WAIT_BUYER_DEPOSIT) {
+			sessionList.sessions[index].state << WAIT_BUYER_PAYMENT;
+
+			synchronized(sessions) {	
+				writeFileRequest.content << sessionList;
+				writeFile@File(writeFileRequest)()
+			};
+
+			response.message = "Ok"
+		}
+		else {
+			println@Console(depositSession.state)();
+			response.message = "Non-existing process"
+		};
+		
 		println@Console("Done\n")()
 	}] {nullProcess}
 }
