@@ -25,7 +25,8 @@ execution {concurrent}
 
 constants {
 	WAIT_BUYER_DEPOSIT = "WaitingForBuyerDeposit",
-	WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment" 
+	WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment", 
+	PAYMENT_BEING_VERIFIED = "PaymentBeingVerified" 
 }
 
 init {
@@ -138,7 +139,38 @@ main {
 			response.message = "Ok"
 		}
 		else {
-			println@Console(depositSession.state)();
+			response.message = "Non-existing process"
+		};
+		
+		println@Console("Done\n")()
+	}] {nullProcess}
+	
+	[informPaymentDone(paymentInfo)(response) {
+		println@Console("Inform payment " + paymentInfo.processId + " ...")();
+
+		synchronized(sessions) {
+			readFile@File(readFileRequest)(sessionList);
+			for (i = 0, i < #sessionList.sessions, i++) {
+				if (is_defined(sessionList.sessions[i])) {
+					if (sessionList.sessions[i].processId == paymentInfo.processId) {
+						paymentSession << sessionList.sessions[i];
+						index << i
+					}
+				}
+			}
+		};
+
+		if (is_defined(paymentSession) && paymentSession.state == WAIT_BUYER_PAYMENT) {
+			sessionList.sessions[index].state << PAYMENT_BEING_VERIFIED;
+
+			synchronized(sessions) {	
+				writeFileRequest.content << sessionList;
+				writeFile@File(writeFileRequest)()
+			};
+
+			response.message = "Ok"
+		}
+		else {
 			response.message = "Non-existing process"
 		};
 		

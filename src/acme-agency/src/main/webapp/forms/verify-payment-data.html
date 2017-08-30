@@ -1,0 +1,62 @@
+<form name="verifyPaymentData" role="form">
+
+  <script cam-script type="text/form-script">
+        camForm.on("form-loaded", function() {
+
+            camForm.variableManager.fetchVariable("chosenHouse");
+            camForm.variableManager.fetchVariable("buyerName");
+            camForm.variableManager.fetchVariable("buyerOffer");
+
+            camForm.on('variables-fetched', function() {
+                $scope.chosenHouse = camForm.variableManager.variable("chosenHouse").value;
+                $scope.buyerName = camForm.variableManager.variable("buyerName").value;
+                $scope.buyerOffer = camForm.variableManager.variable("buyerOffer").value;
+            });
+        });
+    </script>
+    
+   <h3>House Data</h3>
+
+    <div class="form-group">
+        <label for="houseName">House Name</label>
+        <input class="form-control"
+               id="house-name"
+               type="text"
+               ng-model="chosenHouse.name"
+        />
+        
+
+        <label for="sellerName">Owner Name</label>
+        <input class="form-control"
+               id="owner-name"
+               type="text"
+               ng-model="chosenHouse.sellerName"
+        />
+        
+
+        <label for="buyerName">Buyer Name</label>
+        <input class="form-control"
+               id="buyer-name"
+               type="text"
+               ng-model="buyerName"
+        />  
+        
+  
+        <label for="buyerOffer">Buyer Offer</label>
+        <input class="form-control"
+               id="buyer-offer"
+               type="text"
+               ng-model="buyerOffer"
+        /> 
+    </div>
+        
+    <h3>Verify Payment</h3>  
+      
+  	<div class="form-group">
+    	<label for="paymentOk">Confirm Payment</label>
+    
+    	<input type="checkbox"
+       	cam-variable-name="paymentOk"
+       	cam-variable-type="Boolean" />
+  	</div>
+</form>

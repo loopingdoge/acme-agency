@@ -35,6 +35,7 @@ public class Buyer {
 	public static final String WAIT_FOR_BUYER_OFFER = "WaitingForBuyerOffer";
     public static final String WAIT_BUYER_DEPOSIT = "WaitingForBuyerDeposit";
     public static final String WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment";
+    public static final String PAYMENT_BEING_VERIFIED = "PaymentBeingVerified";
 	
     public static void main (String[] args) {
 		
@@ -272,6 +273,7 @@ public class Buyer {
 				System.out.println("Error");
 		}
 		
+		
 		else if (session.getState().matches(WAIT_FOR_BUYER_OFFER)) {
 			BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 			
@@ -313,6 +315,7 @@ public class Buyer {
 			
 		}
 
+		
 		else if(session.getState().matches(WAIT_BUYER_DEPOSIT)) {
             System.out.println("Do you appprove deposit? (yes or no)");
             Scanner scan = new Scanner(System.in);
@@ -336,6 +339,7 @@ public class Buyer {
 
                     House chosenHouse = buyerWs.getChosenHouse(session.getProcessId());
 
+                    System.out.println("Deposit");
                     PaymentErrors depositConfirm = bankWs.pay(
                             10000,
                             chosenHouse.getSellerName().toUpperCase(),
@@ -346,8 +350,10 @@ public class Buyer {
                     } else if (depositConfirm.isUnexistingUser()) {
                         System.out.println("Unexisting user: " + chosenHouse.getSellerName().toUpperCase());
                     } else {
-                        // TODO: payment after contract signing
-                    )
+                        // Inform session manager of successful deposit
+                    	ClientSessionServer sessionWs = new ClientSessionServerService().getClientSessionServerServicePort();
+                    	sessionWs.informDepositDone(session.getProcessId(), "bankOpNumber");
+                    }
                 }
             }
 
@@ -355,7 +361,65 @@ public class Buyer {
                 System.out.println("Deposit canceled");
             }
         }
+		
+		
+		else if(session.getState().matches(WAIT_BUYER_PAYMENT)) {
+			BankService bankWs = new BankServiceService().getBankServiceServicePort();
 
+            Holder<String> sid = new Holder<String>();
+            Holder<Boolean> error = new Holder<Boolean>();
+
+            // bank login
+            bankWs.login(
+                    BANK_PASSWORD,
+                    USER.toUpperCase(),
+                    error,
+                    sid);
+
+            if (!error.value) {
+                BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
+
+                House chosenHouse = buyerWs.getChosenHouse(session.getProcessId());
+
+                System.out.println("Acme Payment");                
+                PaymentErrors acmePaymentConfirm = bankWs.pay(
+                        chosenHouse.getPrice() * 1/10, 
+                        "ACME",
+                        sid.value);
+                if(acmePaymentConfirm.isInsufficientMoney()) {
+                    System.out.println("Insufficient money");
+                    return;
+                } else if (acmePaymentConfirm.isUnexistingUser()) {
+                    System.out.println("Unexisting user: " + chosenHouse.getSellerName().toUpperCase());
+                    return;
+                }
+                
+                System.out.println("Seller Payment");
+                PaymentErrors sellerPaymentConfirm = bankWs.pay(
+                        chosenHouse.getPrice() * 9/10, 
+                        chosenHouse.getSellerName().toUpperCase(),
+                        sid.value);
+
+                if(sellerPaymentConfirm.isInsufficientMoney()) {
+                    System.out.println("Insufficient money");
+                    return;
+                } else if (sellerPaymentConfirm.isUnexistingUser()) {
+                    System.out.println("Unexisting user: " + chosenHouse.getSellerName().toUpperCase());
+                    return;
+                } else {
+                    // Inform session manager of successful deposit
+                	ClientSessionServer sessionWs = new ClientSessionServerService().getClientSessionServerServicePort();
+                	sessionWs.informPaymentDone(session.getProcessId(), "bankOpNumber");
+                }
+            }
+		}
+		
+		
+		else if(session.getState().matches(PAYMENT_BEING_VERIFIED)) {
+			
+		}
+
+		
 		else {
 			System.out.println("Unknown state");
 		}
