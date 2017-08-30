@@ -1,3 +1,7 @@
+### [**🏠 Home**](/README.md)
+
+###  [**⬅️ Back**](/README.md)
+-----
 # Coreografia
 
 ```
@@ -115,5 +119,7 @@
   )
 )
 ```
+## Connectedness
 
-> Prossimo capitolo: [**👉 Coreografia proiettata sui ruoli 👈**](roles.md)
+-----
+### [**➡️ Next**](roles.md)
