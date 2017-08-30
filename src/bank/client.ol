@@ -13,7 +13,7 @@ main {
         install(
             IncorrectLogin => println@Console("client 1 - " + "Login error: wrong username or password")()
         );
-        user1.name = "IT88T1927501600001011018000"; user1.password = "qwerty";
+        user1.name = "LUCIANO"; user1.password = "ligabue";
 
         loginRequest1.username = user1.name;
         loginRequest1.password = user1.password;
@@ -57,7 +57,7 @@ main {
         install(
             IncorrectLogin => println@Console("client 2 - " + "Login error: wrong username or password")()
         );
-        user2.name = "IT88T1927501600001011018111"; user2.password = "asdfg";
+        user2.name = "ALBERTO"; user2.password = "nicoletto";
 
         loginRequest2.username = user2.name;
         loginRequest2.password = user2.password;
@@ -78,7 +78,7 @@ main {
             );
             paymentRequest2.sid = sid2;
             paymentRequest2.amount = 1000;
-            paymentRequest2.user = "IT88T1927501600001011018000";
+            paymentRequest2.user = "LUCIANO";
             pay@BankService(paymentRequest2)(paymentResponse2);
             if ( paymentResponse2.errors.insufficientMoney ) {
                 throw( PaymentInsufficientMoney )
