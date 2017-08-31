@@ -1,10 +1,10 @@
-# ACME-agency
-Software Engineering Project 16/17 University of Bologna
+# ACME Agency
 
-Progetto Ingegneria del Software Orientata ai Servizi
-A.A. 2016/2017
+> Software Engineering Project 16/17 University of Bologna
+>
+> Docs: https://loopingdoge.github.io/acme-agency/
 
-Descrizione del dominio e del problema
+## Project requirements (Italian only)
 
 L’agenzia ACME fornisce servizi immobiliari ai propri clienti, fra i quali l’intermediazione per l’acquisto di immobili.
 La tipica coreografia per l’acquisto si svolge come segue.
