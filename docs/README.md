@@ -22,7 +22,7 @@
   - [Buyer](clients.md#buyer)
   - [Seller](clients.md#seller)
 
-# Introduzione
+# Componenti del gruppo
 
 | Nome              | Matricola | Email                             |
 | ----------------- | --------- | --------------------------------- |
@@ -30,16 +30,27 @@
 | Devid Farinelli   | 819683    | devid.farinelli@studio.unibo.it   |
 | Filippo Morselli  | 819508    | filippo.morselli@studio.unibo.it  |
 
+# Introduzione
 
+Nel progetto sono state implementate tutte le richieste obbligatorie della consegna ela coreografia BPMN opzionale.
+
+Nella realizzazione del progetto sono stati utilizzati i seguenti linguaggi e tool:
+
+- **Camunda modeler** per la modellazione del diagramma di collaborazione BPMN;
+- **Lucidchart** per la modellazione del diagramma di coreografia BPMN;
+- **Jolie** e **Java** per i servizi SOAP;
+- **Node.js** per i servizi REST.
 
 ## Esecuzione
 
 Per eseguire il progetto, avviare:
 
-- il server Wildfly fornito, già configurato per l'esecuzione
-- lo script `start_services` contenuto nella *root* del progetto
-- `java-buyer.jar`,  `java-seller.jar` ed eseguire le istruzioni a riga di comando
-- Aprire con il browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo e loggare usando `john` come *username* e *password*
+- il server Wildfly fornito, già configurato per l'esecuzione, tramite lo script `start_camunda`;
+- lo script `start_services` contenuto nella *root* del progetto;
+- `java-buyer.jar`,  `java-seller.jar` ed eseguire le istruzioni a riga di comando;
+- Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
+
+
 
 ------
 ### [**➡️ Next**](choreographies/choreography.md)

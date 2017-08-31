@@ -1,6 +1,6 @@
 ### [**🏠 Home**](/README.md)
 
-###  [**⬅️ Back**](/README.md)
+###  [**⬅️ Back**](/)
 -----
 # Coreografia
 
@@ -144,7 +144,6 @@ La coreografia riportata sopra gode della proprietà di connectedness. Di seguit
 * La fase di invio della caparra è corretta, dato che tutte le sequenze sono del tipo *a→b ; b→c*
 
 * Potenziale problema di connectedness tra la firma del contratto e il successivo pagamento, anche se in un contesto concreto l’azione in parallelo (ossia la firma del contratto da parte di acquirente e venditore) avviene contemporaneamente. Si aggiunge una *contractDone* per evitare ciò.
-
 
 
 -----
