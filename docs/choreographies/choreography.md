@@ -1,6 +1,6 @@
 ### [**🏠 Home**](../README.md)
 
-###  [**⬅️ Back**](/README.md)
+###  [**⬅️ Back**](../README.md)
 -----
 # Coreografia
 
