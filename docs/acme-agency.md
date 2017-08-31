@@ -4,15 +4,13 @@
 -----
 # Agenzia ACME
 
-L'implementazione del BPM è stata realizzata con un BPMS e due web services usati come interfaccia per i client
+L'implementazione del BPM è stata realizzata con un BPMS e due web services usati come interfaccia per i client.
 
-## Web services [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws)
 ## Web services [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws)
 
 I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfacce utilizzate dai client di acquirente e venditore per scambiare informazioni con il BPMS. Di seguito sono descritti gli enpoint per ciascuno:
 
-### [Acquirente](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws/src/main/java/org/loopingdoge/acme/BuyerWebService.java)
-#### Acquirente [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws/src/main/java/org/loopingdoge/acme/BuyerWebService.java)
+### Acquirente [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws/src/main/java/org/loopingdoge/acme/BuyerWebService.java)
 
 - `requestHouses`
   avvia una istanza di processo per l'acquirente e restituisce una lista di case disponibili in linea con i criteri di ricerca
@@ -32,7 +30,7 @@ I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfac
 - `getChosenHouse`
   restituisce i dati della casa scelta dall'acquirente
 
-#### Venditore [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws/src/main/java/org/loopingdoge/acme/SellerWebService.java)
+### Venditore [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws/src/main/java/org/loopingdoge/acme/SellerWebService.java)
 - `proposeHouse`
   permette di mettere in vendita una casa ed avvia un'istanza di processo per il venditore
 
@@ -50,8 +48,6 @@ I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfac
 
 - `offerReply`
   permette di accettare o rifiutare un'offerta di acquisto
-
-  ​
 
 
 ## BPMS [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency)
