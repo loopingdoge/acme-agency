@@ -3,8 +3,6 @@ package org.loopingdoge.acme.utils;
 import org.loopingdoge.acme.model.House;
 
 import javax.xml.bind.annotation.*;
-import java.util.ArrayList;
-
 
 @SuppressWarnings("restriction")
 @XmlAccessorType(XmlAccessType.FIELD)

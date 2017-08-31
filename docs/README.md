@@ -28,7 +28,7 @@
 | ----------------- | --------- | --------------------------------- |
 | Alberto Nicoletti | 819697    | alberto.nicoletti@studio.unibo.it |
 | Devid Farinelli   | 819683    | devid.farinelli@studio.unibo.it   |
-| Filippo Morselli  |           |                                   |
+| Filippo Morselli  | 819508    | filippo.morselli@studio.unibo.it  |
 
 
 

@@ -1,3 +1,5 @@
 /bin/
 src/org
 src/soseng/project/wsinterface
+
+.idea/workspace.xml
