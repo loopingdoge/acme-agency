@@ -6,6 +6,10 @@
 
 L'implementazione del BPM è stata realizzata con un BPMS e due web services usati come interfaccia per i client.
 
+## Model [(sources)](https://github.com/loopingdoge/acme-agency/tree/master/src/acme-model)
+Le classi condivise utilizzate come modello per i dati sono state aggregate in un file `.jar` ed incluse come dipendenze Maven di entrambi i progetti.
+
+
 ## Web services [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws)
 
 I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfacce utilizzate dai client di acquirente e venditore per scambiare informazioni con il BPMS. Di seguito sono descritti gli enpoint per ciascuno:
