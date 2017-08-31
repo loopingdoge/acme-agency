@@ -71,5 +71,23 @@ Il servizio delle mail è realizzato in REST tramite Node.js ed espone una risor
 
 Per ulteriori informazioni sull'interfaccia e le operazioni consigliamo di consultare il file [swagger.json](https://github.com/MisterDev/ACME-agency/blob/master/src/mail/swagger.json) attraverso l'[editor di swagger](https://editor.swagger.io/), con il quale è possibile anche provare le richieste.
 
+## Sessioni [(sources)](https://github.com/MisterDev/ACME-agency/blob/master/src/camunda-session-manager)
+
+Servizio che tiene traccia di tutte le istanze di processo attive. Esso permette ai client (acquirente 
+e venditore) di interrogarlo allo scopo di recuperare le informazioni riguardo le proprie sessioni in corso.
+Ad essi vengono infatti restituiti gli ID di istanze di processo in cui ci si aspetta una loro azione per
+poter completare il successivo task. Il client, dopo aver scelto quale istanza continuare, utilizza il
+*processId* corrispondente come parametro per le comunicazioni al web service di Acme.
+
+I dati sulle sessioni sono invece inseriti e rimossi dall'agenzia Acme.
+
+Il servizio espone pertanto due interfacce distinte, ed è realizzato in Jolie.
+
+Fanno da eccezione a questa separazione le operazioni di *informDepositDone* e *informPaymentDone*, che permettono a 
+un client di modificare il proprio stato nel processo notificando direttamente questo servizio. 
+Il motivo di questa scelta è dato dal fatto che Acme non è coinvolta direttamente nella gestione delle caparre e del 
+pagamento al venditore, pertanto non sarebbe in grado di aggiornare lo stato dell'acquirente in modo opportuno,
+se non a fase di pagamento terminata.
+
 ------
 ### [**➡️ Next**](acme-agency.md)
