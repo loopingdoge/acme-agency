@@ -24,16 +24,27 @@ inputPort ClientSessionServer {
 execution {concurrent}
 
 constants {
+	SESSION_FILE_NAME = "sessions.json",
 	WAIT_BUYER_DEPOSIT = "WaitingForBuyerDeposit",
 	WAIT_BUYER_PAYMENT = "WaitingForBuyerPayment", 
 	PAYMENT_BEING_VERIFIED = "PaymentBeingVerified" 
 }
 
 init {
-	readFileRequest.filename = "sessions.json";
+	readFileRequest.filename = SESSION_FILE_NAME;
 	readFileRequest.format = "json";
-	writeFileRequest.filename = "sessions.json";
-	writeFileRequest.format = "json"
+	writeFileRequest.filename = SESSION_FILE_NAME;
+	writeFileRequest.format = "json";
+
+
+	exists@File(SESSION_FILE_NAME)(b);
+	
+	if(!b) {
+		wfr.content = "{}";
+		wfr.format = "text";
+		wfr.filename = SESSION_FILE_NAME;
+		writeFile@File(wfr)()
+	}
 }
 
 main {
