@@ -574,10 +574,10 @@
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1m3kbbr" sourceRef="ExclusiveGateway_1oildr6" targetRef="IntermediateCatchEvent_1iacfx4" />
-    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0xq7tbw" name="Payment confirmation">
+    <bpmn:intermediateCatchEvent id="IntermediateCatchEvent_0xq7tbw" name="Payment confirmation" camunda:asyncBefore="true" camunda:exclusive="false">
       <bpmn:incoming>SequenceFlow_1y5ve38</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0rs1fpj</bpmn:outgoing>
-      <bpmn:messageEventDefinition />
+      <bpmn:messageEventDefinition messageRef="Message_1gdljbf" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1y5ve38" sourceRef="ExclusiveGateway_1oildr6" targetRef="IntermediateCatchEvent_0xq7tbw" />
     <bpmn:sequenceFlow id="SequenceFlow_0rs1fpj" sourceRef="IntermediateCatchEvent_0xq7tbw" targetRef="WaitFor" />
@@ -966,6 +966,7 @@
   <bpmn:message id="Message_1sq5gnf" name="sellerMeetingResponseMessage" />
   <bpmn:message id="Message_05h0w08" name="startNotary" />
   <bpmn:message id="Message_1gbmhgh" name="startCadastrial" />
+  <bpmn:message id="Message_1gdljbf" name="payment_confirmation" />
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="WaitForPayment">
       <bpmndi:BPMNShape id="Participant_1chimxc_di" bpmnElement="Participant_1chimxc">
