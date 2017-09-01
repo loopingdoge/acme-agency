@@ -1,6 +1,6 @@
 # ACME Agency
 
-> Software Engineering Project 16/17 University of Bologna
+> Service Oriented Software Engineering Project 16/17 University of Bologna
 >
 > Docs: https://loopingdoge.github.io/acme-agency/
 
