@@ -119,6 +119,9 @@
   )
 )
 ```
+## Coreografia in BPMN [(sources)](https://www.lucidchart.com/documents/edit/f26d1a59-a2c7-4e23-988e-df7fb6124fc1)
+`// TODO: da scaricare e pushare `
+
 ## Analisi di Connectedness
 
 La coreografia riportata sopra gode della proprietà di connectedness. Di seguito si effettua una analisi dettagliata per dimostrarlo:

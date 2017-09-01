@@ -49,13 +49,15 @@
   </bpmn:collaboration>
   <bpmn:process id="acme-agency" isExecutable="true">
     <bpmn:laneSet>
-      <bpmn:lane id="Lane_077as13" />
       <bpmn:lane id="AcmeLane" name="Website">
         <bpmn:flowNodeRef>HouseLookupRequest</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>HouseAdditionRequest</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>HouseAdditionEnd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>WaitFor</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>DemandPayment</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>SubProcess_11azy6t</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>AddHouseToDatabaseTask</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>HouseProposalSubprocess</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>SubProcess_0mrzc2s</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0dfqqww</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>MeetingManualTask</bpmn:flowNodeRef>
@@ -75,17 +77,14 @@
         <bpmn:flowNodeRef>EndProcessByOfferRefusal</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_03nvy7d</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>SendOfferAcceptToBuyerTask</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>BoundaryEvent_0px713a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndProcessByPayment</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_00f6ptd</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0sprs57</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>HouseProposalSubprocess</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>BoundaryEvent_1f7j017</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>WaitFor</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>DemandPayment</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BoundaryEvent_0px713a</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1oildr6</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>IntermediateCatchEvent_1iacfx4</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>IntermediateCatchEvent_0xq7tbw</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>IntermediateCatchEvent_1iacfx4</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="HouseLookupRequest" name="House lookup request&#10;&#10;">
@@ -977,9 +976,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="160" y="-145" width="72" height="12" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_077as13_di" bpmnElement="Lane_077as13">
-        <dc:Bounds x="153" y="832" width="5378" height="60" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Participant_0qzbhdt_di" bpmnElement="Participant_0qzbhdt">
         <dc:Bounds x="110" y="-409" width="5419" height="447" />
@@ -2575,7 +2571,7 @@
         <di:waypoint xsi:type="dc:Point" x="1445" y="289" />
         <di:waypoint xsi:type="dc:Point" x="1445" y="202" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1377" y="230" width="64" height="12" />
+          <dc:Bounds x="1378" y="240" width="63" height="13" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1qi6e7b_di" bpmnElement="SequenceFlow_1qi6e7b">
@@ -2699,7 +2695,7 @@
         <dc:Bounds x="2981" y="618" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_00b7jdp_di" bpmnElement="AcmeLane">
-        <dc:Bounds x="153" y="96" width="5378" height="736" />
+        <dc:Bounds x="153" y="96" width="5378" height="796" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_1k2p0g8_di" bpmnElement="MessageFlow_1k2p0g8">
         <di:waypoint xsi:type="dc:Point" x="3854" y="301" />
