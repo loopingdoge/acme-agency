@@ -14,7 +14,7 @@ I client sono stati realizzati in modo tale da non esporre servizi, quindi si ut
 
 Inoltre utilizzano il servizio delle [Sessioni](/external_services.md) per continuare istanze di processo anche in esecuzioni differenti.
 
-## Buyer [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/java-buyer)
+## <a name="buyer"></a> Buyer [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/java-buyer)
 
 Implementa le seguenti operazioni:
 
@@ -30,7 +30,7 @@ Implementa le seguenti operazioni:
 
 * **Pay**: pagamento a un venditore o ad Acme, tramite la banca
 
-## Seller [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/java-seller)
+## <a name="seller"></a> Seller [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/java-seller)
 
 Implementa le seguenti operazioni:
 
