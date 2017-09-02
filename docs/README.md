@@ -45,12 +45,17 @@ Nella realizzazione del progetto sono stati utilizzati i seguenti linguaggi e to
 
 Per eseguire il progetto, avviare:
 
-- il server Wildfly fornito, già configurato per l'esecuzione, tramite lo script `start_camunda`;
-- lo script `start_services` contenuto nella *root* del progetto;
-- `java-buyer.jar`,  `java-seller.jar` ed eseguire le istruzioni a riga di comando;
-- Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
+1. il server Wildfly fornito, già configurato per l'esecuzione, tramite lo script `start_camunda`;
+2. `scripts/start_services` per avviare i servizi esterni;
+3. `dist/java-buyer.jar`,  `dist/java-seller.jar` ed eseguire le istruzioni a riga di comando;
+4. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
 
+## Scripts aggiuntivi
 
+Dentro la cartella `scripts` sono presenti anche gli script da usare in caso di modifica ai sorgenti:
+
+- `ext_wsdl2java`, per generare le classi Java a partire dai wsdl dei servizi esterni;
+- `ws_wsdl2java`, per generare le classi Java a partire dai wsdl esposti dal web service attivo su Wildfly (il web service deve essere attivo).
 
 ------
 ### [**➡️ Next**](choreographies/choreography.md)
