@@ -1,7 +1,7 @@
 @echo off
-SET ACME_ROOT=%~dp0
+SET ACME_ROOT=%~dp0\..
 
-cd src\cadastre
+cd %ACME_ROOT%\src\cadastre
 start jolie server.ol
 
 cd %ACME_ROOT%\src\bank

@@ -1,4 +1,5 @@
-export ACME_ROOT=pwd
+SCRIPTDIR=$(dirname "$0")
+ACME_ROOT=SCRIPTDIR/..
 
 cd $ACME_ROOT/src/cadastre && jolie server.ol
 &
