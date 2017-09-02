@@ -1,6 +1,6 @@
 #!/bin/bash
-SCRIPTDIR=$(dirname "$0")
-ACME_ROOT=SCRIPTDIR/..
+SCRIPTDIR=`dirname "$0"`
+ACME_ROOT=${SCRIPTDIR}/..
 
 # cadastre interface for acme-agency 
 wsimport -Xnocompile -keep -p org.loopingdoge.acme.jolie.cadastre -s $ACME_ROOT/src/acme-agency/src/main/java -extension $ACME_ROOT/src/cadastre/cadastre.wsdl
