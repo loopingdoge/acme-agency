@@ -10,7 +10,7 @@ L'implementazione del BPM è stata realizzata con un BPMS e due web services usa
 Le classi condivise utilizzate come modello per i dati sono state aggregate in un file `.jar` ed incluse come dipendenze Maven di entrambi i progetti.
 
 
-## Web services [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws)
+## <a name="web-services"></a> Web services [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency-ws)
 
 I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfacce utilizzate dai client di acquirente e venditore per scambiare informazioni con il BPMS. Di seguito sono descritti gli enpoint per ciascuno:
 
@@ -54,7 +54,7 @@ I web services sono stati realizzati utilizzando JAX-WS ed espongono le interfac
   permette di accettare o rifiutare un'offerta di acquisto
 
 
-## BPMS [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency)
+## <a name="bpms"></a> BPMS [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/acme-agency)
 
 Il BPMS è semplicemente un progetto Maven che implementa i task specificati dal BPM ed è organizzato come segue:
 
