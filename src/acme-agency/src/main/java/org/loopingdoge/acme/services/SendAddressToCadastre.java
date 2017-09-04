@@ -56,9 +56,8 @@ public class SendAddressToCadastre implements JavaDelegate {
 
         execution.setVariableLocal(AcmeVariables.CADASTRIAL_ERROR, cadastrialError);
 
-        if (!cadastrialError.equals("")) {
-            execution.setVariable(AcmeVariables.CADASTRIAL_COORDINATES, coordinatesResult.value);
-        }
+        // Even if there's an error, nord and east will be set to 0
+        execution.setVariable(AcmeVariables.CADASTRIAL_COORDINATES, coordinatesResult.value);
     }
 
 }
