@@ -380,10 +380,11 @@ public class Buyer {
                 BuyerWebService buyerWs = new BuyerWebServiceService().getBuyerWebServicePort();
 
                 House chosenHouse = buyerWs.getChosenHouse(session.getProcessId());
+                Double buyerOffer = buyerWs.getBuyerOffer(session.getProcessId());
 
                 System.out.println("Acme Payment");                
                 PaymentErrors acmePaymentConfirm = bankWs.pay(
-                        chosenHouse.getPrice() * 1/10, 
+                        buyerOffer * 1/10, 
                         "ACME",
                         sid.value);
                 if(acmePaymentConfirm.isInsufficientMoney()) {
@@ -396,7 +397,7 @@ public class Buyer {
                 
                 System.out.println("Seller Payment");
                 PaymentErrors sellerPaymentConfirm = bankWs.pay(
-                        chosenHouse.getPrice() * 9/10, 
+                        buyerOffer * 9/10, 
                         chosenHouse.getSellerName().toUpperCase(),
                         sid.value);
 
