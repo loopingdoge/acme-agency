@@ -35,11 +35,7 @@ public class Seller {
 	public static void main(String[] args) {
 		
 		interactiveMain();
-		
-		//proposeDateForMeeting();
-		//acceptBuyerDate();
-		//refuseBuyerDate();
-				
+	
 	}
 	
 	

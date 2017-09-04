@@ -40,11 +40,7 @@ public class Buyer {
     public static void main (String[] args) {
 		
 		interactiveMain();
-		
-		//houseLookup();
-		//acceptDate();
-		//proposeDifferentDates();
-		
+
 	}	
 	
 	
