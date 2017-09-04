@@ -261,4 +261,16 @@ public class BuyerWebService {
 		return chosenHouse;
 	}
 	
+	@WebMethod
+	public Double getBuyerOffer (
+			@WebParam(name="processId") String processId ){
+
+		// Get buyer offer data
+		Double buyerOffer = (Double) processEngine.getRuntimeService().getVariable(
+				processId,
+				AcmeVariables.BUYER_OFFER);
+
+		return buyerOffer;
+	}
+	
 }

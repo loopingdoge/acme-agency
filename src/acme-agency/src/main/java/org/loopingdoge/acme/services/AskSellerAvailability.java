@@ -43,7 +43,7 @@ public class AskSellerAvailability implements JavaDelegate {
         mailService.send(
                 acceptedHouse.getSellerName(),
                 "AcmeAgency",
-                buyerName + " ha richiesto di incontro per la tua casa " + acceptedHouse.getName())
+                buyerName + " requested a meeting for " + acceptedHouse.getName())
                 .execute().body();
 
         // Add session info

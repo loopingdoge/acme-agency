@@ -44,7 +44,7 @@ public class DemandNewPayment implements JavaDelegate {
         mailService.send(
                 buyerName,
                 "AcmeAgency",
-                "Ripetere pagamento per " + acceptedHouse.getName())
+                "Please repeat payment for " + acceptedHouse.getName())
                 .execute().body();
 
 

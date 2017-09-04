@@ -14,9 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.logging.Logger;
 
-public class SendSellerMeetingProposal implements JavaDelegate {
+public class HandleMeetingTimeout implements JavaDelegate {
 
-    private final static Logger logger = Logger.getLogger("SendBuyerMeetingProposal");
+    private final static Logger logger = Logger.getLogger("HandleMeetingProposal");
 
     private final String BASE_URL = AcmeExternalServices.MAIL;
 
@@ -29,9 +29,9 @@ public class SendSellerMeetingProposal implements JavaDelegate {
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        logger.info("service started");
+        logger.info("Timeout - service started");
 
-        // Remove seller session info
+        // Remove session info
         ACMESessionServer sessionWs = new ACMESessionServerService().getACMESessionServerServicePort();
         sessionWs.removeSession(execution.getProcessInstanceId());
 
@@ -39,16 +39,17 @@ public class SendSellerMeetingProposal implements JavaDelegate {
 
         // Send mail notification to buyer
         mailService.send(
+                (String) execution.getVariable(AcmeVariables.BUYER_NAME),
+                "AcmeAgency",
+                "Meeting for " + acceptedHouse.getName() + " failed'")
+                .execute().body();
+        
+     // Send mail notification to seller
+        mailService.send(
                 acceptedHouse.getSellerName(),
                 "AcmeAgency",
-                "Buyer for " + acceptedHouse.getName() + " specified new availability dates")
+                "Meeting for " + acceptedHouse.getName() + " failed'")
                 .execute().body();
-
-        // Add buyer session
-        sessionWs.addSession(
-                acceptedHouse.getSellerName(),
-                execution.getProcessInstanceId(),
-                AcmeWaitStateNames.WAIT_SELLER_MEETING_RESPONSE);
     }
 
 }
