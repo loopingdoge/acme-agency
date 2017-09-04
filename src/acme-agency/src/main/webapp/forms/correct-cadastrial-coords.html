@@ -1,15 +1,13 @@
 <form name="correctCoords" role="form">
 
     <script cam-script type="text/form-script">
-        var cadastrialCoordinates = $scope.cadastrialCoordinates = {};
-
         camForm.on("form-loaded", function() {
 
-            //camForm.variableManager.createVariable({
-            //    name: 'cadastrialCoordinates',
-            //    type: 'json',
-            //    value: cadastrialCoordinates
-            //});
+            camForm.variableManager.fetchVariable('cadastrialCoordinates');
+
+            camForm.on('variables-fetched', function() {
+                $scope.cadastrialCoordinates = camForm.variableManager.variable('cadastrialCoordinates').value;
+            });
 
         });
     </script>
@@ -22,7 +20,7 @@
                id="nord"
                type="text"
                required
-               ng-model="coordinates.nord"
+               ng-model="cadastrialCoordinates.nord"
         />
 
         <label for="east">East</label>
@@ -30,7 +28,7 @@
                id="east"
                type="text"
                required
-               ng-model="coordinates.east"
+               ng-model="cadastrialCoordinates.east"
         />
     </div>
 </form>
