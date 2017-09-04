@@ -174,7 +174,8 @@ main {
             logmessage = username + " requested a loan of " + request.amount + " euros"; log;
             random@Math()(randomValue);
             if (randomValue < 0.5) {
-                loanResponse.accepted = true
+                loanResponse.accepted = true;
+                users.(username).money += request.amount
             } else {
                 loanResponse.accepted = false
             };
