@@ -41,7 +41,7 @@ public class SendBuyerMeetingProposal implements JavaDelegate {
         mailService.send(
                 (String) execution.getVariable(AcmeVariables.BUYER_NAME),
                 "AcmeAgency",
-                "Il proprietario di " + acceptedHouse.getName() + " ha specificato date di disponibilita'")
+                "Owner of " + acceptedHouse.getName() + " specified availability dates")
                 .execute().body();
 
         // Add buyer session

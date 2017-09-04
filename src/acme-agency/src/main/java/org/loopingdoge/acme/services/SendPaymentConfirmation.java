@@ -44,7 +44,7 @@ public class SendPaymentConfirmation implements JavaDelegate {
         mailService.send(
                 buyerName,
                 "AcmeAgency",
-                "Conferma di pagamento avvenuto per " + acceptedHouse.getName())
+                "Payment confirmation for " + acceptedHouse.getName())
                 .execute().body();
 
 
