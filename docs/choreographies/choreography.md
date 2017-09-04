@@ -119,8 +119,8 @@
   )
 )
 ```
-## Coreografia in BPMN [(sources)](https://www.lucidchart.com/documents/edit/f26d1a59-a2c7-4e23-988e-df7fb6124fc1)
-`// TODO: da scaricare e pushare `
+## Coreografia in BPMN [(sources)](https://github.com/loopingdoge/acme-agency/tree/master/bpmn/choreographies)
+Le coreografie BPMN delle istanze di processo avviate in risposta alle richieste di acquirente e venditore sono state realizzate usando Lucidachart come editor online.
 
 ## Analisi di Connectedness
 
