@@ -436,14 +436,14 @@
       <bpmn:sequenceFlow id="SequenceFlow_07jfeu2" name="Incorrect data" sourceRef="CadastrialResponseChoose" targetRef="CorrectAddressDataTask">
         <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression"><![CDATA[${cadastrialError != ""}]]></bpmn:conditionExpression>
       </bpmn:sequenceFlow>
-      <bpmn:userTask id="CorrectAddressDataTask" name="Correct house data" camunda:formKey="embedded:app:forms/correct-address.html" camunda:assignee="john">
+      <bpmn:userTask id="CorrectAddressDataTask" name="Correct house data" camunda:formKey="embedded:app:forms/correct-address.html" camunda:candidateGroups="office">
         <bpmn:extensionElements>
           <camunda:formData />
         </bpmn:extensionElements>
         <bpmn:incoming>SequenceFlow_07jfeu2</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_1h61ryt</bpmn:outgoing>
       </bpmn:userTask>
-      <bpmn:userTask id="SendAgentToCadastreTask" name="Send agent" camunda:formKey="embedded:app:forms/correct-cadastrial-coords.html" camunda:assignee="john">
+      <bpmn:userTask id="SendAgentToCadastreTask" name="Send agent" camunda:formKey="embedded:app:forms/correct-cadastrial-coords.html" camunda:candidateGroups="office">
         <bpmn:incoming>SequenceFlow_0eox74p</bpmn:incoming>
         <bpmn:outgoing>SequenceFlow_19bp6xc</bpmn:outgoing>
       </bpmn:userTask>
@@ -548,7 +548,7 @@
     </bpmn:boundaryEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1du654y" sourceRef="SendOfferAcceptToBuyerTask" targetRef="WaitFor" />
     <bpmn:sequenceFlow id="SequenceFlow_1jmkpjl" sourceRef="DemandPayment" targetRef="WaitFor" />
-    <bpmn:userTask id="WaitFor" name="Verify payment" camunda:formKey="embedded:app:forms/verify-payment-data.html">
+    <bpmn:userTask id="WaitFor" name="Verify payment" camunda:formKey="embedded:app:forms/verify-payment-data.html" camunda:candidateGroups="office">
       <bpmn:incoming>SequenceFlow_1du654y</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1jmkpjl</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0il6sbh</bpmn:outgoing>

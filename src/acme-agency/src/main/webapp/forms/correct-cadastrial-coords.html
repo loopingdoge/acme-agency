@@ -1,13 +1,16 @@
-<form name="correctAddress" role="form">
+<form name="correctCoords" role="form">
 
     <script cam-script type="text/form-script">
+        var cadastrialCoordinates = $scope.cadastrialCoordinates = {};
+
         camForm.on("form-loaded", function() {
 
-            camForm.variableManager.fetchVariable("cadastrialCoordinates");
+            //camForm.variableManager.createVariable({
+            //    name: 'cadastrialCoordinates',
+            //    type: 'json',
+            //    value: cadastrialCoordinates
+            //});
 
-            camForm.on('variables-fetched', function() {
-                $scope.coordinates = camForm.variableManager.variable("cadastrialCoordinates").value;
-            });
         });
     </script>
 
