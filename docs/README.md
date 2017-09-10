@@ -32,7 +32,7 @@
 
 # Introduzione
 
-Nel progetto sono state implementate tutte le richieste obbligatorie della consegna ela coreografia BPMN opzionale.
+Nel progetto sono state implementate tutte le richieste obbligatorie della consegna e la coreografia BPMN opzionale.
 
 Nella realizzazione del progetto sono stati utilizzati i seguenti linguaggi e tool:
 
