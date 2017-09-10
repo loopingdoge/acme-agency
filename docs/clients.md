@@ -7,7 +7,7 @@
 Entrambi i client sono realizzati con programmi Java e, seppur con interfaccia utente elementare, permettono di realizzare tutte le operazioni ad essi richieste.
 
 Si interfacciano con ACME tramite i web service esposti dall'agenzia e, nel caso dell'acquirente, anche con quello della banca.
-Il codice che effettua le richieste ai servizi è generato automaticamente tramite `wsimport`, a partire dai WSDL dei servizi necesssari (vedasi i file `generate_ws.bat` e `generate_ws.bat` nella root directory del progetto).
+Il codice che effettua le richieste ai servizi è generato automaticamente tramite `wsimport`, a partire dai WSDL dei servizi necesssari (si vedano gli script `ext_wsdl2java` e `ws_wsdl2java.bat` nella apposita directory del progetto).
 
 I client sono stati realizzati in modo tale da non esporre servizi, quindi si utilizza il servizio di 
 [Mail](/external_services.md) per inviare ad essi notifiche. 
@@ -34,7 +34,7 @@ Implementa le seguenti operazioni:
 
 Implementa le seguenti operazioni:
 
-* **House proposal**: richiesta di aggiunta di una nuova casa in vendita
+* **House proposal**: richiesta di aggiunta di una nuova casa a quelle in vendita da Acme
 
 * **Send availability**: invio delle date possibili per un incontro con l'acquirente
 
