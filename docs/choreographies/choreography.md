@@ -142,7 +142,7 @@ La coreografia riportata sopra gode della proprietà di connectedness. Di seguit
 
 * Le choice riguardanti il catasto sono corrette, dato che le decisioni sono prese da Acme in base al contenuto di *replyCada*
 
-* La choice riguardo l’esito dell’offerta coinvolgono gli stessi attori come primo messaggio di entrambi i rami, e in seguito entrambi informano l’acquirente
+* La choice riguardo l’esito dell’offerta coinvolge gli stessi attori come primo messaggio di entrambi i rami, e in seguito entrambi informano l’acquirente
 
 * La fase di invio della caparra è corretta, dato che tutte le sequenze sono del tipo *a→b ; b→c*
 
