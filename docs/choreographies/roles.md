@@ -13,6 +13,9 @@
 - [Catasto](#catasto)
 - [Distanze](#distanze)
 
+## Notazione 
+Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
+
 ## Acme
 
 ```
@@ -33,9 +36,16 @@
       (
         askAvail@v;                 // Richiesta disponibilità
         availReply#v; 
-        sendAvail@a;  
-        meetReply#a
-      ) *;
+        sendMeetingProposal@a;
+        meetingProposalReply#a;
+        
+        1
+          +
+        (
+          sendMeetingProposal@v;
+          meetingProposalReply#v
+        )
+      );
 
       (
         meetDenies@a                // Non incontro
@@ -94,7 +104,7 @@
             (
               agreeOffer#v;         // Venditore accetta
               vendorAgreed@a;
-              pay#bank
+              notifyPayment#bank
             )
           )
 
@@ -163,11 +173,11 @@
 
           (
             vendorAgree#acme;         // Il vendor ha accettato, finalizzo
-            agreeDeposit@bank;
-            depositDone#bank;
+            pay@bank;                 // Pagamento della caparra
+            notifyPayment#bank;
             signContract@nota;
             contractDone#nota;
-            agreePayment@bank
+            pay@bank                  // Pagamento
           )
         )
       )
@@ -215,7 +225,7 @@
           sendDeposit#bank;
           signContract@nota;
           contractDone#nota;
-          pay#bank
+          notifyPayment#bank
         )
       )
     )
