@@ -247,11 +247,12 @@ Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
     |
   (
     pay#a;                    // Richiesta di effettuare un pagamento
-    notifyPayment@a;
-
-    1
-    +
-    notifyPayment@other       // Puo' notificare anche Acme o venditore
+    confirmPayment@a;
+    (
+    	1
+    	+
+    	notifyPayment@dest
+    )
   ) 
 )*
 ```

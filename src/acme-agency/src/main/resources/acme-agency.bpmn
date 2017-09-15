@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.3.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="1.9.0">
   <bpmn:collaboration id="WaitForPayment">
     <bpmn:participant id="Participant_1chimxc" name="ACME" processRef="acme-agency" />
-    <bpmn:participant id="Participant_0qzbhdt" name="Buyertdi" processRef="Process_0yxmm2m" />
+    <bpmn:participant id="Participant_0qzbhdt" name="Buyer" processRef="Process_0yxmm2m" />
     <bpmn:participant id="Participant_17h4jnv" name="Seller" processRef="Process_0k4cy24" />
     <bpmn:participant id="Participant_0yzv98a" name="Bank" processRef="Process_08kf4kz" />
     <bpmn:participant id="Participant_0qywshe" name="Cadastrial Coordinate Service" processRef="Process_1yxko89" />
@@ -49,7 +49,7 @@
   </bpmn:collaboration>
   <bpmn:process id="acme-agency" isExecutable="true">
     <bpmn:laneSet>
-      <bpmn:lane id="AcmeLane" name="Website">
+      <bpmn:lane id="AcmeLane">
         <bpmn:flowNodeRef>HouseLookupRequest</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>HouseAdditionRequest</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>HouseAdditionEnd</bpmn:flowNodeRef>
