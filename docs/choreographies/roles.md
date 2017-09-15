@@ -12,6 +12,7 @@
 - [Banca](#banca)
 - [Catasto](#catasto)
 - [Distanze](#distanze)
+- [Notaio](#notaio)
 
 ## Notazione 
 Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
@@ -104,6 +105,7 @@ Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
             (
               agreeOffer#v;         // Venditore accetta
               vendorAgreed@a;
+              contractDone#nota;
               notifyPayment#bank
             )
           )
@@ -295,6 +297,24 @@ Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
 (
   askDist#acme;           // Riceve richiesta di distanza
   replyDist@acme
+)*
+```
+
+## Notaio
+```
+(
+    (
+        signContract#a
+        |
+        signContract#v
+    );
+    (
+        contractDone@a
+        |
+        contractDone@v
+        |
+        contractDone@acme
+    )
 )*
 ```
 ------
