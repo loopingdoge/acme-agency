@@ -170,14 +170,24 @@ Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
             vendorDeny#acme           // Ricevo un rifiuto del vendor
           )
             +
-
           (
-            vendorAgree#acme;         // Il vendor ha accettato, finalizzo
-            pay@bank;                 // Pagamento della caparra
-            notifyPayment#bank;
+            vendorAgreed#acme;        // Il vendor ha accettato, finalizzo
+            (
+                pay@bank;             // Pagamento della caparra
+                confirmPayment#bank
+            )*;
+
             signContract@nota;
             contractDone#nota;
-            pay@bank                  // Pagamento
+            (
+                pay@bank;                 // Pagamento ad acme
+                confirmPayment#bank
+            )*;
+
+            (
+                pay@bank;                 // Pagamento al venditore
+                confirmPayment#bank
+            )*
           )
         )
       )
@@ -249,9 +259,9 @@ Si usa il simbolo *@* per l'invio di messaggi e *#* per la ricezione.
     pay#a;                    // Richiesta di effettuare un pagamento
     confirmPayment@a;
     (
-    	1
-    	+
-    	notifyPayment@dest
+        1                     // Skip -- pagamento non andato a buon fine
+        +
+        notifyPayment@dest
     )
   ) 
 )*
