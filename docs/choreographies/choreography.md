@@ -95,8 +95,8 @@
                 agreeOffer: v → acme;                       // Venditore accetta
                 vendorAgreed: acme → a;
                 (
-                	pay: a → bank;                          // Invia la caparra
-                	confirmPayment: bank → a
+                    pay: a → bank;                          // Invia la caparra
+                    confirmPayment: bank → a
                 )*;
                 notifyPayment: bank → v;
                                   
@@ -105,22 +105,22 @@
                 );
 
                 (
-                	contractDone: nota → a
-                	|
-                	contractDone: nota → acme
-                	|
-                	contractDone: nota → v
+                    contractDone: nota → a
+                    |
+                    contractDone: nota → acme
+                    |
+                    contractDone: nota → v
                 );
 
                 (
-                	pay: a → bank;                          // Pagamento ad acme
-                	confirmPayment: bank → a
+                    pay: a → bank;                          // Pagamento ad acme
+                    confirmPayment: bank → a
                 )*;
                 notifyPayment: bank → acme;
                 
                 (
-                	pay: a -> bank;                         // Pagamento al venditore
-                	confirmPayment: bank → a
+                    pay: a -> bank;                         // Pagamento al venditore
+                    confirmPayment: bank → a
                 )*;
                 notifyPayment: bank → v
               )
