@@ -6,7 +6,7 @@
 
 Vengono in seguito presentate le peculiarità dei servizi esterni ad acme che sono stati realizzati per implementare la coreografia. Per maggiori informazioni su ognuno rimandiamo alle relative pagine Github (raggiungibili dai link presenti sui titoli) in cui sono descritte più approfonditamente le richieste possibili, i loro tipi, e le modalità di esecuzione.
 
-## <a name="banca"></a> Banca [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/bank)
+## Banca [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/bank)
 
 Come da specifiche, la banca è stata implementata in Jolie e comunica attraverso il protocollo SOAP.
 
@@ -25,7 +25,7 @@ Prima di effettuare una qualsiasi operazione, il servizio della banca richiede i
 
 Per rispettare la coreografia in seguito ad un'operazione di pagamento, la banca invia una mail al destinatario del pagamento attraverso il servizio delle mail.
 
-## <a name="catasto"></a> Catasto [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/cadastre)
+## Catasto [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/cadastre)
 Il catasto è un semplice servizio Jolie che dispone di una singola operazione `cadastrialCoordinates`, che, data una stringa in formato CSV così composta: `road;civic;city;cap;province;state`, restituisce le coordinate catastali (per semplicità calcolate come interi random tra 1 e 10000).
 
 Un esempio del formato della risposta è il seguente:
@@ -40,7 +40,7 @@ Un esempio del formato della risposta è il seguente:
 
 Infatti, essendo il catasto molto esigente sul formato dell'indirizzo, qualora questo non rispetti il formato richiesto, le coordinate verranno settate a 0 e verrà specificato un messaggio di errore.
 
-## <a name="distanze"></a> Distanze [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/distance)
+## Distanze [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/distance)
 
 Il servizio delle distanze è stato realizzato come servizio REST in Node.js ed opera con indirizzi reali utilizzando le API di [Google Distance Matrix](https://developers.google.com/maps/documentation/distance-matrix/).
 
@@ -55,7 +55,7 @@ Il servizio prevede due parametri GET, l'indirizzo di partenza e quello di arriv
 
 Nel caso ci fossero dei problemi con gli indirizzi, viene resituito un HTTP status code 400 ed una risposta vuota.
 
-## <a name="mail"></a> Mail [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/mail)
+## Mail [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/mail)
 
 Questo servizio non era richiesto dalle specifiche, ma lo abbiamo realizzato per utilizzarlo come metodo di comunicazione generico nei casi in cui un'alternativa più specifica, come un web service, non ci sembrasse necessaria.
 
@@ -70,7 +70,7 @@ Il servizio delle mail è realizzato in REST tramite Node.js ed espone una risor
 
 Per ulteriori informazioni sull'interfaccia e le operazioni consigliamo di consultare il file [swagger.json](https://github.com/loopingdoge/acme-agency/blob/master/src/mail/swagger.json) attraverso l'[editor di swagger](https://editor.swagger.io/), con il quale è possibile anche provare le richieste.
 
-## <a name="session-manager"></a> Sessioni [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/camunda-session-manager)
+## Sessioni [(sources)](https://github.com/loopingdoge/acme-agency/blob/master/src/camunda-session-manager)
 
 Servizio che tiene traccia di tutte le istanze di processo attive. Esso permette ai client (acquirente 
 e venditore) di interrogarlo allo scopo di recuperare le informazioni riguardo le proprie sessioni in corso.
