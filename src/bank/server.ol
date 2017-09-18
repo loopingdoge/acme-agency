@@ -59,14 +59,9 @@ init {
         .money = 550000.00;
         .iban = "IT88T1927501600001011018666"
     };
-    with ( users.BERTOLI ) {    // Buyer
-        .password = "qwerty";
-        .money = 400000.00;
-        .iban = "IT88T1927501600001011018000"
-    };
     with ( users.BERTOLI ) {	// Buyer
         .password = "qwerty";
-        .money = 400000.00;
+        .money = 4000000.00;
         .iban = "IT88T1927501600001011018000"
     };
     with ( users.PAPERONE ) {	// Seller
