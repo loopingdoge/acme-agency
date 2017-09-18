@@ -10,6 +10,14 @@
 | Devid Farinelli   | 819683    | devid.farinelli@studio.unibo.it   |
 | Filippo Morselli  | 819508    | filippo.morselli@studio.unibo.it  |
 
+# Componenti del gruppo
+
+| Nome              | Matricola | Email                             |
+| ----------------- | --------- | --------------------------------- |
+| Alberto Nicoletti | 819697    | alberto.nicoletti@studio.unibo.it |
+| Devid Farinelli   | 819683    | devid.farinelli@studio.unibo.it   |
+| Filippo Morselli  | 819508    | filippo.morselli@studio.unibo.it  |
+
 # Introduzione
 
 Nel progetto sono state implementate tutte le richieste obbligatorie della consegna e la coreografia BPMN opzionale.
@@ -21,21 +29,22 @@ Nella realizzazione del progetto sono stati utilizzati i seguenti linguaggi e to
 - **Jolie** e **Java** per i servizi SOAP;
 - **Node.js** per i servizi REST.
 
-## Esecuzione
+## Scripts
 
-Per eseguire il progetto, avviare:
-
-1. il server Wildfly fornito, già configurato per l'esecuzione, tramite lo script `start_camunda`;
-2. `scripts/start_services` per avviare i servizi esterni;
-3. `dist/java-buyer.jar`,  `dist/java-seller.jar` ed eseguire le istruzioni a riga di comando;
-4. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
-
-## Scripts aggiuntivi
-
-Dentro la cartella `scripts` sono presenti anche gli script da usare in caso di modifica ai sorgenti:
+Dentro la cartella `scripts` sono presenti anche gli script da eseguire prima di compilare alcuni progetti Java:
 
 - `ext_wsdl2java`, per generare le classi Java a partire dai wsdl dei servizi esterni;
 - `ws_wsdl2java`, per generare le classi Java a partire dai wsdl esposti dal web service attivo su Wildfly (il web service deve essere attivo).
+
+## Esecuzione
+
+Per eseguire il progetto:
+
+1. Avviare il server Wildfly nella cartella `dist`, già configurato per l'esecuzione, tramite lo script `start_camunda`;
+2. Eseguire gli script `scripts/ws_wsdl2java` e `scripts/ext_wsdl2java`
+3. Eseguire `scripts/start_services` per avviare i servizi esterni;
+4. Aprire con Eclipse i progetti `src/java-buyer` e `src/java-seller`, ed eseguire le istruzioni a riga di comando;
+5. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
 
 # Coreografia
 
