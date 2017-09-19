@@ -41,10 +41,12 @@ Dentro la cartella `scripts` sono presenti anche gli script da eseguire prima di
 Per eseguire il progetto:
 
 1. Avviare il server Wildfly nella cartella `dist`, già configurato per l'esecuzione, tramite lo script `start_camunda`;
-2. Eseguire gli script `scripts/ws_wsdl2java` e `scripts/ext_wsdl2java`
-3. Eseguire `scripts/start_services` per avviare i servizi esterni;
-4. Aprire con Eclipse i progetti `src/java-buyer` e `src/java-seller`, ed eseguire le istruzioni a riga di comando;
-5. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
+2. Eseguire gli script `scripts/ws_wsdl2java` e `scripts/ext_wsdl2java`;
+3. Installare le dipendenze dei progetti **Node.js** tramite `npm install` nella directory dei progetti (`src/distance` e `src/mail`);
+4. Definire una variabile d'ambiente di nome `MAPS_API_KEY` dando come valore una chiave da generare a [questo](https://developers.google.com/maps/documentation/distance-matrix/) indirizzo;
+5. Eseguire `scripts/start_services` per avviare i servizi esterni;
+6. Aprire con Eclipse i progetti `src/java-buyer` e `src/java-seller`, ed eseguire le istruzioni a riga di comando;
+7. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
 
 # Coreografia
 
