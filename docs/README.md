@@ -38,8 +38,11 @@ Nella realizzazione del progetto sono stati utilizzati i seguenti linguaggi e to
 
 - **Camunda modeler** per la modellazione del diagramma di collaborazione BPMN;
 - **Lucidchart** per la modellazione del diagramma di coreografia BPMN;
+- **Camunda Wildfly** server;
 - **Jolie** e **Java** per i servizi SOAP;
-- **Node.js** per i servizi REST.
+- **Maven** per la gestione dei progetti Java;
+- **Node.js** per i servizi REST;
+- **Eclipse** o **IntelliJ Idea** per compilare i progetti Java.
 
 ## Scripts
 
@@ -52,13 +55,37 @@ Dentro la cartella `scripts` sono presenti anche gli script da eseguire prima di
 
 Per eseguire il progetto:
 
-1. Avviare il server Wildfly nella cartella `dist`, già configurato per l'esecuzione, tramite lo script `start_camunda`;
-2. Eseguire gli script `scripts/ws_wsdl2java` e `scripts/ext_wsdl2java`;
-3. Installare le dipendenze dei progetti **Node.js** tramite `npm install` nella directory dei progetti (`src/distance` e `src/mail`);
-4. Definire una variabile d'ambiente di nome `MAPS_API_KEY` dando come valore una chiave da generare a [questo](https://developers.google.com/maps/documentation/distance-matrix/) indirizzo;
-5. Eseguire `scripts/start_services` per avviare i servizi esterni;
-6. Aprire con Eclipse i progetti `src/java-buyer` e `src/java-seller`, ed eseguire le istruzioni a riga di comando;
-7. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
+1. Aprire il progetto `acme-model` con un IDE e compilarlo, eseguire il seguente comando per aggiungere il .jar generato nella repository Maven locale:
+
+  ```shell
+  $ mvn install:install-file
+      -Dfile=<path to acme-model.jar>
+      -DgroupId=org.loopingdoge.acme.model
+      -DartifactId=acme-model
+      -Dversion=1.0.0
+      -Dpackaging=jar
+      -DgeneratePom=true
+  ```
+
+2. Avviare il server Wildfly;
+
+3. Da terminale andare nella cartella `wildfly-10.1.0.Final/bin` del server Wildfly, eseguire lo script `jboss-cli.sh`, fare `connect` ed eseguire il seguente comando `module add —name=org.loopingdoge.acme.model —resources=<path to acme-model.jar>` per aggiungere `acme-model` come modulo del server;
+
+4. Aprire con un IDE il progetto `acme-agency-ws`, compilare il progetto e mettere il file .war generato nella cartella `wildfly-10.1.0.Final\standalone\deployments` del server Wildfly;
+
+5. Eseguire gli script `scripts/ws_wsdl2java` e `scripts/ext_wsdl2java`;
+
+6. Installare le dipendenze dei progetti **Node.js** tramite `npm install` nella directory dei progetti (`src/distance` e `src/mail`);
+
+7. Definire una variabile d'ambiente di nome `MAPS_API_KEY` dando come valore una chiave da generare a [questo](https://developers.google.com/maps/documentation/distance-matrix/) indirizzo;
+
+8. Eseguire `scripts/start_services` per avviare i servizi esterni;
+
+9. Aprire con un IDE il progetto `acme-agency`, compilare il progetto e mettere il file .war generato nella cartella `wildfly-10.1.0.Final\standalone\deployments` del server Wildfly;
+
+10. Aprire con Eclipse i progetti `src/java-buyer` e `src/java-seller`, ed eseguire le istruzioni a riga di comando;
+
+11. Aprire con un browser [questo](http://localhost:8080/camunda/app/welcome/default/#/welcome) indirizzo, loggare usando `john` come *username* e *password*, ed aprire la tasklist, effettuando gli user task quando necessario.
 
 ------
 ### [**➡️ Next**](choreographies/choreography.md)
